@@ -2,24 +2,20 @@ const fetch = require('node-fetch')
 const { rootUrl } = require('../config/config')
 const { login } = require('./login')
 
-const copy = async ({
-  method = 'POST',
+const copyUpdate = async ({
+  method = 'PUT',
   path = '',
   locale = '',
   body = {},
-  id = ''
+  localizations = []
 }) => {
   // console.log(JSON.stringify(body))
-  body._id && (body._id = undefined)
-  body.id && (body.id = undefined)
-  body.published_at && (body.published_at = undefined)
-  body.createdAt && (body.createdAt = undefined)
-  body.updatedAt && (body.updatedAt = undefined)
-  body.__v && (body.__v = undefined)
-  body.localizations && (body.localizations = undefined)
-  body.locale = locale
+
+  const items = localizations.filter(item => item.locale === locale)
+  const id = items[0]._id
+
   const token = await login()
-  const res = await fetch(`${rootUrl}${path}/${id}/localizations`, {
+  const res = await fetch(`${rootUrl}${path}/${id}`, {
     method,
     headers: {
       'Content-Type': 'application/json',
@@ -37,4 +33,4 @@ const copy = async ({
   return true
 }
 
-module.exports = { copy }
+module.exports = { copyUpdate }
