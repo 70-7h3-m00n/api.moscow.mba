@@ -7,7 +7,8 @@ const rootUrl = dev
   : null
 const categoryUrl = '/categories'
 const studyFieldsUrl = '/study-fields'
-const programs = '/programs'
+const programsUrl = '/programs'
+const teachersUrl = '/teachers'
 const authUrl = '/auth'
 const localUrl = '/local'
 
@@ -17,7 +18,8 @@ module.exports = {
   rootUrl,
   categoryUrl,
   studyFieldsUrl,
-  programs,
+  programsUrl,
+  teachersUrl,
   authUrl,
   localUrl
 }

@@ -57,9 +57,19 @@
       }
     },
     "programs": {
-      "collection": "product",
       "via": "teachers",
+      "collection": "product",
       "dominant": true
+    },
+    "copyToKk": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "boolean",
+      "default": true,
+      "required": true
     }
   }
 }

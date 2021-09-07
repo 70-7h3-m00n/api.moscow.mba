@@ -18,9 +18,9 @@ const copy = async ({
   body.__v && (body.__v = undefined)
   body.localizations && (body.localizations = undefined)
 
-  body.labelCases._id && (body.labelCases._id = undefined)
-  body.labelCases.id && (body.labelCases.id = undefined)
-  body.labelCases.__v && (body.labelCases.__v = undefined)
+  body.labelCases?._id && (body.labelCases._id = undefined)
+  body.labelCases?.id && (body.labelCases.id = undefined)
+  body.labelCases?.__v && (body.labelCases.__v = undefined)
 
   body.locale = locale
   const token = await login()

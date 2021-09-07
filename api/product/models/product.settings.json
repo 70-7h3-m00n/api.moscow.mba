@@ -190,6 +190,26 @@
     "category": {
       "via": "programs",
       "model": "category"
+    },
+    "diplomas": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "program.diploma"
+    },
+    "whoIsFor": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "program.who-program-is-for"
     }
   }
 }

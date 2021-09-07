@@ -11,9 +11,9 @@ const copyUpdate = async ({
 }) => {
   // console.log(JSON.stringify(body))
 
-  body.labelCases._id && (body.labelCases._id = undefined)
-  body.labelCases.id && (body.labelCases.id = undefined)
-  body.labelCases.__v && (body.labelCases.__v = undefined)
+  body.labelCases?._id && (body.labelCases._id = undefined)
+  body.labelCases?.id && (body.labelCases.id = undefined)
+  body.labelCases?.__v && (body.labelCases.__v = undefined)
 
   const items = localizations.filter(item => item.locale === locale)
   const id = items[0]._id

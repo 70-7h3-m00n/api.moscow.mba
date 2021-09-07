@@ -64,8 +64,8 @@
       "required": true
     },
     "programs": {
-      "collection": "product",
-      "via": "category"
+      "via": "category",
+      "collection": "product"
     }
   }
 }

@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_program_who_program_is_fors",
+  "info": {
+    "name": "WhoProgramIsFor",
+    "icon": "list-ul"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    }
+  }
+}
