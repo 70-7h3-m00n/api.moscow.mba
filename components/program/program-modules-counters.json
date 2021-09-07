@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_program_program_modules_counters",
+  "info": {
+    "name": "programModulesCounters",
+    "icon": "window-minimize"
+  },
+  "options": {},
+  "attributes": {
+    "leftCounter": {
+      "type": "enumeration",
+      "enum": [
+        "specializedlAcademicDisciplines",
+        "academicDisciplines",
+        "generalAcademicDisciplines"
+      ],
+      "required": true
+    },
+    "rightCounter": {
+      "type": "enumeration",
+      "enum": [
+        "icon",
+        "specializedlAcademicDisciplines",
+        "practiceAndExam"
+      ]
+    }
+  }
+}

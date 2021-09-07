@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "categories",
+  "collectionName": "teachers",
   "info": {
-    "name": "category",
+    "name": "Teacher",
     "description": ""
   },
   "options": {
@@ -16,15 +16,23 @@
     }
   },
   "attributes": {
-    "type": {
+    "name": {
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
       "type": "string",
-      "required": true,
-      "unique": false
+      "required": true
+    },
+    "description": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "text",
+      "required": true
     },
     "slug": {
       "pluginOptions": {
@@ -34,38 +42,24 @@
       },
       "type": "string"
     },
-    "copyToKk": {
+    "portrait": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": true,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      },
-      "type": "boolean",
-      "default": true
-    },
-    "labelCases": {
-      "type": "component",
-      "repeatable": false,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "general.word-cases",
-      "required": true
-    },
-    "description": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "richtext",
-      "required": true
+      }
     },
     "programs": {
       "collection": "product",
-      "via": "category"
+      "via": "teachers",
+      "dominant": true
     }
   }
 }

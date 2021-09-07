@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_general_word_cases",
+  "info": {
+    "name": "wordCases",
+    "icon": "list"
+  },
+  "options": {},
+  "attributes": {
+    "singular": {
+      "type": "string",
+      "required": true
+    },
+    "plural": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "categories",
+  "collectionName": "study_fields",
   "info": {
-    "name": "category",
+    "name": "StudyField",
     "description": ""
   },
   "options": {
@@ -16,42 +16,13 @@
     }
   },
   "attributes": {
-    "type": {
+    "name": {
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
       "type": "string",
-      "required": true,
-      "unique": false
-    },
-    "slug": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "string"
-    },
-    "copyToKk": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "boolean",
-      "default": true
-    },
-    "labelCases": {
-      "type": "component",
-      "repeatable": false,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "general.word-cases",
       "required": true
     },
     "description": {
@@ -60,12 +31,22 @@
           "localized": true
         }
       },
-      "type": "richtext",
+      "type": "text",
+      "required": true
+    },
+    "copyToKk": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "boolean",
+      "default": true,
       "required": true
     },
     "programs": {
-      "collection": "product",
-      "via": "category"
+      "via": "study_field",
+      "collection": "product"
     }
   }
 }

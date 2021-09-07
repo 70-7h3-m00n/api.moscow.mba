@@ -2,48 +2,48 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/products",
-      "handler": "product.find",
+      "path": "/teachers",
+      "handler": "teacher.find",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/products/count",
-      "handler": "product.count",
+      "path": "/teachers/count",
+      "handler": "teacher.count",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/products/:id",
-      "handler": "product.findOne",
+      "path": "/teachers/:id",
+      "handler": "teacher.findOne",
       "config": {
         "policies": []
       }
     },
     {
       "method": "POST",
-      "path": "/products",
-      "handler": "product.create",
+      "path": "/teachers",
+      "handler": "teacher.create",
       "config": {
         "policies": []
       }
     },
     {
       "method": "PUT",
-      "path": "/products/:id",
-      "handler": "product.update",
+      "path": "/teachers/:id",
+      "handler": "teacher.update",
       "config": {
         "policies": []
       }
     },
     {
       "method": "DELETE",
-      "path": "/products/:id",
-      "handler": "product.delete",
+      "path": "/teachers/:id",
+      "handler": "teacher.delete",
       "config": {
         "policies": []
       }

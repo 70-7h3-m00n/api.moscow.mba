@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_product_what_will_you_learns",
+  "info": {
+    "name": "ListStrings",
+    "icon": "align-left",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "string": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

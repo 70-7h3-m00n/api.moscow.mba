@@ -6,7 +6,7 @@
  */
 
 const { createSlug, copy, copyUpdate } = require('../../../helpers')
-const { categoryUrl } = require('../../../config/config')
+const { studyFieldsUrl } = require('../../../config/config')
 
 module.exports = {
   lifecycles: {
@@ -32,7 +32,7 @@ module.exports = {
       if (data.locale === 'ru' && data.copyToKk === true) {
         const copyResKk = await copy({
           method: 'POST',
-          path: categoryUrl,
+          path: studyFieldsUrl,
           locale: 'kk',
           body: data,
           id: result._id
@@ -49,7 +49,7 @@ module.exports = {
       if (result.locale === 'ru' && result.copyToKk === true) {
         const copyUpdateResKk = await copyUpdate({
           method: 'PUT',
-          path: categoryUrl,
+          path: studyFieldsUrl,
           locale: 'kk',
           body: data,
           localizations: result.localizations
