@@ -29,7 +29,7 @@ module.exports = {
       console.log(JSON.stringify(result))
       console.log('data')
       console.log(JSON.stringify(data))
-      if (data.locale === 'ru') {
+      if (data.locale === 'ru' && data.copyToKk === true) {
         const copyResKk = await copy({
           method: 'POST',
           path: categoryUrl,
@@ -46,7 +46,7 @@ module.exports = {
       // console.log(JSON.stringify(params))
       // console.log('data')
       // console.log(JSON.stringify(data))
-      if (result.locale === 'ru') {
+      if (result.locale === 'ru' && result.copyToKk === true) {
         const copyUpdateResKk = await copyUpdate({
           method: 'PUT',
           path: categoryUrl,
