@@ -16,21 +16,29 @@ const copyUpdate = async ({
   body.labelCases?.__v && (body.labelCases.__v = undefined)
 
   const items = localizations.filter(item => item.locale === locale)
-  const id = items[0]._id
+  const id = items[0] && items[0]._id
 
   const token = await login()
-  const res = await fetch(`${rootUrl}${path}/${id}`, {
-    method,
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
-    },
-    body: JSON.stringify(body)
-  })
+  const res =
+    id &&
+    (await fetch(`${rootUrl}${path}/${id}`, {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(body)
+    }))
 
-  if (!res.ok) {
-    console.log(res)
-    throw new Error('Something went wrong... ' + res)
+  if (res) {
+    if (id) {
+      console.log('nothing to update')
+      return true
+    }
+    if (!res.ok) {
+      console.log(res)
+      throw new Error('Something went wrong... ' + res)
+    }
   }
 
   console.log('success')
