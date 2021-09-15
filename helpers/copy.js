@@ -1,6 +1,7 @@
 const fetch = require('node-fetch')
 const { rootUrl } = require('../config/config')
 const { login } = require('./login')
+const { unsetUniqueProps } = require('./unsetUniqueProps')
 
 const copy = async ({
   method = 'POST',
@@ -10,17 +11,32 @@ const copy = async ({
   id = ''
 }) => {
   // console.log(JSON.stringify(body))
-  body._id && (body._id = undefined)
-  body.id && (body.id = undefined)
-  body.published_at && (body.published_at = undefined)
-  body.createdAt && (body.createdAt = undefined)
-  body.updatedAt && (body.updatedAt = undefined)
-  body.__v && (body.__v = undefined)
-  body.localizations && (body.localizations = undefined)
+  unsetUniqueProps({
+    arr: [
+      body,
+      body.labelCases,
+      body.whatWillYouLearn,
+      body.specializedSubjects,
+      body.duration,
+      body.baseSubjects,
+      body.programModulesCounters,
+      body.picture
+    ]
+  })
 
-  body.labelCases?._id && (body.labelCases._id = undefined)
-  body.labelCases?.id && (body.labelCases.id = undefined)
-  body.labelCases?.__v && (body.labelCases.__v = undefined)
+  body.diplomas &&
+    body.diplomas.forEach(diploma => {
+      diploma._id && (diploma._id = undefined)
+      diploma.id && (diploma.id = undefined)
+      diploma.__v && (diploma.__v = undefined)
+
+      diploma &&
+        Array.prototype.forEach.call(diploma, item => {
+          item._id && (item._id = undefined)
+          item.id && (item.id = undefined)
+          item.__v && (item.__v = undefined)
+        })
+    })
 
   body.locale = locale
   const token = await login()

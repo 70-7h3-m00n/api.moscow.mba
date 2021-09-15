@@ -7,7 +7,7 @@ const rootUrl = dev
   : null
 const categoryUrl = '/categories'
 const studyFieldsUrl = '/study-fields'
-const programsUrl = '/programs'
+const programsUrl = '/products'
 const teachersUrl = '/teachers'
 const authUrl = '/auth'
 const localUrl = '/local'

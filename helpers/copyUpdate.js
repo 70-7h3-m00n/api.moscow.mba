@@ -1,6 +1,7 @@
 const fetch = require('node-fetch')
 const { rootUrl } = require('../config/config')
 const { login } = require('./login')
+const { unsetUniqueProps } = require('./unsetUniqueProps')
 
 const copyUpdate = async ({
   method = 'PUT',
@@ -11,9 +12,31 @@ const copyUpdate = async ({
 }) => {
   // console.log(JSON.stringify(body))
 
-  body.labelCases?._id && (body.labelCases._id = undefined)
-  body.labelCases?.id && (body.labelCases.id = undefined)
-  body.labelCases?.__v && (body.labelCases.__v = undefined)
+  unsetUniqueProps({
+    arr: [
+      body.labelCases,
+      body.whatWillYouLearn,
+      body.specializedSubjects,
+      body.duration,
+      body.baseSubjects,
+      body.programModulesCounters,
+      body.picture
+    ]
+  })
+
+  body.diplomas &&
+    body.diplomas.forEach(diploma => {
+      diploma._id && (diploma._id = undefined)
+      diploma.id && (diploma.id = undefined)
+      diploma.__v && (diploma.__v = undefined)
+
+      diploma &&
+        Array.prototype.forEach.call(diploma, item => {
+          item._id && (item._id = undefined)
+          item.id && (item.id = undefined)
+          item.__v && (item.__v = undefined)
+        })
+    })
 
   const items = localizations.filter(item => item.locale === locale)
   const id = items[0] && items[0]._id
