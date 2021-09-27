@@ -29,15 +29,15 @@ module.exports = {
       // console.log(JSON.stringify(result))
       // console.log('data')
       // console.log(JSON.stringify(data))
-      if (data.locale === 'ru' && data.copyToKk === true) {
-        const copyResKk = await copy({
-          method: 'POST',
-          path: studyFieldsUrl,
-          locale: 'kk',
-          body: data,
-          id: result._id
-        })
-      }
+      // if (data.locale === 'ru' && data.copyToKk === true) {
+      //   const copyResKk = await copy({
+      //     method: 'POST',
+      //     path: studyFieldsUrl,
+      //     locale: 'kk',
+      //     body: data,
+      //     id: result._id
+      //   })
+      // }
     },
     afterUpdate: async (result, params, data) => {
       // console.log('result')
@@ -46,15 +46,15 @@ module.exports = {
       // console.log(JSON.stringify(params))
       // console.log('data')
       // console.log(JSON.stringify(data))
-      if (result.locale === 'ru' && result.copyToKk === true) {
-        const copyUpdateResKk = await copyUpdate({
-          method: 'PUT',
-          path: studyFieldsUrl,
-          locale: 'kk',
-          body: data,
-          localizations: result.localizations
-        })
-      }
+      // if (result.locale === 'ru' && result.copyToKk === true) {
+      //   const copyUpdateResKk = await copyUpdate({
+      //     method: 'PUT',
+      //     path: studyFieldsUrl,
+      //     locale: 'kk',
+      //     body: data,
+      //     localizations: result.localizations
+      //   })
+      // }
     }
   }
 }
