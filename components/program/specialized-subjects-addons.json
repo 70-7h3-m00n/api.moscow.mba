@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_program_specialized_subjects_addons",
+  "info": {
+    "name": "specializedSubjectsAddons",
+    "icon": "spell-check"
+  },
+  "options": {},
+  "attributes": {
+    "Practice": {
+      "type": "boolean"
+    },
+    "OfflineModule": {
+      "type": "boolean"
+    },
+    "diplomaProtection": {
+      "type": "boolean"
+    }
+  }
+}

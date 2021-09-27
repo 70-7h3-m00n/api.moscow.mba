@@ -57,7 +57,7 @@
         }
       },
       "component": "general.what-will-you-learn",
-      "required": true
+      "required": false
     },
     "specializedSubjects": {
       "type": "component",
@@ -77,8 +77,7 @@
         }
       },
       "type": "boolean",
-      "default": true,
-      "required": true
+      "required": false
     },
     "studyFormat": {
       "pluginOptions": {
@@ -124,7 +123,7 @@
         }
       },
       "type": "biginteger",
-      "required": true
+      "required": false
     },
     "discount": {
       "pluginOptions": {
@@ -156,7 +155,7 @@
         "fullTimeModuleInMoscow",
         "practiceModulesAndFinalAttestation"
       ],
-      "required": true
+      "required": false
     },
     "programModulesCounters": {
       "type": "component",
@@ -167,7 +166,7 @@
         }
       },
       "component": "program.program-modules-counters",
-      "required": true
+      "required": false
     },
     "copyToKk": {
       "pluginOptions": {
@@ -176,8 +175,7 @@
         }
       },
       "type": "boolean",
-      "default": true,
-      "required": true
+      "required": false
     },
     "study_field": {
       "model": "study-field",
@@ -210,6 +208,16 @@
         }
       },
       "component": "program.who-program-is-for"
+    },
+    "specializedSubjectsAddons": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "program.specialized-subjects-addons"
     }
   }
 }

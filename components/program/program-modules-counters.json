@@ -2,7 +2,8 @@
   "collectionName": "components_program_program_modules_counters",
   "info": {
     "name": "programModulesCounters",
-    "icon": "window-minimize"
+    "icon": "window-minimize",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -13,7 +14,7 @@
         "academicDisciplines",
         "generalAcademicDisciplines"
       ],
-      "required": true
+      "required": false
     },
     "rightCounter": {
       "type": "enumeration",
