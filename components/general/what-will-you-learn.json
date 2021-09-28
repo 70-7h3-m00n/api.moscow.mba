@@ -10,6 +10,9 @@
     "string": {
       "type": "string",
       "required": false
+    },
+    "title": {
+      "type": "string"
     }
   }
 }
