@@ -18,6 +18,14 @@
     },
     {
       "method": "GET",
+      "path": "/products/reduced",
+      "handler": "product.findReduced",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/products/:id",
       "handler": "product.findOne",
       "config": {
