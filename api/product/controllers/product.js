@@ -210,7 +210,6 @@ module.exports = {
         }
       ])
       .exec()
-    //
 
     return paths.filter(path => path.category?.type === type)
   }
