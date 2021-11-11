@@ -42,6 +42,14 @@
     },
     {
       "method": "GET",
+      "path": "/products/program/:typeSlug",
+      "handler": "product.getProgram",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/products/:id",
       "handler": "product.findOne",
       "config": {
