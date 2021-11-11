@@ -18,8 +18,24 @@
     },
     {
       "method": "GET",
-      "path": "/products/reduced",
-      "handler": "product.findReduced",
+      "path": "/products/getStaticProps",
+      "handler": "product.getStaticProps",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/products/getStaticProps/profession",
+      "handler": "product.getStaticPropsProfession",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/products/getStaticProps/promo",
+      "handler": "product.getStaticPropsPromo",
       "config": {
         "policies": []
       }

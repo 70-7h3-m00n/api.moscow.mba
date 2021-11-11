@@ -6,47 +6,48 @@
  */
 
 module.exports = {
-  findReduced: async () => {
-    // const product = await strapi
-    //   .query('product')
-    //   .find({ _limit: -1 })
-    //   .select({
-    //     id: 1,
-    //     title: 1,
-    //     slug: 1,
-    //     studyFormat: 1
-    //   })
-    //   .populate('category.slug', 'category.type')
-    // console.log(product)
-    // const output = await strapi.query('product').model.find({}).select({
-    //   id: 1,
-    //   title: 1,
-    //   slug: 1,
-    //   studyFormat: 1,
-    //   category: 1
-    // })
-    // console.log(product2)
+  getStaticProps: async () => {
     const programs = await strapi
       .query('product')
-      .model.find({})
-      .select(['id', 'title', 'slug', 'studyFormat', 'category'])
-      .populate('category')
-
-    // const output = programs.filter(program => program).map(program => {
-    //   console.log(program)
-    //   return {
-    //     id: program.id,
-    //     title: program.title,
-    //     slug: program.slug,
-    //     studyFormat: program.studyFormat,
-    //     category: {
-    //       id: program.category.id,
-    //       type: program.category.type,
-    //       slug: program.category.slug
-    //     }
-    //   }
-    // })
+      .model.find(
+        {},
+        {
+          // id: 1,
+          // title: 1,
+          // slug: 1,
+          // studyFormat: 1,
+          // category: 1,
+          whatWillYouLearn: 0,
+          specializedSubjects: 0,
+          duration: 0,
+          baseSubjects: 0,
+          programModulesCounters: 0,
+          diplomas: 0,
+          whoIsFor: 0,
+          specializedSubjectsAddons: 0,
+          picture: 0,
+          subjectsStickerType: 0,
+          localizations: 0,
+          id: 0,
+          published_at: 0,
+          locale: 0,
+          goal: 0,
+          createdAt: 0,
+          updatedAt: 0,
+          __v: 0,
+          created_by: 0,
+          updated_by: 0,
+          showInMenu: 0,
+          copyToKk: 0,
+          description: 0,
+          price: 0,
+          discount: 0
+        }
+      )
+      .populate([{ path: 'category', select: 'type slug' }])
 
     return programs
-  }
+  },
+  getStaticPropsProfession: {},
+  getStaticPropsPromo: {}
 }
