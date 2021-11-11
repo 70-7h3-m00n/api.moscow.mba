@@ -42,6 +42,14 @@
     },
     {
       "method": "GET",
+      "path": "/products/paths/:type",
+      "handler": "product.getStaticPaths",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/products/program/:typeSlug",
       "handler": "product.getProgram",
       "config": {
