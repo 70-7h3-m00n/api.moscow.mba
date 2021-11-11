@@ -211,6 +211,6 @@ module.exports = {
       ])
       .exec()
 
-    return paths
+    return paths.filter(path => path.category?.type === type)
   }
 }
