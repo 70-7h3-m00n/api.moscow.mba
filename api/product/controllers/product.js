@@ -42,7 +42,9 @@ module.exports = {
           copyToKk: 0,
           description: 0,
           price: 0,
-          discount: 0
+          discount: 0,
+          questions: 0,
+          reviews: 0
         }
       )
       .populate([{ path: 'category', select: 'type slug' }])
@@ -85,7 +87,9 @@ module.exports = {
           copyToKk: 0,
           description: 0,
           price: 0,
-          discount: 0
+          discount: 0,
+          questions: 0,
+          reviews: 0
         }
       )
       .populate([
@@ -132,7 +136,9 @@ module.exports = {
           copyToKk: 0,
           description: 0,
           price: 0,
-          discount: 0
+          discount: 0,
+          questions: 0,
+          reviews: 0
         }
       )
       .populate([
@@ -199,7 +205,9 @@ module.exports = {
           copyToKk: 0,
           description: 0,
           price: 0,
-          discount: 0
+          discount: 0,
+          questions: 0,
+          reviews: 0
         }
       )
       .populate([
