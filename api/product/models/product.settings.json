@@ -218,6 +218,16 @@
         }
       },
       "component": "program.specialized-subjects-addons"
+    },
+    "questions": {
+      "collection": "question",
+      "via": "programs",
+      "dominant": true
+    },
+    "reviews": {
+      "collection": "review",
+      "via": "programs",
+      "dominant": true
     }
   }
 }
