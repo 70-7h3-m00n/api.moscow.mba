@@ -10,7 +10,7 @@ module.exports = {
     const programs = await strapi
       .query('product')
       .model.find(
-        {},
+        { published_at: { $ne: null } },
         {
           // id: 1,
           // title: 1,
@@ -55,7 +55,7 @@ module.exports = {
     const programs = await strapi
       .query('product')
       .model.find(
-        {},
+        { published_at: { $ne: null } },
         {
           // id: 1,
           // title: 1,
@@ -104,7 +104,7 @@ module.exports = {
     const programs = await strapi
       .query('product')
       .model.find(
-        {},
+        { published_at: { $ne: null } },
         {
           // id: 1,
           // title: 1,
@@ -153,7 +153,7 @@ module.exports = {
     const programs = await strapi
       .query('product')
       .model.find(
-        {},
+        { published_at: { $ne: null } },
         {
           // id: 1,
           // title: 1,
@@ -204,7 +204,7 @@ module.exports = {
 
     const program = await strapi
       .query('product')
-      .model.find({ slug })
+      .model.find({ slug, published_at: { $ne: null } })
       .populate([
         {
           path: 'category',
@@ -222,7 +222,7 @@ module.exports = {
     const paths = await strapi
       .query('product')
       .model.find(
-        {},
+        { published_at: { $ne: null } },
         {
           // slug: 1,
           // studyFormat: 1,
