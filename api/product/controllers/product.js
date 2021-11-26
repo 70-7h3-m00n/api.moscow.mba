@@ -49,7 +49,28 @@ module.exports = {
       )
       .populate([{ path: 'category', select: 'type slug' }])
 
-    return programs
+    const teachers = await strapi.query('teacher').model.find(
+      { published_at: { $ne: null } },
+      {
+        programs: 0,
+        copyToKk: 0,
+        createdAt: 0,
+        created_by: 0,
+        locale: 0,
+        localizations: 0,
+        updatedAt: 0,
+        updated_by: 0,
+        __v: 0,
+        id: 0
+      }
+    )
+
+    return {
+      programs,
+      teachers: teachers.filter(
+        (v, i, a) => a.findIndex(t => t.slug === v.slug) === i
+      )
+    }
   },
   getStaticPropsProfession: async () => {
     const programs = await strapi
@@ -98,7 +119,28 @@ module.exports = {
         { path: 'duration', select: 'minStudyMonths' }
       ])
 
-    return programs
+    const teachers = await strapi.query('teacher').model.find(
+      { published_at: { $ne: null } },
+      {
+        programs: 0,
+        copyToKk: 0,
+        createdAt: 0,
+        created_by: 0,
+        locale: 0,
+        localizations: 0,
+        updatedAt: 0,
+        updated_by: 0,
+        __v: 0,
+        id: 0
+      }
+    )
+
+    return {
+      programs,
+      teachers: teachers.filter(
+        (v, i, a) => a.findIndex(t => t.slug === v.slug) === i
+      )
+    }
   },
   getStaticPropsCourse: async () => {
     const programs = await strapi
@@ -147,7 +189,28 @@ module.exports = {
         { path: 'duration', select: 'minStudyMonths' }
       ])
 
-    return programs
+    const teachers = await strapi.query('teacher').model.find(
+      { published_at: { $ne: null } },
+      {
+        programs: 0,
+        copyToKk: 0,
+        createdAt: 0,
+        created_by: 0,
+        locale: 0,
+        localizations: 0,
+        updatedAt: 0,
+        updated_by: 0,
+        __v: 0,
+        id: 0
+      }
+    )
+
+    return {
+      programs,
+      teachers: teachers.filter(
+        (v, i, a) => a.findIndex(t => t.slug === v.slug) === i
+      )
+    }
   },
   getStaticPropsPromo: async () => {
     const programs = await strapi
@@ -195,14 +258,35 @@ module.exports = {
         { path: 'whatWillYouLearn' }
       ])
 
-    return programs
+    const teachers = await strapi.query('teacher').model.find(
+      { published_at: { $ne: null } },
+      {
+        programs: 0,
+        copyToKk: 0,
+        createdAt: 0,
+        created_by: 0,
+        locale: 0,
+        localizations: 0,
+        updatedAt: 0,
+        updated_by: 0,
+        __v: 0,
+        id: 0
+      }
+    )
+
+    return {
+      programs,
+      teachers: teachers.filter(
+        (v, i, a) => a.findIndex(t => t.slug === v.slug) === i
+      )
+    }
   },
   getProgram: async ctx => {
     const typeSlug = ctx.request.url.split('/')[3].split('.')
     const type = typeSlug[0]
     const slug = typeSlug[1]
 
-    const program = await strapi
+    const programs = await strapi
       .query('product')
       .model.find({ slug, published_at: { $ne: null } })
       .populate([
@@ -212,9 +296,23 @@ module.exports = {
           match: { type: { $eq: type } }
         }
       ])
+      .populate([
+        {
+          path: 'teachers',
+          select: 'name picture description'
+        }
+      ])
       .exec()
 
-    return program.filter(item => item.category?.type === type)[0]
+    const program = programs.filter(item => item.category?.type === type)[0]
+
+    return [program].map(item => {
+      item.teachers.map(teacher => {
+        teacher.programs = undefined
+        return teacher
+      })
+      return item
+    })[0]
   },
   getStaticPaths: async ctx => {
     const type = ctx.request.url.split('/')[3]
