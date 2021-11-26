@@ -115,7 +115,7 @@ module.exports = {
       )
       .populate([
         { path: 'category', select: 'type slug' },
-        { path: 'study_field', select: 'id name' },
+        { path: 'study_field', select: 'id name slug' },
         { path: 'duration', select: 'minStudyMonths' }
       ])
 
@@ -185,7 +185,7 @@ module.exports = {
       )
       .populate([
         { path: 'category', select: 'type slug' },
-        { path: 'study_field', select: 'id name' },
+        { path: 'study_field', select: 'id name slug' },
         { path: 'duration', select: 'minStudyMonths' }
       ])
 

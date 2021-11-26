@@ -47,6 +47,14 @@
     "programs": {
       "via": "study_field",
       "collection": "product"
+    },
+    "slug": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
     }
   }
 }
