@@ -17,6 +17,7 @@ module.exports = {
           // slug: 1,
           // studyFormat: 1,
           // category: 1,
+          // price: 1
           study_field: 0,
           whatWillYouLearn: 0,
           specializedSubjects: 0,
@@ -41,7 +42,6 @@ module.exports = {
           showInMenu: 0,
           copyToKk: 0,
           description: 0,
-          price: 0,
           discount: 0,
           questions: 0,
           reviews: 0
@@ -85,6 +85,7 @@ module.exports = {
           // category: 1,
           // study_field: 1,
           // duration: 1
+          // price: 1
           whatWillYouLearn: 0,
           specializedSubjects: 0,
           baseSubjects: 0,
@@ -107,7 +108,6 @@ module.exports = {
           showInMenu: 0,
           copyToKk: 0,
           description: 0,
-          price: 0,
           discount: 0,
           questions: 0,
           reviews: 0
@@ -155,6 +155,7 @@ module.exports = {
           // category: 1,
           // study_field: 1,
           // duration: 1
+          // price: 1
           whatWillYouLearn: 0,
           specializedSubjects: 0,
           baseSubjects: 0,
@@ -177,7 +178,6 @@ module.exports = {
           showInMenu: 0,
           copyToKk: 0,
           description: 0,
-          price: 0,
           discount: 0,
           questions: 0,
           reviews: 0
@@ -224,6 +224,7 @@ module.exports = {
           // studyFormat: 1,
           // category: 1,
           // whatWillYouLearn: 1
+          // price: 1
           study_field: 0,
           specializedSubjects: 0,
           duration: 0,
@@ -247,7 +248,6 @@ module.exports = {
           showInMenu: 0,
           copyToKk: 0,
           description: 0,
-          price: 0,
           discount: 0,
           questions: 0,
           reviews: 0
@@ -325,6 +325,7 @@ module.exports = {
           // slug: 1,
           // studyFormat: 1,
           // category: 1,
+          // price: 1
           id: 0,
           title: 0,
           whatWillYouLearn: 0,
@@ -351,7 +352,6 @@ module.exports = {
           showInMenu: 0,
           copyToKk: 0,
           description: 0,
-          price: 0,
           discount: 0,
           questions: 0,
           reviews: 0
