@@ -178,8 +178,8 @@
       "required": false
     },
     "study_field": {
-      "model": "study-field",
-      "via": "programs"
+      "via": "programs",
+      "model": "study-field"
     },
     "teachers": {
       "via": "programs",

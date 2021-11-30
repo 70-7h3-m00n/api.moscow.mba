@@ -10,13 +10,14 @@ module.exports = {
     const programs = await strapi
       .query('product')
       .model.find(
-        {},
+        { published_at: { $ne: null } },
         {
           // id: 1,
           // title: 1,
           // slug: 1,
           // studyFormat: 1,
           // category: 1,
+          // price: 1
           study_field: 0,
           whatWillYouLearn: 0,
           specializedSubjects: 0,
@@ -41,7 +42,6 @@ module.exports = {
           showInMenu: 0,
           copyToKk: 0,
           description: 0,
-          price: 0,
           discount: 0,
           questions: 0,
           reviews: 0
@@ -49,13 +49,34 @@ module.exports = {
       )
       .populate([{ path: 'category', select: 'type slug' }])
 
-    return programs
+    const teachers = await strapi.query('teacher').model.find(
+      { published_at: { $ne: null } },
+      {
+        programs: 0,
+        copyToKk: 0,
+        createdAt: 0,
+        created_by: 0,
+        locale: 0,
+        localizations: 0,
+        updatedAt: 0,
+        updated_by: 0,
+        __v: 0,
+        id: 0
+      }
+    )
+
+    return {
+      programs,
+      teachers: teachers.filter(
+        (v, i, a) => a.findIndex(t => t.slug === v.slug) === i
+      )
+    }
   },
   getStaticPropsProfession: async () => {
     const programs = await strapi
       .query('product')
       .model.find(
-        {},
+        { published_at: { $ne: null } },
         {
           // id: 1,
           // title: 1,
@@ -64,6 +85,7 @@ module.exports = {
           // category: 1,
           // study_field: 1,
           // duration: 1
+          // price: 1
           whatWillYouLearn: 0,
           specializedSubjects: 0,
           baseSubjects: 0,
@@ -86,7 +108,6 @@ module.exports = {
           showInMenu: 0,
           copyToKk: 0,
           description: 0,
-          price: 0,
           discount: 0,
           questions: 0,
           reviews: 0
@@ -94,17 +115,38 @@ module.exports = {
       )
       .populate([
         { path: 'category', select: 'type slug' },
-        { path: 'study_field', select: 'id name' },
+        { path: 'study_field', select: 'id name slug' },
         { path: 'duration', select: 'minStudyMonths' }
       ])
 
-    return programs
+    const teachers = await strapi.query('teacher').model.find(
+      { published_at: { $ne: null } },
+      {
+        programs: 0,
+        copyToKk: 0,
+        createdAt: 0,
+        created_by: 0,
+        locale: 0,
+        localizations: 0,
+        updatedAt: 0,
+        updated_by: 0,
+        __v: 0,
+        id: 0
+      }
+    )
+
+    return {
+      programs,
+      teachers: teachers.filter(
+        (v, i, a) => a.findIndex(t => t.slug === v.slug) === i
+      )
+    }
   },
   getStaticPropsCourse: async () => {
     const programs = await strapi
       .query('product')
       .model.find(
-        {},
+        { published_at: { $ne: null } },
         {
           // id: 1,
           // title: 1,
@@ -113,6 +155,7 @@ module.exports = {
           // category: 1,
           // study_field: 1,
           // duration: 1
+          // price: 1
           whatWillYouLearn: 0,
           specializedSubjects: 0,
           baseSubjects: 0,
@@ -135,7 +178,6 @@ module.exports = {
           showInMenu: 0,
           copyToKk: 0,
           description: 0,
-          price: 0,
           discount: 0,
           questions: 0,
           reviews: 0
@@ -143,17 +185,38 @@ module.exports = {
       )
       .populate([
         { path: 'category', select: 'type slug' },
-        { path: 'study_field', select: 'id name' },
+        { path: 'study_field', select: 'id name slug' },
         { path: 'duration', select: 'minStudyMonths' }
       ])
 
-    return programs
+    const teachers = await strapi.query('teacher').model.find(
+      { published_at: { $ne: null } },
+      {
+        programs: 0,
+        copyToKk: 0,
+        createdAt: 0,
+        created_by: 0,
+        locale: 0,
+        localizations: 0,
+        updatedAt: 0,
+        updated_by: 0,
+        __v: 0,
+        id: 0
+      }
+    )
+
+    return {
+      programs,
+      teachers: teachers.filter(
+        (v, i, a) => a.findIndex(t => t.slug === v.slug) === i
+      )
+    }
   },
   getStaticPropsPromo: async () => {
     const programs = await strapi
       .query('product')
       .model.find(
-        {},
+        { published_at: { $ne: null } },
         {
           // id: 1,
           // title: 1,
@@ -161,6 +224,7 @@ module.exports = {
           // studyFormat: 1,
           // category: 1,
           // whatWillYouLearn: 1
+          // price: 1
           study_field: 0,
           specializedSubjects: 0,
           duration: 0,
@@ -184,7 +248,6 @@ module.exports = {
           showInMenu: 0,
           copyToKk: 0,
           description: 0,
-          price: 0,
           discount: 0,
           questions: 0,
           reviews: 0
@@ -195,16 +258,37 @@ module.exports = {
         { path: 'whatWillYouLearn' }
       ])
 
-    return programs
+    const teachers = await strapi.query('teacher').model.find(
+      { published_at: { $ne: null } },
+      {
+        programs: 0,
+        copyToKk: 0,
+        createdAt: 0,
+        created_by: 0,
+        locale: 0,
+        localizations: 0,
+        updatedAt: 0,
+        updated_by: 0,
+        __v: 0,
+        id: 0
+      }
+    )
+
+    return {
+      programs,
+      teachers: teachers.filter(
+        (v, i, a) => a.findIndex(t => t.slug === v.slug) === i
+      )
+    }
   },
   getProgram: async ctx => {
     const typeSlug = ctx.request.url.split('/')[3].split('.')
     const type = typeSlug[0]
     const slug = typeSlug[1]
 
-    const program = await strapi
+    const programs = await strapi
       .query('product')
-      .model.find({ slug })
+      .model.find({ slug, published_at: { $ne: null } })
       .populate([
         {
           path: 'category',
@@ -212,9 +296,23 @@ module.exports = {
           match: { type: { $eq: type } }
         }
       ])
+      .populate([
+        {
+          path: 'teachers',
+          select: 'name picture description'
+        }
+      ])
       .exec()
 
-    return program.filter(item => item.category?.type === type)[0]
+    const program = programs.filter(item => item.category?.type === type)[0]
+
+    return [program].map(item => {
+      item.teachers.map(teacher => {
+        teacher.programs = undefined
+        return teacher
+      })
+      return item
+    })[0]
   },
   getStaticPaths: async ctx => {
     const type = ctx.request.url.split('/')[3]
@@ -222,11 +320,12 @@ module.exports = {
     const paths = await strapi
       .query('product')
       .model.find(
-        {},
+        { published_at: { $ne: null } },
         {
           // slug: 1,
           // studyFormat: 1,
           // category: 1,
+          // price: 1
           id: 0,
           title: 0,
           whatWillYouLearn: 0,
@@ -253,7 +352,6 @@ module.exports = {
           showInMenu: 0,
           copyToKk: 0,
           description: 0,
-          price: 0,
           discount: 0,
           questions: 0,
           reviews: 0
