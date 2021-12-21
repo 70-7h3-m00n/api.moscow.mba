@@ -9,7 +9,6 @@
     "build": "strapi build",
     "strapi": "strapi"
   },
-  "devDependencies": {},
   "dependencies": {
     "node-fetch": "^2.6.6",
     "slugify": "^1.6.2",
@@ -23,7 +22,8 @@
     "strapi-plugin-upload": "3.6.8",
     "strapi-plugin-users-permissions": "3.6.8",
     "strapi-provider-upload-cloudinary": "^3.6.8",
-    "strapi-utils": "3.6.8"
+    "strapi-utils": "3.6.8",
+    "uuid": "^8.3.2"
   },
   "author": {
     "name": "A Strapi developer"

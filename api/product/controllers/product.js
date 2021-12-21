@@ -5,6 +5,8 @@
  * to customize this controller
  */
 
+const { createBlended } = require('../../../helpers/index')
+
 module.exports = {
   getStaticProps: async () => {
     const programs = await strapi
@@ -65,8 +67,10 @@ module.exports = {
       }
     )
 
+    const programsWithBlended = createBlended(programs)
+
     return {
-      programs,
+      programs: programsWithBlended,
       teachers: teachers.filter(
         (v, i, a) => a.findIndex(t => t.slug === v.slug) === i
       )
@@ -135,8 +139,10 @@ module.exports = {
       }
     )
 
+    const programsWithBlended = createBlended(programs)
+
     return {
-      programs,
+      programs: programsWithBlended,
       teachers: teachers.filter(
         (v, i, a) => a.findIndex(t => t.slug === v.slug) === i
       )
@@ -205,8 +211,10 @@ module.exports = {
       }
     )
 
+    const programsWithBlended = createBlended(programs)
+
     return {
-      programs,
+      programs: programsWithBlended,
       teachers: teachers.filter(
         (v, i, a) => a.findIndex(t => t.slug === v.slug) === i
       )
@@ -274,8 +282,12 @@ module.exports = {
       }
     )
 
+    const programsTypeMini = programs.filter(
+      item => item.category?.type === 'mini'
+    )
+
     return {
-      programs,
+      programs: programsTypeMini,
       teachers: teachers.filter(
         (v, i, a) => a.findIndex(t => t.slug === v.slug) === i
       )
@@ -366,6 +378,12 @@ module.exports = {
       ])
       .exec()
 
-    return paths.filter(path => path.category?.type === type)
+    const pathsFiltered = paths.filter(path => path.category?.type === type)
+
+    const output = pathsFiltered.map(({ slug }) => ({
+      params: { slug }
+    }))
+
+    return output
   }
 }
