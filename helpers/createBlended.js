@@ -1,7 +1,6 @@
 const { v4: uuidv4 } = require('uuid')
 
 const createBlended = programs => {
-  console.log(programs)
   return [
     ...programs,
     ...programs
