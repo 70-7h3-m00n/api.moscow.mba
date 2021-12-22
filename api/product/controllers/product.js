@@ -20,7 +20,7 @@ module.exports = {
           // studyFormat: 1,
           // category: 1,
           // price: 1
-          study_field: 0,
+          // study_field: 1,
           whatWillYouLearn: 0,
           specializedSubjects: 0,
           duration: 0,
@@ -49,7 +49,10 @@ module.exports = {
           reviews: 0
         }
       )
-      .populate([{ path: 'category', select: 'type slug' }])
+      .populate([
+        { path: 'category', select: 'type slug' },
+        { path: 'study_field', select: 'id name slug description' }
+      ])
 
     const teachers = await strapi.query('teacher').model.find(
       { published_at: { $ne: null } },
@@ -119,7 +122,7 @@ module.exports = {
       )
       .populate([
         { path: 'category', select: 'type slug' },
-        { path: 'study_field', select: 'id name slug' },
+        { path: 'study_field', select: 'id name slug description' },
         { path: 'duration', select: 'minStudyMonths' }
       ])
 
@@ -191,7 +194,7 @@ module.exports = {
       )
       .populate([
         { path: 'category', select: 'type slug' },
-        { path: 'study_field', select: 'id name slug' },
+        { path: 'study_field', select: 'id name slug description' },
         { path: 'duration', select: 'minStudyMonths' }
       ])
 
@@ -306,7 +309,8 @@ module.exports = {
           path: 'category',
           select: 'type slug',
           match: { type: { $eq: type } }
-        }
+        },
+        { path: 'study_field', select: 'id name slug description' }
       ])
       .populate([
         {
