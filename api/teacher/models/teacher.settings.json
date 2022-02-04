@@ -70,6 +70,16 @@
       "type": "boolean",
       "default": true,
       "required": true
+    },
+    "descriptionItems": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "general.teacher-description-items"
     }
   }
 }

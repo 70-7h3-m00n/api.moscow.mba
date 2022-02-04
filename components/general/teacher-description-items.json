@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_general_teacher_description_items",
+  "info": {
+    "name": "TeacherDescriptionItems",
+    "icon": "address-book"
+  },
+  "options": {},
+  "attributes": {
+    "item": {
+      "type": "text"
+    }
+  }
+}
