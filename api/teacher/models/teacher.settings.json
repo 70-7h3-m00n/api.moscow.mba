@@ -40,14 +40,13 @@
           "localized": true
         }
       },
-      "type": "string"
+      "type": "uid",
+      "targetField": "name"
     },
     "portrait": {
       "model": "file",
       "via": "related",
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "plugin": "upload",
       "required": true,
       "pluginOptions": {
