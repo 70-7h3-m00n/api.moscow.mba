@@ -11,18 +11,18 @@ const { teachersUrl } = require('../../../config/config')
 module.exports = {
   lifecycles: {
     beforeCreate: async data => {
-      const createSlugRes = createSlug({
-        data,
-        field: 'name',
-        slug: 'slug'
-      })
+      // const createSlugRes = createSlug({
+      //   data,
+      //   field: 'name',
+      //   slug: 'slug'
+      // })
     },
     beforeUpdate: async (params, data) => {
-      const createSlugRes = createSlug({
-        data,
-        field: 'name',
-        slug: 'slug'
-      })
+      // const createSlugRes = createSlug({
+      //   data,
+      //   field: 'name',
+      //   slug: 'slug'
+      // })
     },
     afterCreate: async (result, data) => {
       // console.log('result')
