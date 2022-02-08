@@ -57,7 +57,7 @@ module.exports = {
     const teachers = await strapi.query('teacher').model.find(
       { published_at: { $ne: null } },
       {
-        programs: 0,
+        // programs: 0,
         copyToKk: 0,
         createdAt: 0,
         created_by: 0,
@@ -129,7 +129,7 @@ module.exports = {
     const teachers = await strapi.query('teacher').model.find(
       { published_at: { $ne: null } },
       {
-        programs: 0,
+        // programs: 0,
         copyToKk: 0,
         createdAt: 0,
         created_by: 0,
@@ -201,7 +201,7 @@ module.exports = {
     const teachers = await strapi.query('teacher').model.find(
       { published_at: { $ne: null } },
       {
-        programs: 0,
+        // programs: 0,
         copyToKk: 0,
         createdAt: 0,
         created_by: 0,
@@ -272,7 +272,7 @@ module.exports = {
     const teachers = await strapi.query('teacher').model.find(
       { published_at: { $ne: null } },
       {
-        programs: 0,
+        // programs: 0,
         copyToKk: 0,
         createdAt: 0,
         created_by: 0,
