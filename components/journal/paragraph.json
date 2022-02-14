@@ -10,7 +10,7 @@
     "title": {
       "type": "string"
     },
-    "text": {
+    "paragraphBody": {
       "type": "component",
       "repeatable": true,
       "component": "general.text"

@@ -40,7 +40,7 @@
     "shortDescription": {
       "type": "text"
     },
-    "body": {
+    "articleBody": {
       "type": "dynamiczone",
       "components": [
         "journal.paragraph",

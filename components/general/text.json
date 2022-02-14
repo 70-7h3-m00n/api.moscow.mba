@@ -10,7 +10,7 @@
     "title": {
       "type": "string"
     },
-    "body": {
+    "text": {
       "type": "richtext"
     },
     "isHighlighted": {

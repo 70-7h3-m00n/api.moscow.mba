@@ -7,7 +7,7 @@
   },
   "options": {},
   "attributes": {
-    "body": {
+    "text": {
       "type": "string"
     },
     "isHighlighted": {
