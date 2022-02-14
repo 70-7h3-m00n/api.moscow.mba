@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "journal_tags",
+  "info": {
+    "name": "journalTag"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "journal_articles": {
+      "via": "journal_tag",
+      "collection": "journal-article"
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/journal-categories",
+      "handler": "journal-category.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/journal-categories/count",
+      "handler": "journal-category.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/journal-categories/:id",
+      "handler": "journal-category.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/journal-categories",
+      "handler": "journal-category.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/journal-categories/:id",
+      "handler": "journal-category.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/journal-categories/:id",
+      "handler": "journal-category.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

@@ -228,6 +228,10 @@
       "collection": "review",
       "via": "programs",
       "dominant": true
+    },
+    "journal_articles": {
+      "via": "program",
+      "collection": "journal-article"
     }
   }
 }

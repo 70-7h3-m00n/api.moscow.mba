@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_journal_lists",
+  "info": {
+    "name": "list",
+    "icon": "equals"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "listItem": {
+      "type": "component",
+      "repeatable": true,
+      "component": "journal.list-item"
+    }
+  }
+}

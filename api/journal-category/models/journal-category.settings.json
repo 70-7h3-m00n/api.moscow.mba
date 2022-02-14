@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "journal_categories",
+  "info": {
+    "name": "journalCategory"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "journal_articles": {
+      "via": "journal_category",
+      "collection": "journal-article"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_general_texts",
+  "info": {
+    "name": "paragraph",
+    "icon": "align-center",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "body": {
+      "type": "richtext"
+    },
+    "isHighlighted": {
+      "type": "boolean"
+    },
+    "isLarger": {
+      "type": "boolean"
+    }
+  }
+}

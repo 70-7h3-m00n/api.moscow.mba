@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_journal_conclusions",
+  "info": {
+    "name": "conclusion",
+    "icon": "anchor"
+  },
+  "options": {},
+  "attributes": {
+    "item": {
+      "type": "component",
+      "repeatable": true,
+      "component": "general.list-item-with-title-body"
+    },
+    "title": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_general_list_item_with_title_bodies",
+  "info": {
+    "name": "listItemWithTitleBody",
+    "icon": "angle-right"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "body": {
+      "type": "richtext"
+    }
+  }
+}

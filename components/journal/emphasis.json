@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_journal_emphases",
+  "info": {
+    "name": "emphasis",
+    "icon": "chess-king"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "body": {
+      "type": "richtext"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_general_titles",
+  "info": {
+    "name": "title",
+    "icon": "glass-martini",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "body": {
+      "type": "string"
+    },
+    "isHighlighted": {
+      "type": "boolean"
+    }
+  }
+}

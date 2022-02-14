@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_journal_paragraphs",
+  "info": {
+    "name": "paragraph",
+    "icon": "align-justify",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "text": {
+      "type": "component",
+      "repeatable": true,
+      "component": "general.text"
+    }
+  }
+}

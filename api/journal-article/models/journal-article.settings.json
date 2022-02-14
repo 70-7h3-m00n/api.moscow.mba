@@ -1,0 +1,60 @@
+{
+  "kind": "collectionType",
+  "collectionName": "journal_articles",
+  "info": {
+    "name": "journalArticle",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title"
+    },
+    "journal_category": {
+      "model": "journal-category",
+      "via": "journal_articles"
+    },
+    "journal_tag": {
+      "model": "journal-tag",
+      "via": "journal_articles"
+    },
+    "picture": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "shortDescription": {
+      "type": "text"
+    },
+    "body": {
+      "type": "dynamiczone",
+      "components": [
+        "journal.paragraph",
+        "journal.title",
+        "general.picture",
+        "journal.emphasis",
+        "journal.quote",
+        "journal.list",
+        "journal.conclusion"
+      ]
+    },
+    "program": {
+      "model": "product",
+      "via": "journal_articles"
+    }
+  }
+}
