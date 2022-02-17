@@ -49,12 +49,9 @@
         "journal.emphasis",
         "journal.quote",
         "journal.list",
-        "journal.conclusion"
+        "journal.conclusion",
+        "journal.journal-recommended-program"
       ]
-    },
-    "program": {
-      "model": "product",
-      "via": "journal_articles"
     }
   }
 }

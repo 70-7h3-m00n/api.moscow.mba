@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_journal_journal_recommended_programs",
+  "info": {
+    "name": "JournalRecommendedProgram",
+    "icon": "audio-description"
+  },
+  "options": {},
+  "attributes": {
+    "program": {
+      "model": "product"
+    }
+  }
+}
