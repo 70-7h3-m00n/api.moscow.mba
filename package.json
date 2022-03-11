@@ -10,6 +10,7 @@
     "strapi": "strapi"
   },
   "dependencies": {
+    "axios": "^0.26.1",
     "node-fetch": "^2.6.6",
     "slugify": "^1.6.2",
     "strapi": "3.6.8",
