@@ -18,54 +18,6 @@
     },
     {
       "method": "GET",
-      "path": "/products/getStaticProps",
-      "handler": "product.getStaticProps",
-      "config": {
-        "policies": []
-      }
-    },
-    {
-      "method": "GET",
-      "path": "/products/getStaticProps/profession",
-      "handler": "product.getStaticPropsProfession",
-      "config": {
-        "policies": []
-      }
-    },
-    {
-      "method": "GET",
-      "path": "/products/getStaticProps/course",
-      "handler": "product.getStaticPropsCourse",
-      "config": {
-        "policies": []
-      }
-    },
-    {
-      "method": "GET",
-      "path": "/products/getStaticProps/promo",
-      "handler": "product.getStaticPropsPromo",
-      "config": {
-        "policies": []
-      }
-    },
-    {
-      "method": "GET",
-      "path": "/products/paths/:type",
-      "handler": "product.getStaticPaths",
-      "config": {
-        "policies": []
-      }
-    },
-    {
-      "method": "GET",
-      "path": "/products/program/:typeSlug",
-      "handler": "product.getProgram",
-      "config": {
-        "policies": []
-      }
-    },
-    {
-      "method": "GET",
       "path": "/products/:id",
       "handler": "product.findOne",
       "config": {
