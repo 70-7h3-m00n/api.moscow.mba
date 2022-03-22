@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/get-static-props",
+      "handler": "get-static-props.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/get-static-props/count",
+      "handler": "get-static-props.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/get-static-props/:id",
+      "handler": "get-static-props.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/get-static-props",
+      "handler": "get-static-props.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/get-static-props/:id",
+      "handler": "get-static-props.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/get-static-props/:id",
+      "handler": "get-static-props.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "get_static_props",
+  "info": {
+    "name": "getStaticProps"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    }
+  }
+}
