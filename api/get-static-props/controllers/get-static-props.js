@@ -349,10 +349,9 @@ module.exports = {
             slug: program.slug || null,
             studyFormat: program.studyFormat || null,
             price: program.price || null,
-            duration:
-              program.duration?.map(item => ({
-                minStudyMonths: item?.ref?.minStudyMonths || null
-              })) || null,
+            duration: {
+              minStudyMonths: program.duration?.[0]?.ref?.minStudyMonths || null
+            },
             category: {
               type: program.category?.type || null,
               slug: program.category?.slug || null
