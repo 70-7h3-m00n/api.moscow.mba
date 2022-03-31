@@ -470,16 +470,20 @@ module.exports = {
           { path: 'study_field', select: 'id name slug description' }
         ])
 
-      const teachers = await strapi.query('teacher').model.find(
-        { published_at: { $ne: null } },
-        {
-          name: 1,
-          description: 1,
-          slug: 1,
-          portrait: 1,
-          descriptionItems: 1
-        }
-      )
+      const teachers = await strapi
+        .query('teacher')
+        .model.find(
+          { published_at: { $ne: null } },
+          {
+            name: 1,
+            description: 1,
+            slug: 1,
+            portrait: 1,
+            descriptionItems: 1,
+            programs: 1
+          }
+        )
+        .populate([{ path: 'programs', select: 'title' }])
 
       const programsFiltered =
         programs
@@ -517,7 +521,8 @@ module.exports = {
             descriptionItems:
               teacher.descriptionItems?.map(item => ({
                 item: item?.ref?.item || null
-              })) || null
+              })) || null,
+            programs: teacher.programs?.map(program => program?.title) || null
           })) || []
 
       return {
