@@ -56,10 +56,175 @@ module.exports = {
     }
   },
   getStaticPropsPageJournalArticle: async ctx => {
-    return {}
+    try {
+      const programs = await strapi
+        .query('product')
+        .model.find(
+          { published_at: { $ne: null } },
+          {
+            id: 1,
+            title: 1,
+            slug: 1,
+            studyFormat: 1,
+            category: 1,
+            study_field: 1
+          }
+        )
+        .populate([
+          { path: 'category', select: 'type slug' },
+          { path: 'study_field', select: 'id name slug description' }
+        ])
+
+      const programsFiltered =
+        programs
+          ?.filter(program => program)
+          ?.map(program => ({
+            _id: program._id || null,
+            id: program.id || null,
+            title: program.title || null,
+            slug: program.slug || null,
+            studyFormat: program.studyFormat || null,
+            category: {
+              type: program.category?.type || null,
+              slug: program.category?.slug || null
+            },
+            ...(program.study_field
+              ? {
+                  study_field: {
+                    name: program.study_field?.name || null,
+                    slug: program.study_field?.slug || null,
+                    description: program.study_field?.description || null
+                  }
+                }
+              : {})
+          })) || []
+
+      const journalCategories = await strapi
+        .query('journal-category')
+        .model.find(
+          { published_at: { $ne: null } },
+          {
+            id: 1,
+            title: 1,
+            slug: 1
+          }
+        )
+
+      const journalCategoriesFiltered = journalCategories
+        ?.filter(journalCategory => journalCategory)
+        ?.map(journalCategory => ({
+          title: journalCategory.title || null,
+          slug: journalCategory.slug || null
+        }))
+
+      const journalArticles = await strapi
+        .query('journal-article')
+        .model.find(
+          { published_at: { $ne: null } },
+          {
+            title: 1,
+            slug: 1,
+            updatedAt: 1,
+            shortDescription: 1,
+            isHighlighted: 1,
+            picture: 1,
+            journal_category: 1
+          }
+        )
+        .populate([
+          { path: 'picture', select: 'url width height' },
+          { path: 'journal_category', select: 'title slug' }
+        ])
+
+      const journalArticlesFiltered = journalArticles
+        ?.filter(journalArticle => journalArticle)
+        ?.map(journalArticle => ({
+          title: journalArticle.title || null,
+          slug: journalArticle.slug || null,
+          updatedAt: journalArticle.updatedAt || null,
+          ...(journalArticle.isHighlighted
+            ? {
+                isHighlighted: journalArticle.isHighlighted || null,
+                shortDescription: journalArticle.shortDescription || null
+              }
+            : {}),
+          picture: {
+            url: journalArticle.picture?.url || null,
+            width: journalArticle.picture?.width || null,
+            height: journalArticle.picture?.height || null
+          },
+          journal_category: {
+            title: journalArticle.journal_category?.title || null,
+            slug: journalArticle.journal_category?.slug || null
+          }
+        }))
+
+      return {
+        programs: programsFiltered,
+        journalCategories: journalCategoriesFiltered,
+        journalArticles: journalArticlesFiltered
+      }
+    } catch (err) {
+      console.log(err)
+      return {
+        programs: null,
+        journalCategories: null,
+        journalArticles: null
+      }
+    }
   },
   getStaticPropsPageJournalArticles: async ctx => {
-    return {}
+    try {
+      const programs = await strapi
+        .query('JournalCategory')
+        .model.find(
+          { published_at: { $ne: null } },
+          {
+            id: 1,
+            title: 1,
+            slug: 1,
+            studyFormat: 1,
+            whatWillYouLearn: 1,
+            category: 1,
+            study_field: 1
+          }
+        )
+        .populate([
+          { path: 'whatWillYouLearn', select: 'string' },
+          { path: 'category', select: 'type slug' },
+          { path: 'study_field', select: 'id name slug description' }
+        ])
+
+      const programsFiltered =
+        programs
+          ?.filter(program => program?.category?.type === 'mini')
+          ?.map(program => ({
+            _id: program._id || null,
+            id: program.id || null,
+            title: program.title || null,
+            slug: program.slug || null,
+            studyFormat: program.studyFormat || null,
+            whatWillYouLearn:
+              program.whatWillYouLearn?.map(item => ({
+                string: item?.ref?.string || null
+              })) || null,
+            category: {
+              type: program.category?.type || null,
+              slug: program.category?.slug || null
+            }
+            // study_field: {
+            //   id: program.study_field?.id || null,
+            //   name: program.study_field?.name || null,
+            //   slug: program.study_field?.slug || null,
+            //   description: program.study_field?.description || null
+            // }
+          })) || []
+
+      return { programs: programsFiltered }
+    } catch (err) {
+      console.log(err)
+      return { programs: null }
+    }
   },
   getStaticPropsPagePromo: async ctx => {
     try {

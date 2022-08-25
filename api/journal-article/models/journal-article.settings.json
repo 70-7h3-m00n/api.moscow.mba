@@ -52,6 +52,9 @@
         "journal.conclusion",
         "journal.journal-recommended-program"
       ]
+    },
+    "isHighlighted": {
+      "type": "boolean"
     }
   }
 }
