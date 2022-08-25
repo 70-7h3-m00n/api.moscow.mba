@@ -55,6 +55,11 @@
     },
     "isHighlighted": {
       "type": "boolean"
+    },
+    "journalAuthors": {
+      "type": "component",
+      "repeatable": true,
+      "component": "journal.journal-author"
     }
   }
 }

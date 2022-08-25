@@ -57,6 +57,187 @@ module.exports = {
   },
   getStaticPropsPageJournalArticle: async ctx => {
     try {
+      const journalSlug = ctx?.request?.url?.split('/')?.[3]
+
+      const programs = await strapi
+        .query('product')
+        .model.find(
+          { published_at: { $ne: null } },
+          {
+            id: 1,
+            title: 1,
+            slug: 1,
+            studyFormat: 1,
+            category: 1,
+            study_field: 1
+          }
+        )
+        .populate([
+          { path: 'category', select: 'type slug' },
+          { path: 'study_field', select: 'id name slug description' }
+        ])
+
+      const programsFiltered =
+        programs
+          ?.filter(program => program)
+          ?.map(program => ({
+            _id: program._id || null,
+            id: program.id || null,
+            title: program.title || null,
+            slug: program.slug || null,
+            studyFormat: program.studyFormat || null,
+            category: {
+              type: program.category?.type || null,
+              slug: program.category?.slug || null
+            },
+            ...(program.study_field
+              ? {
+                  study_field: {
+                    id: program.study_field?.id || null,
+                    name: program.study_field?.name || null,
+                    slug: program.study_field?.slug || null,
+                    description: program.study_field?.description || null
+                  }
+                }
+              : {})
+          })) || []
+
+      const journalArticles = await strapi
+        .query('journal-article')
+        .model.find(
+          { published_at: { $ne: null }, slug: journalSlug },
+          {
+            title: 1,
+            slug: 1,
+            updatedAt: 1,
+            shortDescription: 1,
+            isHighlighted: 1,
+            picture: 1,
+            journal_category: 1,
+            journal_tag: 1,
+            journalAuthors: 1,
+            articleBody: 1
+          }
+        )
+        .populate([
+          { path: 'picture', select: 'url width height' },
+          { path: 'journal_category', select: 'title slug' },
+          { path: 'journal_tag', select: 'title slug' }
+        ])
+
+      const journalArticleFiltered = journalArticles
+        ?.filter(journalArticle => journalArticle)
+        ?.map(journalArticle => ({
+          title: journalArticle.title || null,
+          slug: journalArticle.slug || null,
+          updatedAt: journalArticle.updatedAt || null,
+          ...(journalArticle.isHighlighted
+            ? {
+                isHighlighted: journalArticle.isHighlighted || null,
+                shortDescription: journalArticle.shortDescription || null
+              }
+            : {}),
+          picture: {
+            url: journalArticle.picture?.url || null,
+            width: journalArticle.picture?.width || null,
+            height: journalArticle.picture?.height || null
+          },
+          journal_category: {
+            title: journalArticle.journal_category?.title || null,
+            slug: journalArticle.journal_category?.slug || null
+          },
+          journal_tag: {
+            title: journalArticle.journal_tag?.title || null,
+            slug: journalArticle.journal_tag?.slug || null
+          },
+          journalAuthors:
+            journalArticle.journalAuthors?.map(journalAuthor => ({
+              label: journalAuthor?.ref?.label || null,
+              firstName: journalAuthor?.ref?.firstName || null,
+              lastName: journalAuthor?.ref?.lastName || null,
+              portrait: {
+                url: journalAuthor?.ref?.portrait?.url || null,
+                width: journalAuthor?.ref?.portrait?.width || null,
+                height: journalAuthor?.ref?.portrait?.height || null
+              }
+            })) || null,
+          articleBody:
+            journalArticle.articleBody?.map(component => ({
+              __typename: component?.kind || null,
+              ...(component?.kind === 'ComponentJournalParagraph'
+                ? {
+                    paragraphBodyParts:
+                      component?.ref?.paragraphBody?.map(item => ({
+                        title: item?.title || null,
+                        text: item?.text || null,
+                        ...(item?.isLarger ? { isLarger: item?.isLarger } : {})
+                      })) || null
+                  }
+                : {}),
+              ...(component?.kind === 'ComponentJournalTitle'
+                ? {
+                    titleBodyParts:
+                      component?.ref?.titleBody?.map(item => ({
+                        text: item?.text || null,
+                        ...(item?.isHighlighted
+                          ? { isHighlighted: item?.isHighlighted }
+                          : {})
+                      })) || null
+                  }
+                : {}),
+              ...(component?.kind === 'ComponentGeneralPicture'
+                ? {
+                    picture: {
+                      url: component?.ref?.picture?.url || null,
+                      width: component?.ref?.picture?.width || null,
+                      height: component?.ref?.picture?.height || null
+                    }
+                  }
+                : {}),
+              ...(component?.kind === 'ComponentJournalEmphasis'
+                ? {
+                    emphasisBody: component?.ref?.emphasisBody || null
+                  }
+                : {}),
+              ...(component?.kind === 'ComponentJournalQuote'
+                ? {
+                    quote: {
+                      body: component?.ref?.body || null,
+                      athorPosition: component?.ref?.athorPosition || null,
+                      authorName: component?.ref?.authorName || null,
+                      title: component?.ref?.title || null
+                    }
+                  }
+                : {}),
+              ...(component?.kind === 'ComponentJournalList'
+                ? {
+                    list: component?.ref?.listItem?.map(item => ({
+                      title: item?.title || null,
+                      body: item?.body || null
+                    }))
+                  }
+                : {})
+            })) || null
+        }))?.[0]
+
+      const journalAuthors = journalArticles.map(article => [
+        ...article.journalAuthors
+      ])
+
+      return {
+        programs: programsFiltered,
+        journalArticle: journalArticleFiltered
+      }
+    } catch (err) {
+      console.log(err)
+      return {
+        programs: null,
+        journalArticle: null
+      }
+    }
+  },
+  getStaticPropsPageJournalArticles: async ctx => {
+    try {
       const programs = await strapi
         .query('product')
         .model.find(
@@ -171,59 +352,6 @@ module.exports = {
         journalCategories: null,
         journalArticles: null
       }
-    }
-  },
-  getStaticPropsPageJournalArticles: async ctx => {
-    try {
-      const programs = await strapi
-        .query('JournalCategory')
-        .model.find(
-          { published_at: { $ne: null } },
-          {
-            id: 1,
-            title: 1,
-            slug: 1,
-            studyFormat: 1,
-            whatWillYouLearn: 1,
-            category: 1,
-            study_field: 1
-          }
-        )
-        .populate([
-          { path: 'whatWillYouLearn', select: 'string' },
-          { path: 'category', select: 'type slug' },
-          { path: 'study_field', select: 'id name slug description' }
-        ])
-
-      const programsFiltered =
-        programs
-          ?.filter(program => program?.category?.type === 'mini')
-          ?.map(program => ({
-            _id: program._id || null,
-            id: program.id || null,
-            title: program.title || null,
-            slug: program.slug || null,
-            studyFormat: program.studyFormat || null,
-            whatWillYouLearn:
-              program.whatWillYouLearn?.map(item => ({
-                string: item?.ref?.string || null
-              })) || null,
-            category: {
-              type: program.category?.type || null,
-              slug: program.category?.slug || null
-            }
-            // study_field: {
-            //   id: program.study_field?.id || null,
-            //   name: program.study_field?.name || null,
-            //   slug: program.study_field?.slug || null,
-            //   description: program.study_field?.description || null
-            // }
-          })) || []
-
-      return { programs: programsFiltered }
-    } catch (err) {
-      console.log(err)
-      return { programs: null }
     }
   },
   getStaticPropsPagePromo: async ctx => {

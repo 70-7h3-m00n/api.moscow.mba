@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_journal_journal_authors",
+  "info": {
+    "name": "journalAuthor",
+    "icon": "air-freshener"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "portrait": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    }
+  }
+}

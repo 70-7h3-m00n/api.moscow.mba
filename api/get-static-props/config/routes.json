@@ -10,7 +10,7 @@
     },
     {
       "method": "GET",
-      "path": "/get-static-props/page-journal-article",
+      "path": "/get-static-props/page-journal-articles/:articleSlug",
       "handler": "get-static-props.getStaticPropsPageJournalArticle",
       "config": {
         "policies": []
