@@ -120,7 +120,7 @@ module.exports = {
           }
         )
         .populate([
-          { path: 'picture', select: 'url width height' },
+          { path: 'picture', select: 'url width height alternativeText' },
           { path: 'journal_category', select: 'title slug' },
           { path: 'journal_tag', select: 'title slug' }
         ])
@@ -140,7 +140,8 @@ module.exports = {
           picture: {
             url: journalArticle.picture?.url || null,
             width: journalArticle.picture?.width || null,
-            height: journalArticle.picture?.height || null
+            height: journalArticle.picture?.height || null,
+            alt: journalArticle.picture?.alternativeText || null
           },
           journal_category: {
             title: journalArticle.journal_category?.title || null,
@@ -190,7 +191,8 @@ module.exports = {
                     picture: {
                       url: component?.ref?.picture?.url || null,
                       width: component?.ref?.picture?.width || null,
-                      height: component?.ref?.picture?.height || null
+                      height: component?.ref?.picture?.height || null,
+                      alt: component?.ref?.picture.alternativeText || null
                     }
                   }
                 : {}),
@@ -327,7 +329,7 @@ module.exports = {
           }
         )
         .populate([
-          { path: 'picture', select: 'url width height' },
+          { path: 'picture', select: 'url width height alternativeText' },
           { path: 'journal_category', select: 'title slug' }
         ])
 
@@ -346,7 +348,8 @@ module.exports = {
           picture: {
             url: journalArticle.picture?.url || null,
             width: journalArticle.picture?.width || null,
-            height: journalArticle.picture?.height || null
+            height: journalArticle.picture?.height || null,
+            alt: journalArticle.picture?.alternativeText || null
           },
           journal_category: {
             title: journalArticle.journal_category?.title || null,
