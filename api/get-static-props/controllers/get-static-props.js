@@ -143,11 +143,11 @@ module.exports = {
             height: journalArticle.picture?.height || null,
             alt: journalArticle.picture?.alternativeText || null
           },
-          journal_category: {
+          journalCategory: {
             title: journalArticle.journal_category?.title || null,
             slug: journalArticle.journal_category?.slug || null
           },
-          journal_tag: {
+          journalTag: {
             title: journalArticle.journal_tag?.title || null,
             slug: journalArticle.journal_tag?.slug || null
           },
@@ -351,7 +351,7 @@ module.exports = {
             height: journalArticle.picture?.height || null,
             alt: journalArticle.picture?.alternativeText || null
           },
-          journal_category: {
+          journalCategory: {
             title: journalArticle.journal_category?.title || null,
             slug: journalArticle.journal_category?.slug || null
           }
