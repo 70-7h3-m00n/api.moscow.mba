@@ -130,7 +130,7 @@ module.exports = {
         ?.map(journalArticle => ({
           title: journalArticle.title || null,
           slug: journalArticle.slug || null,
-          updatedAt: journalArticle.updatedAt || null,
+          createdAt: journalArticle.createdAt || null,
           ...(journalArticle.isHighlighted
             ? {
                 isHighlighted: journalArticle.isHighlighted || null,
@@ -212,21 +212,35 @@ module.exports = {
               ...(component?.kind === 'ComponentJournalList'
                 ? {
                     list: component?.ref?.listItem?.map(item => ({
+                      title: component?.ref?.title || null,
+                      body: component?.ref?.body || null
+                    }))
+                  }
+                : {}),
+              ...(component?.kind === 'ComponentJournalConclusion'
+                ? {
+                    conclusion: component?.ref?.item?.map(item => ({
                       title: item?.title || null,
                       body: item?.body || null
+                    }))
+                  }
+                : {}),
+              ...(component?.kind ===
+              'ComponentJournalJournalRecommendedProgram'
+                ? {
+                    program: component?.ref?.item?.map(item => ({
+                      title: item?.title || null,
+                      studyFormat: item?.studyFormat || null,
+                      whatWillYouLearn: item?.whatWillYouLearn || null
                     }))
                   }
                 : {})
             })) || null
         }))?.[0]
 
-      const journalAuthors = journalArticles.map(article => [
-        ...article.journalAuthors
-      ])
-
       return {
         programs: programsFiltered,
-        journalArticle: journalArticleFiltered
+        journalArticle: journalArticles?.[0]
       }
     } catch (err) {
       console.log(err)
