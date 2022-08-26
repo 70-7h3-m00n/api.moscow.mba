@@ -109,7 +109,7 @@ module.exports = {
           {
             title: 1,
             slug: 1,
-            updatedAt: 1,
+            createdAt: 1,
             shortDescription: 1,
             isHighlighted: 1,
             picture: 1,
@@ -319,7 +319,7 @@ module.exports = {
           {
             title: 1,
             slug: 1,
-            updatedAt: 1,
+            createdAt: 1,
             shortDescription: 1,
             isHighlighted: 1,
             picture: 1,
@@ -336,7 +336,7 @@ module.exports = {
         ?.map(journalArticle => ({
           title: journalArticle.title || null,
           slug: journalArticle.slug || null,
-          updatedAt: journalArticle.updatedAt || null,
+          createdAt: journalArticle.createdAt || null,
           ...(journalArticle.isHighlighted
             ? {
                 isHighlighted: journalArticle.isHighlighted || null,
