@@ -22,7 +22,7 @@
       "type": "richtext"
     },
     "journal_articles": {
-      "via": "journal_tag",
+      "via": "journal_tags",
       "collection": "journal-article"
     }
   }

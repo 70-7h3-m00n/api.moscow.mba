@@ -23,9 +23,10 @@
       "model": "journal-category",
       "via": "journal_articles"
     },
-    "journal_tag": {
-      "model": "journal-tag",
-      "via": "journal_articles"
+    "journal_tags": {
+      "collection": "journal-tag",
+      "via": "journal_articles",
+      "dominant": true
     },
     "picture": {
       "model": "file",
