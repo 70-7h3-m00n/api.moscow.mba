@@ -113,7 +113,7 @@ module.exports = {
             shortDescription: 1,
             picture: 1,
             journal_category: 1,
-            journal_tag: 1,
+            journal_tags: 1,
             journalAuthors: 1,
             articleBody: 1
           }
@@ -121,16 +121,13 @@ module.exports = {
         .populate([
           { path: 'picture', select: 'url width height alternativeText' },
           { path: 'journal_category', select: 'title slug' },
-          { path: 'journal_tag', select: 'title slug' }
+          { path: 'journal_tags', select: 'title slug' }
         ])
 
       const journalArticle =
         journalArticles?.filter(journalArticle => journalArticle)?.[0] || null
 
       const journalArticleFiltered = {
-        ...journalArticle,
-        _id: undefined,
-        id: undefined,
         title: journalArticle.title || null,
         slug: journalArticle.slug || null,
         shortDescription: journalArticle.shortDescription || null,
@@ -145,96 +142,105 @@ module.exports = {
           title: journalArticle.journal_category?.title || null,
           slug: journalArticle.journal_category?.slug || null
         },
-        journalTag: {
-          title: journalArticle.journal_tag?.title || null,
-          slug: journalArticle.journal_tag?.slug || null
-        },
+        journalTags:
+          journalArticle.journal_tags?.map(journalTag => ({
+            title: journalTag?.title || null,
+            slug: journalTag?.slug || null
+          })) || null,
+        // fix authors
         journalAuthors:
           journalArticle.journalAuthors?.map(journalAuthor => ({
-            label: journalAuthor?.ref?.label || null,
-            firstName: journalAuthor?.ref?.firstName || null,
-            lastName: journalAuthor?.ref?.lastName || null,
+            label: journalAuthor?.label || null,
+            firstName: journalAuthor?.firstName || null,
+            lastName: journalAuthor?.lastName || null,
             portrait: {
-              url: journalAuthor?.ref?.portrait?.url || null,
-              width: journalAuthor?.ref?.portrait?.width || null,
-              height: journalAuthor?.ref?.portrait?.height || null
+              url: journalAuthor?.portrait?.url || null,
+              width: journalAuthor?.portrait?.width || null,
+              height: journalAuthor?.portrait?.height || null,
+              alt: journalAuthor?.portrait?.alternativeText || null
             }
           })) || null,
         articleBody:
-          journalArticle.articleBody?.map(component => ({
-            __typename: component?.kind || null,
-            ...(component?.kind === 'ComponentJournalParagraph'
-              ? {
-                  paragraphBodyParts:
-                    component?.ref?.paragraphBody?.map(item => ({
+          journalArticle.articleBody?.map(component => {
+            console.log(component)
+
+            return {
+              ...(component?.__component === 'journal.paragraph'
+                ? {
+                    paragraphBodyParts:
+                      component?.paragraphBody?.map(item => ({
+                        title: item?.title || null,
+                        text: item?.text || null,
+                        ...(item?.isLarger ? { isLarger: item?.isLarger } : {})
+                      })) || null
+                  }
+                : {}),
+              ...(component?.__component === 'journal.title'
+                ? {
+                    titleBodyParts:
+                      component?.titleBody?.map(item => ({
+                        text: item?.text || null,
+                        ...(item?.isHighlighted
+                          ? { isHighlighted: item?.isHighlighted }
+                          : {})
+                      })) || null
+                  }
+                : {}),
+              ...(component?.__component === 'general.picture'
+                ? {
+                    picture: {
+                      url: component?.picture?.url || null,
+                      width: component?.picture?.width || null,
+                      height: component?.picture?.height || null,
+                      title: component?.picture?.title || null,
+                      alt: component?.picture.alternativeText || null
+                    }
+                  }
+                : {}),
+              ...(component?.__component === 'journal.emphasis'
+                ? {
+                    emphasisBody: component?.emphasisBody || null
+                  }
+                : {}),
+              ...(component?.__component === 'journal.quote'
+                ? {
+                    quote: {
+                      body: component?.body || null,
+                      athorPosition: component?.athorPosition || null,
+                      authorName: component?.authorName || null
+                    }
+                  }
+                : {}),
+              ...(component?.__component === 'journal.list'
+                ? {
+                    list: component?.listItem?.map(item => ({
                       title: item?.title || null,
-                      text: item?.text || null,
-                      ...(item?.isLarger ? { isLarger: item?.isLarger } : {})
-                    })) || null
-                }
-              : {}),
-            ...(component?.kind === 'ComponentJournalTitle'
-              ? {
-                  titleBodyParts:
-                    component?.ref?.titleBody?.map(item => ({
-                      text: item?.text || null,
-                      ...(item?.isHighlighted
-                        ? { isHighlighted: item?.isHighlighted }
-                        : {})
-                    })) || null
-                }
-              : {}),
-            ...(component?.kind === 'ComponentGeneralPicture'
-              ? {
-                  picture: {
-                    url: component?.ref?.picture?.url || null,
-                    width: component?.ref?.picture?.width || null,
-                    height: component?.ref?.picture?.height || null,
-                    alt: component?.ref?.picture.alternativeText || null
+                      body: item?.body || null
+                    }))
                   }
-                }
-              : {}),
-            ...(component?.kind === 'ComponentJournalEmphasis'
-              ? {
-                  emphasisBody: component?.ref?.emphasisBody || null
-                }
-              : {}),
-            ...(component?.kind === 'ComponentJournalQuote'
-              ? {
-                  quote: {
-                    body: component?.ref?.body || null,
-                    athorPosition: component?.ref?.athorPosition || null,
-                    authorName: component?.ref?.authorName || null,
-                    title: component?.ref?.title || null
+                : {}),
+              ...(component?.__component === 'journal.conclusion'
+                ? {
+                    conclusion: component?.item?.map(item => ({
+                      title: item?.title || null,
+                      body: item?.body || null
+                    }))
                   }
-                }
-              : {}),
-            ...(component?.kind === 'ComponentJournalList'
-              ? {
-                  list: component?.ref?.listItem?.map(item => ({
-                    title: component?.ref?.title || null,
-                    body: component?.ref?.body || null
-                  }))
-                }
-              : {}),
-            ...(component?.kind === 'ComponentJournalConclusion'
-              ? {
-                  conclusion: component?.ref?.item?.map(item => ({
-                    title: item?.title || null,
-                    body: item?.body || null
-                  }))
-                }
-              : {}),
-            ...(component?.kind === 'ComponentJournalJournalRecommendedProgram'
-              ? {
-                  program: component?.ref?.item?.map(item => ({
-                    title: item?.title || null,
-                    studyFormat: item?.studyFormat || null,
-                    whatWillYouLearn: item?.whatWillYouLearn || null
-                  }))
-                }
-              : {})
-          })) || null
+                : {}),
+              ...(component?.__component ===
+              'journal.journal-recommended-program'
+                ? {
+                    program1: {
+                      title: component?.program?.title || null,
+                      slug: component?.program?.slug || null,
+                      studyFormat: component?.program?.studyFormat || null,
+                      whatWillYouLearn:
+                        component?.program?.whatWillYouLearn || null
+                    }
+                  }
+                : {})
+            }
+          }) || null
       }
 
       return {
