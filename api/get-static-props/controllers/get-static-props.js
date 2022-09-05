@@ -148,7 +148,6 @@ module.exports = {
             title: journalTag?.title || null,
             slug: journalTag?.slug || null
           })) || null,
-        // fix authors
         journalAuthors:
           journalArticle.journalAuthors?.map(journalAuthor => ({
             label: journalAuthor?.ref?.label || null,
@@ -351,12 +350,7 @@ module.exports = {
             title: journalArticle.title || null,
             slug: journalArticle.slug || null,
             createdAt: journalArticle.createdAt || null,
-            ...(journalArticle.isHighlighted
-              ? {
-                  isHighlighted: journalArticle.isHighlighted || null,
-                  shortDescription: journalArticle.shortDescription || null
-                }
-              : {}),
+            shortDescription: journalArticle.shortDescription || null,
             picture: {
               url: journalArticle.picture?.url || null,
               width: journalArticle.picture?.width || null,
