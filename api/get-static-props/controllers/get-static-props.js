@@ -250,6 +250,26 @@ module.exports = {
                     emphasisBody: component?.ref?.emphasisBody || null
                   }
                 : {}),
+              ...(component?.kind === 'ComponentJournalFormPdfMaterials'
+                ? {
+                    formPdfMaterials: {
+                      title: component?.ref?.title || null
+                    }
+                  }
+                : {}),
+              ...(component?.kind === 'ComponentJournalJournalTable'
+                ? {
+                    htmlTableBody: {
+                      name: component?.ref?.htmlTable?.name || null,
+                      url: component?.ref?.htmlTable?.url || null,
+                      ...(component?.ref?.htmlTableBody?.alternativeText
+                        ? {
+                            alt: component?.ref?.htmlTableBody?.alternativeText
+                          }
+                        : {})
+                    }
+                  }
+                : {}),
               ...(component?.kind === 'ComponentJournalQuote'
                 ? {
                     quote: {

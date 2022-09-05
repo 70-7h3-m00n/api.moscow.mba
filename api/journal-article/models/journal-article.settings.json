@@ -50,7 +50,9 @@
         "journal.emphasis",
         "journal.quote",
         "journal.list",
-        "journal.conclusion"
+        "journal.conclusion",
+        "journal.form-pdf-materials",
+        "journal.journal-table"
       ]
     },
     "journal_authors": {

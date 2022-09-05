@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_journal_journal_tables",
+  "info": {
+    "name": "journalTable",
+    "icon": "band-aid"
+  },
+  "options": {},
+  "attributes": {
+    "htmlTable": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "files"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "title": {
+      "type": "string"
+    }
+  }
+}

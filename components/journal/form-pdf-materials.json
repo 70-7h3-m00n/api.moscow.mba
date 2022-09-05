@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_journal_form_pdf_materials",
+  "info": {
+    "name": "formPdfMaterials",
+    "icon": "angle-double-right"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    }
+  }
+}
