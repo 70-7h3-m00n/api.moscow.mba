@@ -113,6 +113,7 @@ module.exports = {
             createdAt: 1,
             shortDescription: 1,
             picture: 1,
+            pdfMaterials: 1,
             journal_category: 1,
             journal_tags: 1,
             journal_authors: 1,
@@ -122,6 +123,7 @@ module.exports = {
         )
         .populate([
           { path: 'picture', select: 'url width height alternativeText' },
+          { path: 'pdfMaterials', select: 'url width height alternativeText' },
           { path: 'journal_category', select: 'title slug' },
           { path: 'journal_tags', select: 'title slug' },
           { path: 'programs', select: 'title slug icon' },
@@ -147,15 +149,24 @@ module.exports = {
           height: journalArticle.picture?.height || null,
           alt: journalArticle.picture?.alternativeText || null
         },
-        journalCategory: {
-          title: journalArticle.journal_category?.title || null,
-          slug: journalArticle.journal_category?.slug || null
-        },
+        pdfMaterials:
+          journalArticle.pdfMaterials?.map(pdfMaterial => ({
+            url: pdfMaterial?.url || null,
+            name: pdfMaterial?.name || null,
+            ...(pdfMaterial?.alternativeText
+              ? { alt: pdfMaterial?.alternativeText }
+              : {})
+          })) || [],
+        journalCategory:
+          {
+            title: journalArticle.journal_category?.title || null,
+            slug: journalArticle.journal_category?.slug || null
+          } || null,
         journalTags:
           journalArticle.journal_tags?.map(journalTag => ({
             title: journalTag?.title || null,
             slug: journalTag?.slug || null
-          })) || null,
+          })) || [],
         journalAuthors:
           journalArticle.journal_authors?.map(journalAuthor => {
             // console.log(
@@ -178,12 +189,13 @@ module.exports = {
                   : {})
               }
             }
-          }) || null,
-        recommendedPrograms: journalArticle.programs.map(program => ({
-          title: program?.title,
-          slug: program?.slug,
-          icon: program?.icon
-        })),
+          }) || [],
+        recommendedPrograms:
+          journalArticle.programs.map(program => ({
+            title: program?.title || null,
+            slug: program?.slug || null,
+            icon: program?.icon || null
+          })) || [],
         articleBody:
           journalArticle.articleBody?.map(component => {
             console.log(

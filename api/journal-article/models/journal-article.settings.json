@@ -63,6 +63,16 @@
       "collection": "product",
       "via": "journal_articles",
       "dominant": true
+    },
+    "pdfMaterials": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "files"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
     }
   }
 }
