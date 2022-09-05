@@ -50,8 +50,7 @@
         "journal.emphasis",
         "journal.quote",
         "journal.list",
-        "journal.conclusion",
-        "journal.journal-recommended-program"
+        "journal.conclusion"
       ]
     },
     "journal_authors": {
