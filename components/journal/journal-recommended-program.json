@@ -2,12 +2,19 @@
   "collectionName": "components_journal_journal_recommended_programs",
   "info": {
     "name": "JournalRecommendedProgram",
-    "icon": "audio-description"
+    "icon": "audio-description",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "program": {
       "model": "product"
+    },
+    "title": {
+      "type": "string"
+    },
+    "btnValue": {
+      "type": "string"
     }
   }
 }

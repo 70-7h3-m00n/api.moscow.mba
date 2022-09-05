@@ -1,0 +1,30 @@
+{
+  "collectionName": "components_journal_journal_article_recommended_programs_sections",
+  "info": {
+    "name": "journalArticleRecommendedProgramsSection",
+    "icon": "box-open",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "programs": {
+      "collection": "product"
+    },
+    "title": {
+      "type": "string"
+    },
+    "sectionTitle": {
+      "type": "component",
+      "repeatable": true,
+      "component": "general.title"
+    },
+    "btnVal": {
+      "type": "string"
+    },
+    "shortTextAtTheBottom": {
+      "type": "component",
+      "repeatable": true,
+      "component": "general.text"
+    }
+  }
+}

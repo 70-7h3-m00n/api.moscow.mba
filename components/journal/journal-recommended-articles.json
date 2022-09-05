@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_journal_journal_recommended_articles",
+  "info": {
+    "name": "journalRecommendedArticles",
+    "icon": "atlas",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "journal_articles": {
+      "collection": "journal-article"
+    }
+  }
+}

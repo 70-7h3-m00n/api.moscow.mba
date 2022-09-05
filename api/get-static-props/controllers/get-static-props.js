@@ -74,7 +74,7 @@ module.exports = {
           }
         )
         .populate([
-          { path: 'category', select: 'type slug' },
+          { path: 'category', select: 'id type slug' },
           { path: 'study_field', select: 'id name slug description' }
         ])
 
@@ -103,6 +103,23 @@ module.exports = {
               : {})
           })) || []
 
+      const programCategories = programs
+        ?.filter(program => program)
+        ?.reduce(
+          (acc, cur) =>
+            !acc.some(item => item?.id === cur?.category?.id)
+              ? [
+                  ...acc,
+                  {
+                    id: cur?.category?.id,
+                    type: cur?.category?.type,
+                    slug: cur?.category?.slug
+                  }
+                ]
+              : acc,
+          []
+        )
+
       const journalArticles = await strapi
         .query('journal-article')
         .model.find(
@@ -126,7 +143,12 @@ module.exports = {
           { path: 'pdfMaterials', select: 'url width height alternativeText' },
           { path: 'journal_category', select: 'title slug' },
           { path: 'journal_tags', select: 'title slug' },
-          { path: 'programs', select: 'title slug icon' },
+          {
+            path: 'programs',
+            populate: {
+              path: 'category'
+            }
+          },
           {
             path: 'journal_authors',
             select: 'label firstName lastName portrait'
@@ -136,7 +158,7 @@ module.exports = {
       const journalArticle =
         journalArticles?.filter(journalArticle => journalArticle)?.[0] || null
 
-      console.log(journalArticle)
+      // console.log(journalArticle.programs)
 
       const journalArticleFiltered = {
         title: journalArticle.title || null,
@@ -169,13 +191,6 @@ module.exports = {
           })) || [],
         journalAuthors:
           journalArticle.journal_authors?.map(journalAuthor => {
-            // console.log(
-            //   util.inspect(journalAuthor, {
-            //     showHidden: false,
-            //     depth: null,
-            //     colors: true
-            //   })
-            // )
             return {
               ...(journalAuthor?.label ? { label: journalAuthor?.label } : {}),
               firstName: journalAuthor?.firstName || null,
@@ -191,21 +206,22 @@ module.exports = {
             }
           }) || [],
         recommendedPrograms:
-          journalArticle.programs.map(program => ({
+          journalArticle.programs?.map(program => ({
             title: program?.title || null,
             slug: program?.slug || null,
+            categorySlug: program?.category?.slug || null,
+            studyFormatSlug: program?.studyFormat || null,
             icon: program?.icon || null
           })) || [],
         articleBody:
           journalArticle.articleBody?.map(component => {
-            console.log(
-              util.inspect(component, {
-                showHidden: false,
-                depth: null,
-                colors: true
-              })
-            )
-
+            // console.log(
+            //   util.inspect(component, {
+            //     showHidden: false,
+            //     depth: null,
+            //     colors: true
+            //   })
+            // )
             return {
               __typename: component?.kind || null,
               ...(component?.kind === 'ComponentJournalParagraph'
@@ -279,6 +295,52 @@ module.exports = {
                     }
                   }
                 : {}),
+              ...(component?.kind ===
+              'ComponentJournalJournalRecommendedArticles'
+                ? {
+                    journalRecommendedArticles: {
+                      title: component?.ref?.title || null,
+                      articles:
+                        component?.ref?.journal_articles?.map(
+                          journalArticle => ({
+                            title: journalArticle?.title || null,
+                            slug: journalArticle?.slug || null
+                          })
+                        ) || []
+                    }
+                  }
+                : {}),
+              ...(component?.kind ===
+              'ComponentJournalJournalRecommendedProgram'
+                ? {
+                    recommendedProgram: {
+                      title: component?.ref?.title || null,
+                      btnValue: component?.ref?.btnValue || null,
+                      program: {
+                        title: component?.ref?.program?.title || null,
+                        slug: component?.ref?.program?.slug || null,
+                        categorySlug:
+                          component?.ref?.program?.category?.slug ||
+                          programCategories.find(programCategory => {
+                            return (
+                              programCategory?.id
+                                ?.toString()
+                                ?.trim()
+                                ?.toLowerCase() ===
+                              component?.ref?.program?.category
+                                ?.toString()
+                                ?.trim()
+                                ?.toLowerCase()
+                            )
+                          })?.slug ||
+                          null,
+                        studyFormatSlug:
+                          component?.ref?.program?.studyFormat || null,
+                        icon: component?.ref?.program?.icon || null
+                      }
+                    }
+                  }
+                : {}),
               ...(component?.kind === 'ComponentJournalList'
                 ? {
                     list: component?.ref?.listItem?.map(item => ({
@@ -293,17 +355,49 @@ module.exports = {
                       body: item?.ref?.body || null
                     }))
                   }
+                : {}),
+              ...(component?.kind ===
+              'ComponentJournalJournalArticleRecommendedProgramsSection'
+                ? {
+                    recommendedProgramsSection: {
+                      btnVal: component?.ref?.btnVal || null,
+                      title:
+                        component?.ref?.sectionTitle.map(item => ({
+                          titlePart: item?.ref?.text || null,
+                          isHighlighted: item?.ref?.isHighlighted || null
+                        })) || null,
+                      shortTextAtTheBottom:
+                        component?.ref?.shortTextAtTheBottom?.map(item => ({
+                          textPart: item?.ref?.text || null,
+                          isHighlighted: item?.ref?.isHighlighted || null
+                        })) || null,
+                      programs: component?.ref?.programs?.map(program => {
+                        // console.log('program.category: ', program.category)
+                        // console.log('programCategories: ', programCategories)
+                        return {
+                          title: program?.title || null,
+                          slug: program?.slug || null,
+                          categorySlug:
+                            program?.category?.slug ||
+                            programCategories.find(
+                              programCategory =>
+                                programCategory?.id
+                                  ?.toString()
+                                  ?.trim()
+                                  ?.toLowerCase() ===
+                                program?.category
+                                  ?.toString()
+                                  ?.trim()
+                                  ?.toLowerCase()
+                            )?.slug ||
+                            null,
+                          studyFormatSlug: program?.studyFormat || null,
+                          icon: program?.icon || null
+                        }
+                      })
+                    }
+                  }
                 : {})
-              // ...(component?.kind ===
-              // 'ComponentJournalJournalRecommendedProgram'
-              //   ? {
-              //       program: component?.ref?.item?.map(item => ({
-              //         title: item?.ref?.title || null,
-              //         studyFormat: item?.ref?.studyFormat || null,
-              //         whatWillYouLearn: item?.ref?.whatWillYouLearn || null
-              //       }))
-              //     }
-              //   : {})
             }
           }) || null
       }
@@ -311,6 +405,7 @@ module.exports = {
       return {
         programs: programsFiltered,
         journalArticle: journalArticleFiltered
+        // journalArticle
       }
     } catch (err) {
       console.log(err)

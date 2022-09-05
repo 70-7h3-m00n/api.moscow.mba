@@ -52,7 +52,10 @@
         "journal.list",
         "journal.conclusion",
         "journal.form-pdf-materials",
-        "journal.journal-table"
+        "journal.journal-recommended-articles",
+        "journal.journal-table",
+        "journal.journal-recommended-program",
+        "journal.journal-article-recommended-programs-section"
       ]
     },
     "journal_authors": {
