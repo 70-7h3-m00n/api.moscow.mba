@@ -115,14 +115,18 @@ module.exports = {
             picture: 1,
             journal_category: 1,
             journal_tags: 1,
-            journalAuthors: 1,
+            journal_authors: 1,
             articleBody: 1
           }
         )
         .populate([
           { path: 'picture', select: 'url width height alternativeText' },
           { path: 'journal_category', select: 'title slug' },
-          { path: 'journal_tags', select: 'title slug' }
+          { path: 'journal_tags', select: 'title slug' },
+          {
+            path: 'journal_authors',
+            select: 'label firstName lastName portrait'
+          }
         ])
 
       const journalArticle =
@@ -149,26 +153,37 @@ module.exports = {
             slug: journalTag?.slug || null
           })) || null,
         journalAuthors:
-          journalArticle.journalAuthors?.map(journalAuthor => ({
-            label: journalAuthor?.ref?.label || null,
-            firstName: journalAuthor?.ref?.firstName || null,
-            lastName: journalAuthor?.ref?.lastName || null,
-            portrait: {
-              url: journalAuthor?.ref?.portrait?.url || null,
-              width: journalAuthor?.ref?.portrait?.width || null,
-              height: journalAuthor?.ref?.portrait?.height || null,
-              alt: journalAuthor?.ref?.portrait?.alternativeText || null
+          journalArticle.journal_authors?.map(journalAuthor => {
+            // console.log(
+            //   util.inspect(journalAuthor, {
+            //     showHidden: false,
+            //     depth: null,
+            //     colors: true
+            //   })
+            // )
+            return {
+              ...(journalAuthor?.label ? { label: journalAuthor?.label } : {}),
+              firstName: journalAuthor?.firstName || null,
+              lastName: journalAuthor?.lastName || null,
+              portrait: {
+                url: journalAuthor?.portrait?.url || null,
+                width: journalAuthor?.portrait?.width || null,
+                height: journalAuthor?.portrait?.height || null,
+                ...(journalAuthor?.portrait?.alternativeText
+                  ? { alt: journalAuthor?.portrait?.alternativeText }
+                  : {})
+              }
             }
-          })) || null,
+          }) || null,
         articleBody:
           journalArticle.articleBody?.map(component => {
-            console.log(
-              util.inspect(component, {
-                showHidden: false,
-                depth: null,
-                colors: true
-              })
-            )
+            // console.log(
+            //   util.inspect(component, {
+            //     showHidden: false,
+            //     depth: null,
+            //     colors: true
+            //   })
+            // )
 
             return {
               __typename: component?.kind || null,
@@ -203,7 +218,9 @@ module.exports = {
                       url: component?.ref?.picture?.url || null,
                       width: component?.ref?.picture?.width || null,
                       height: component?.ref?.picture?.height || null,
-                      alt: component?.ref?.picture.alternativeText || null
+                      ...(journalAuthor?.portrait?.alternativeText
+                        ? { alt: journalAuthor?.portrait?.alternativeText }
+                        : {})
                     }
                   }
                 : {}),
@@ -235,17 +252,17 @@ module.exports = {
                       body: item?.ref?.body || null
                     }))
                   }
-                : {}),
-              ...(component?.kind ===
-              'ComponentJournalJournalRecommendedProgram'
-                ? {
-                    program: component?.ref?.item?.map(item => ({
-                      title: item?.ref?.title || null,
-                      studyFormat: item?.ref?.studyFormat || null,
-                      whatWillYouLearn: item?.ref?.whatWillYouLearn || null
-                    }))
-                  }
                 : {})
+              // ...(component?.kind ===
+              // 'ComponentJournalJournalRecommendedProgram'
+              //   ? {
+              //       program: component?.ref?.item?.map(item => ({
+              //         title: item?.ref?.title || null,
+              //         studyFormat: item?.ref?.studyFormat || null,
+              //         whatWillYouLearn: item?.ref?.whatWillYouLearn || null
+              //       }))
+              //     }
+              //   : {})
             }
           }) || null
       }
@@ -333,7 +350,6 @@ module.exports = {
             slug: 1,
             createdAt: 1,
             shortDescription: 1,
-            isHighlighted: 1,
             picture: 1,
             journal_category: 1
           }

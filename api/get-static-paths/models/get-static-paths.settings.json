@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "get_static_paths",
+  "info": {
+    "name": "getStaticPaths"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "path": {
+      "type": "string"
+    }
+  }
+}

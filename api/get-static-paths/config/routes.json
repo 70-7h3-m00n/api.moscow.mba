@@ -1,0 +1,60 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/get-static-paths",
+      "handler": "get-static-paths.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/get-static-paths/page-journal-articles",
+      "handler": "get-static-paths.handlePageJournalArticles",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/get-static-paths/count",
+      "handler": "get-static-paths.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/get-static-paths/:id",
+      "handler": "get-static-paths.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/get-static-paths",
+      "handler": "get-static-paths.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/get-static-paths/:id",
+      "handler": "get-static-paths.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/get-static-paths/:id",
+      "handler": "get-static-paths.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

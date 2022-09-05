@@ -228,6 +228,24 @@
       "collection": "review",
       "via": "programs",
       "dominant": true
+    },
+    "icon": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "enumeration",
+      "enum": [
+        "paperPlane",
+        "rocket",
+        "review",
+        "management",
+        "tablet",
+        "book",
+        "idea",
+        "graph"
+      ]
     }
   }
 }
