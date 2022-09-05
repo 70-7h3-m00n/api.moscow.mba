@@ -227,8 +227,8 @@ module.exports = {
                       url: component?.ref?.picture?.url || null,
                       width: component?.ref?.picture?.width || null,
                       height: component?.ref?.picture?.height || null,
-                      ...(journalAuthor?.portrait?.alternativeText
-                        ? { alt: journalAuthor?.portrait?.alternativeText }
+                      ...(component?.portrait?.alternativeText
+                        ? { alt: component?.portrait?.alternativeText }
                         : {})
                     }
                   }
