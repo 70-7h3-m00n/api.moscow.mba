@@ -116,6 +116,7 @@ module.exports = {
             journal_category: 1,
             journal_tags: 1,
             journal_authors: 1,
+            programs: 1,
             articleBody: 1
           }
         )
@@ -123,6 +124,7 @@ module.exports = {
           { path: 'picture', select: 'url width height alternativeText' },
           { path: 'journal_category', select: 'title slug' },
           { path: 'journal_tags', select: 'title slug' },
+          { path: 'programs', select: 'title slug icon' },
           {
             path: 'journal_authors',
             select: 'label firstName lastName portrait'
@@ -131,6 +133,8 @@ module.exports = {
 
       const journalArticle =
         journalArticles?.filter(journalArticle => journalArticle)?.[0] || null
+
+      console.log(journalArticle)
 
       const journalArticleFiltered = {
         title: journalArticle.title || null,
@@ -175,15 +179,20 @@ module.exports = {
               }
             }
           }) || null,
+        recommendedPrograms: journalArticle.programs.map(program => ({
+          title: program?.title,
+          slug: program?.slug,
+          icon: program?.icon
+        })),
         articleBody:
           journalArticle.articleBody?.map(component => {
-            // console.log(
-            //   util.inspect(component, {
-            //     showHidden: false,
-            //     depth: null,
-            //     colors: true
-            //   })
-            // )
+            console.log(
+              util.inspect(component, {
+                showHidden: false,
+                depth: null,
+                colors: true
+              })
+            )
 
             return {
               __typename: component?.kind || null,

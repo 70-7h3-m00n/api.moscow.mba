@@ -246,6 +246,10 @@
         "idea",
         "graph"
       ]
+    },
+    "journal_articles": {
+      "via": "programs",
+      "collection": "journal-article"
     }
   }
 }
