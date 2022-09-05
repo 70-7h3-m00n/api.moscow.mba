@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "journal_authors",
+  "info": {
+    "name": "journalAuthors"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "portrait": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "journal_articles": {
+      "via": "journal_authors",
+      "collection": "journal-article"
+    }
+  }
+}

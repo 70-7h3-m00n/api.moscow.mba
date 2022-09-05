@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/journal-authors",
+      "handler": "journal-authors.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/journal-authors/count",
+      "handler": "journal-authors.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/journal-authors/:id",
+      "handler": "journal-authors.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/journal-authors",
+      "handler": "journal-authors.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/journal-authors/:id",
+      "handler": "journal-authors.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/journal-authors/:id",
+      "handler": "journal-authors.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

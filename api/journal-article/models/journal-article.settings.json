@@ -54,13 +54,15 @@
         "journal.journal-recommended-program"
       ]
     },
-    "isHighlighted": {
-      "type": "boolean"
-    },
     "journalAuthors": {
       "type": "component",
       "repeatable": true,
       "component": "journal.journal-author"
+    },
+    "journal_authors": {
+      "collection": "journal-authors",
+      "via": "journal_articles",
+      "dominant": true
     }
   }
 }
