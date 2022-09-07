@@ -184,11 +184,11 @@ module.exports = {
             title: journalArticle.journal_category?.title || null,
             slug: journalArticle.journal_category?.slug || null
           } || null,
-        journalTags:
-          journalArticle.journal_tags?.map(journalTag => ({
-            title: journalTag?.title || null,
-            slug: journalTag?.slug || null
-          })) || [],
+        // journalTags:
+        //   journalArticle.journal_tags?.map(journalTag => ({
+        //     title: journalTag?.title || null,
+        //     slug: journalTag?.slug || null
+        //   })) || [],
         journalAuthors:
           journalArticle.journal_authors?.map(journalAuthor => {
             return {
