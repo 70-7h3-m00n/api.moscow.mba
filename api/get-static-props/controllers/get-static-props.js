@@ -470,12 +470,13 @@ module.exports = {
           }
         )
 
-      const journalCategoriesFiltered = journalCategories
-        ?.filter(journalCategory => journalCategory)
-        ?.map(journalCategory => ({
-          title: journalCategory.title || null,
-          slug: journalCategory.slug || null
-        }))
+      const journalCategoriesFiltered =
+        journalCategories
+          ?.filter(journalCategory => journalCategory)
+          ?.map(journalCategory => ({
+            title: journalCategory.title || null,
+            slug: journalCategory.slug || null
+          })) || []
 
       const journalArticles = await strapi
         .query('journal-article')
