@@ -235,7 +235,7 @@ module.exports = {
                         ...(item?.ref?.isHighlighted
                           ? { isHighlighted: item?.ref?.isHighlighted }
                           : {})
-                      })) || null
+                      })) || []
                   }
                 : {}),
               ...(component?.kind === 'ComponentJournalTitle'
@@ -246,7 +246,7 @@ module.exports = {
                         ...(item?.ref?.isHighlighted
                           ? { isHighlighted: item?.ref?.isHighlighted }
                           : {})
-                      })) || null
+                      })) || []
                   }
                 : {}),
               ...(component?.kind === 'ComponentGeneralPicture'
@@ -290,7 +290,7 @@ module.exports = {
                 ? {
                     quote: {
                       body: component?.ref?.body || null,
-                      athorPosition: component?.ref?.athorPosition || null,
+                      authorPosition: component?.ref?.athorPosition || null,
                       authorName: component?.ref?.authorName || null
                     }
                   }
@@ -350,10 +350,11 @@ module.exports = {
                 : {}),
               ...(component?.kind === 'ComponentJournalConclusion'
                 ? {
-                    conclusion: component?.ref?.item?.map(item => ({
-                      title: item?.ref?.title || null,
-                      body: item?.ref?.body || null
-                    }))
+                    conclusion:
+                      component?.ref?.item?.map(item => ({
+                        title: item?.ref?.title || null,
+                        body: item?.ref?.body || null
+                      })) || []
                   }
                 : {}),
               ...(component?.kind ===
@@ -365,12 +366,12 @@ module.exports = {
                         component?.ref?.sectionTitle.map(item => ({
                           titlePart: item?.ref?.text || null,
                           isHighlighted: item?.ref?.isHighlighted || null
-                        })) || null,
+                        })) || [],
                       shortTextAtTheBottom:
                         component?.ref?.shortTextAtTheBottom?.map(item => ({
                           textPart: item?.ref?.text || null,
                           isHighlighted: item?.ref?.isHighlighted || null
-                        })) || null,
+                        })) || [],
                       programs: component?.ref?.programs?.map(program => {
                         // console.log('program.category: ', program.category)
                         // console.log('programCategories: ', programCategories)
