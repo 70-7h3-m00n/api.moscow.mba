@@ -153,6 +153,10 @@ module.exports = {
             path: 'journal_authors',
             select: 'label firstName lastName portrait'
           }
+          // {
+          //   path: 'articleBody.portrait',
+          //   select: 'url width height alternativeText'
+          // }
         ])
 
       const journalArticle =
@@ -291,7 +295,15 @@ module.exports = {
                     quote: {
                       body: component?.ref?.body || null,
                       authorPosition: component?.ref?.athorPosition || null,
-                      authorName: component?.ref?.authorName || null
+                      authorName: component?.ref?.authorName || null,
+                      portrait: {
+                        url: component?.ref?.portrait?.url || null,
+                        width: component?.ref?.portrait?.width || null,
+                        height: component?.ref?.portrait?.height || null,
+                        ...(component?.portrait?.alternativeText
+                          ? { alt: component?.ref?.portrait?.alternativeText }
+                          : {})
+                      }
                     }
                   }
                 : {}),
