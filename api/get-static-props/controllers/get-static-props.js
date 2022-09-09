@@ -197,8 +197,13 @@ module.exports = {
           journalArticle.journal_authors?.map(journalAuthor => {
             return {
               ...(journalAuthor?.label ? { label: journalAuthor?.label } : {}),
-              firstName: journalAuthor?.firstName || null,
-              lastName: journalAuthor?.lastName || null,
+              label: journalAuthor?.label || null,
+              authorPosition: journalAuthor?.authorPosition || null,
+              // firstName: journalAuthor?.firstName || null,
+              // lastName: journalAuthor?.lastName || null,
+              authorName:
+                `${journalAuthor?.firstName} ${journalAuthor?.lastName}` ||
+                null,
               portrait: {
                 url: journalAuthor?.portrait?.url || null,
                 width: journalAuthor?.portrait?.width || null,
@@ -294,6 +299,7 @@ module.exports = {
                 ? {
                     quote: {
                       body: component?.ref?.body || null,
+                      label: component?.ref?.label || null, // * not in the strapi yet
                       authorPosition: component?.ref?.athorPosition || null,
                       authorName: component?.ref?.authorName || null,
                       portrait: {
