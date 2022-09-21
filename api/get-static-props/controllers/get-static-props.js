@@ -7,6 +7,7 @@
 
 const { createBlended } = require('../../../helpers/index')
 const util = require('util')
+const axios = require('axios')
 
 module.exports = {
   default: async ctx => {
@@ -164,6 +165,38 @@ module.exports = {
 
       // console.log(journalArticle.programs)
 
+      const fetchTable = async url => {
+        try {
+          const res = await axios.get(url)
+          const data = await res.data
+          return data
+        } catch (err) {
+          console.log(err)
+          return null
+        }
+      }
+
+      const bodyArticleHtmlTables = journalArticle?.articleBody?.map(item =>
+        item?.kind === 'ComponentJournalJournalTable'
+          ? item?.ref?.htmlTable
+          : null
+      )
+
+      // console.log(bodyArticleHtmlTables)
+
+      const getHtmlTableBodyTable = async () => {
+        const data = await Promise.all(
+          bodyArticleHtmlTables.map(async item =>
+            item ? { table: await fetchTable(item?.url) } : null
+          )
+        )
+        return data
+      }
+
+      const htmlTableBodyTable = await getHtmlTableBodyTable()
+
+      console.log('htmlTableBodyTable: ', htmlTableBodyTable)
+
       const journalArticleFiltered = {
         title: journalArticle.title || null,
         slug: journalArticle.slug || null,
@@ -223,7 +256,7 @@ module.exports = {
             icon: program?.icon || null
           })) || [],
         articleBody:
-          journalArticle.articleBody?.map(component => {
+          journalArticle.articleBody?.map((component, idx) => {
             // console.log(
             //   util.inspect(component, {
             //     showHidden: false,
@@ -285,13 +318,14 @@ module.exports = {
               ...(component?.kind === 'ComponentJournalJournalTable'
                 ? {
                     htmlTableBody: {
-                      name: component?.ref?.htmlTable?.name || null,
-                      url: component?.ref?.htmlTable?.url || null,
-                      ...(component?.ref?.htmlTableBody?.alternativeText
-                        ? {
-                            alt: component?.ref?.htmlTableBody?.alternativeText
-                          }
-                        : {})
+                      // name: component?.ref?.htmlTable?.name || null,
+                      // url: component?.ref?.htmlTable?.url || null,
+                      // ...(component?.ref?.htmlTableBody?.alternativeText
+                      //   ? {
+                      //       alt: component?.ref?.htmlTableBody?.alternativeText
+                      //     }
+                      //   : {}),
+                      table: htmlTableBodyTable?.[idx]?.table || null
                     }
                   }
                 : {}),
