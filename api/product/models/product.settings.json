@@ -250,6 +250,22 @@
     "journal_articles": {
       "via": "programs",
       "collection": "journal-article"
+    },
+    "metaTitle": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
+    },
+    "metaDescription": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "text"
     }
   }
 }

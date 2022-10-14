@@ -64,8 +64,8 @@
       "dominant": true
     },
     "programs": {
-      "collection": "product",
       "via": "journal_articles",
+      "collection": "product",
       "dominant": true
     },
     "pdfMaterials": {
@@ -77,6 +77,12 @@
       "plugin": "upload",
       "required": false,
       "pluginOptions": {}
+    },
+    "metaDescription": {
+      "type": "text"
+    },
+    "metaTitle": {
+      "type": "string"
     }
   }
 }
