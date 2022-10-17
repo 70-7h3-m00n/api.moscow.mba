@@ -83,6 +83,12 @@
     },
     "metaTitle": {
       "type": "string"
+    },
+    "noindex": {
+      "type": "boolean"
+    },
+    "nofollow": {
+      "type": "boolean"
     }
   }
 }
