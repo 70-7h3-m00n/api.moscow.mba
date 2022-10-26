@@ -35,19 +35,27 @@ module.exports = {
       return { paths: [] }
     }
   },
-  handlePageProgrm: async ctx => {
+  handlePageProgram: async ctx => {
+    const programType = ctx?.request?.url?.split('/')?.[3] || 'mini'
+
     try {
-      const programs = await strapi.query('program').model.find(
-        { published_at: { $ne: null } },
-        {
-          id: 1,
-          slug: 1
-        }
-      )
+      const programs = await strapi
+        .query('product')
+        .model.find(
+          { published_at: { $ne: null } },
+          {
+            id: 1,
+            slug: 1,
+            category: 1
+          }
+        )
+        .populate([{ path: 'category', select: 'type slug' }])
 
       const programsFiltered =
         programs
-          ?.filter(program => program)
+          ?.filter(
+            program => program && program?.category?.slug === programType
+          )
           ?.map(program => ({
             slug: program.slug || null
           })) || []
