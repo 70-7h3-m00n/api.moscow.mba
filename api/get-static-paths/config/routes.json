@@ -10,7 +10,23 @@
     },
     {
       "method": "GET",
-      "path": "/get-static-paths/page-journal-articles",
+      "path": "/get-static-paths/page-journal-article",
+      "handler": "get-static-paths.handlePageJournalArticles",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/get-static-paths/page-program",
+      "handler": "get-static-paths.handlePageJournalArticles",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/get-static-paths/page-teacher",
       "handler": "get-static-paths.handlePageJournalArticles",
       "config": {
         "policies": []

@@ -23,10 +23,74 @@ module.exports = {
             slug: article.slug || null
           })) || []
 
-      return { articles: articlesFiltered }
+      const paths = articlesFiltered.map(article => ({
+        params: {
+          journalArticle: article.slug
+        }
+      }))
+
+      return { paths }
     } catch (err) {
       console.log(err)
-      return { articles: [] }
+      return { paths: [] }
+    }
+  },
+  handlePageProgrm: async ctx => {
+    try {
+      const programs = await strapi.query('program').model.find(
+        { published_at: { $ne: null } },
+        {
+          id: 1,
+          slug: 1
+        }
+      )
+
+      const programsFiltered =
+        programs
+          ?.filter(program => program)
+          ?.map(program => ({
+            slug: program.slug || null
+          })) || []
+
+      const paths = programsFiltered.map(program => ({
+        params: {
+          slug: program.slug
+        }
+      }))
+
+      return { paths }
+    } catch (err) {
+      console.log(err)
+      return { paths: [] }
+    }
+  },
+  handlePageTeacher: async ctx => {
+    try {
+      const teachers = await strapi.query('teacher').model.find(
+        { published_at: { $ne: null } },
+        {
+          id: 1,
+          slug: 1
+        }
+      )
+
+      const teachersFiltered =
+        teachers
+          ?.filter(teacher => teacher)
+          ?.map(teacher => ({
+            slug: teacher.slug || null
+          })) || []
+
+      const paths = teachersFiltered.map(teacher => ({
+        params: {
+          teacher: teacher.slug
+        }
+      }))
+
+      return { paths }
+    } catch (err) {
+      console.log(err)
+      return { paths: [] }
     }
   }
 }
