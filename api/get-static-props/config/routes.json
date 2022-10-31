@@ -66,8 +66,16 @@
     },
     {
       "method": "GET",
-      "path": "/get-static-props-msk-academy/default/:type",
+      "path": "/get-static-props-msk-academy/default/:type/:slug",
       "handler": "get-static-props.defaultMskAcademy",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/get-static-props-msk-academy/program/:type/:slug",
+      "handler": "get-static-props.programMskAcademy",
       "config": {
         "policies": []
       }
