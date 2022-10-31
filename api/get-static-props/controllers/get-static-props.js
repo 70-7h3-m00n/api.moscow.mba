@@ -1079,7 +1079,7 @@ module.exports = {
   },
   defaultMskAcademy: async ctx => {
     const typeSlug = ctx?.request?.url?.split('/')?.[3] || 'mini'
-    const programSlug = ctx?.request?.url?.split('/')?.[4] || ''
+    // const programSlug = ctx?.request?.url?.split('/')?.[4] || ''
 
     try {
       const programs = await strapi
