@@ -63,6 +63,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "GET",
+      "path": "/get-static-props-msk-academy/default/:type",
+      "handler": "get-static-props.defaultMskAcademy",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

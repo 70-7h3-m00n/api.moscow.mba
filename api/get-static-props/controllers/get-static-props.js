@@ -1076,5 +1076,50 @@ module.exports = {
       console.log(err)
       return { programs: null, teachers: null }
     }
+  },
+  defaultMskAcademy: async ctx => {
+    const typeSlug = ctx?.request?.url?.split('/')?.[3] || 'mini'
+
+    try {
+      const programs = await strapi
+        .query('product')
+        .model.find(
+          { published_at: { $ne: null } },
+          {
+            id: 1,
+            title: 1,
+            slug: 1,
+            category: 1,
+            duration: 1,
+            whatWillYouLearn: 1
+          }
+        )
+        .populate([
+          { path: 'category', select: 'type slug' },
+          { path: 'duration', select: 'minStudyMonths' },
+          { path: 'whatWillYouLearn', select: 'string' }
+        ])
+
+      const programsFiltered =
+        programs
+          ?.filter(program => program && program?.category?.type === typeSlug)
+          ?.map(program => ({
+            id: program.id || null,
+            title: program.title || null,
+            slug: program.slug || null,
+            duration: {
+              minStudyMonths:
+                Number(program.duration?.[0]?.ref?.minStudyMonths) || null
+            },
+            whatWillYouLearn: program.whatWillYouLearn?.map(item => ({
+              string: item?.ref?.string || null
+            }))
+          })) || []
+
+      return { programs: programsFiltered }
+    } catch (err) {
+      console.log(err)
+      return { programs: null }
+    }
   }
 }
