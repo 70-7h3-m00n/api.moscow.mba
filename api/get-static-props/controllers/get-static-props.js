@@ -1103,12 +1103,7 @@ module.exports = {
 
       const programsFiltered =
         programs
-          ?.filter(
-            program =>
-              program &&
-              program?.category?.type === typeSlug &&
-              program?.slug === programSlug
-          )
+          ?.filter(program => program && program?.category?.type === typeSlug)
           ?.map(program => ({
             id: program.id || null,
             title: program.title || null,
