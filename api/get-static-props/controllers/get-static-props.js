@@ -290,13 +290,16 @@ module.exports = {
                 : {}),
               ...(component?.kind === 'ComponentJournalTitle'
                 ? {
-                    titleBodyParts:
-                      component?.ref?.titleBody?.map(item => ({
-                        text: item?.ref?.text || null,
-                        ...(item?.ref?.isHighlighted
-                          ? { isHighlighted: item?.ref?.isHighlighted }
-                          : {})
-                      })) || []
+                    title: {
+                      titleBodyParts:
+                        component?.ref?.titleBody?.map(item => ({
+                          text: item?.ref?.text || null,
+                          ...(item?.ref?.isHighlighted
+                            ? { isHighlighted: item?.ref?.isHighlighted }
+                            : {})
+                        })) || [],
+                      hType: component?.ref?.hType || null
+                    }
                   }
                 : {}),
               ...(component?.kind === 'ComponentGeneralPicture'
@@ -404,9 +407,12 @@ module.exports = {
                 : {}),
               ...(component?.kind === 'ComponentJournalList'
                 ? {
-                    list: component?.ref?.listItem?.map(item => ({
-                      body: item?.ref?.body || null
-                    }))
+                    list: {
+                      items: component?.ref?.listItem?.map(item => ({
+                        body: item?.ref?.body || null
+                      })),
+                      tag: component?.ref?.tag || null
+                    }
                   }
                 : {}),
               ...(component?.kind === 'ComponentJournalConclusion'
