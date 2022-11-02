@@ -107,5 +107,3 @@ exports
 *.cache
 build
 .strapi-updater.json
-
-yarn.lock
