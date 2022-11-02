@@ -307,7 +307,8 @@ module.exports = {
                       height: component?.ref?.picture?.height || null,
                       ...(component?.portrait?.alternativeText
                         ? { alt: component?.portrait?.alternativeText }
-                        : {})
+                        : {}),
+                      title: component?.ref?.title || null
                     }
                   }
                 : {}),
