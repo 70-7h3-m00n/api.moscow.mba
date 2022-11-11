@@ -1146,6 +1146,7 @@ module.exports = {
             id: 1,
             title: 1,
             slug: 1,
+            goal: 1,
             category: 1,
             duration: 1,
             whatWillYouLearn: 1,
@@ -1179,6 +1180,7 @@ module.exports = {
             title: program.title || null,
             slug: program.slug || null,
             price: program.price || null,
+            goal: program.goal || null,
             duration: {
               minStudyMonths: program.duration?.[0]?.ref?.minStudyMonths || null
             },
@@ -1226,6 +1228,74 @@ module.exports = {
           })) || null
 
       return { programs: programFiltered }
+    } catch (err) {
+      console.log(err)
+      return { programs: null }
+    }
+  },
+  feedYML: async ctx => {
+    // TODO: the query is not finished & finish this query
+    try {
+      const categories = await strapi
+        .query('category')
+        .model.find(
+          { published_at: { $ne: null } },
+          {
+            slug: 1,
+            labelCases: 1
+          }
+        )
+        .populate([{ path: 'labelCases', select: 'singular' }])
+
+      const programs = await strapi
+        .query('product')
+        .model.find(
+          { published_at: { $ne: null } },
+          {
+            id: 1,
+            title: 1,
+            slug: 1,
+            price: 1,
+            description: 1,
+            discount: 1,
+            studyFormat: 1,
+            category: 1,
+            study_field: 1,
+            duration: 1,
+            baseSubjects: 1,
+            specializedSubjects: 1
+          }
+        )
+        .populate([
+          { path: 'category', select: 'type' },
+          { path: 'study_field', select: 'id name slug description' },
+          { path: 'duration', select: 'minStudyMonths' },
+          { path: 'baseSubjects', select: 'string' },
+          { path: 'specializedSubjects', select: 'string' }
+        ])
+
+      const programsFiltered =
+        programs
+          ?.filter(program => program)
+          ?.map(program => ({
+            _id: program._id || null,
+            id: program.id || null,
+            title: program.title || null,
+            slug: program.slug || null,
+            studyFormat: program.studyFormat || null,
+            category: {
+              type: program.category?.type || null,
+              slug: program.category?.slug || null
+            },
+            study_field: {
+              id: program.study_field?.id || null,
+              name: program.study_field?.name || null,
+              slug: program.study_field?.slug || null,
+              description: program.study_field?.description || null
+            }
+          })) || []
+
+      return { programs: createBlended(programsFiltered) }
     } catch (err) {
       console.log(err)
       return { programs: null }
