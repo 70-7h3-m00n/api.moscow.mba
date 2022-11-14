@@ -1152,6 +1152,7 @@ module.exports = {
             whatWillYouLearn: 1,
             picture: 1,
             price: 1,
+            discount: 1,
             whoIsFor: 1,
             baseSubjects: 1,
             specializedSubjects: 1,
@@ -1180,6 +1181,7 @@ module.exports = {
             title: program.title || null,
             slug: program.slug || null,
             price: program.price || null,
+            discount: program.discount || null,
             goal: program.goal || null,
             duration: {
               minStudyMonths: program.duration?.[0]?.ref?.minStudyMonths || null
