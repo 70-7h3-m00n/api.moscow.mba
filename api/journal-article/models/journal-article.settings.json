@@ -85,10 +85,12 @@
       "type": "string"
     },
     "noindex": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": true
     },
     "nofollow": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": true
     },
     "journal_recommended_articles": {
       "collection": "journal-article",
