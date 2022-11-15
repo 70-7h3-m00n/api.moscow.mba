@@ -89,6 +89,15 @@
     },
     "nofollow": {
       "type": "boolean"
+    },
+    "journal_recommended_articles": {
+      "collection": "journal-article",
+      "via": "journal_articles",
+      "dominant": true
+    },
+    "journal_articles": {
+      "collection": "journal-article",
+      "via": "journal_recommended_articles"
     }
   }
 }
