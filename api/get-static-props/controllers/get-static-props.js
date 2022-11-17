@@ -631,6 +631,7 @@ module.exports = {
             slug: 1,
             createdAt: 1,
             shortDescription: 1,
+            metaDescription: 1,
             picture: 1,
             journal_category: 1
           }
@@ -648,6 +649,7 @@ module.exports = {
             slug: journalArticle.slug || null,
             createdAt: journalArticle.createdAt || null,
             shortDescription: journalArticle.shortDescription || null,
+            metaDescription: journalArticle.metaDescription || null,
             picture: {
               url: journalArticle.picture?.url || null,
               width: journalArticle.picture?.width || null,
