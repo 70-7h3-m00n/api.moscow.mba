@@ -31,9 +31,7 @@
     "picture": {
       "model": "file",
       "via": "related",
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "plugin": "upload",
       "required": false,
       "pluginOptions": {}
@@ -55,7 +53,8 @@
         "journal.journal-recommended-articles",
         "journal.journal-table",
         "journal.journal-recommended-program",
-        "journal.journal-article-recommended-programs-section"
+        "journal.journal-article-recommended-programs-section",
+        "journal.read-also-articles"
       ]
     },
     "journal_authors": {
@@ -71,9 +70,7 @@
     "pdfMaterials": {
       "collection": "file",
       "via": "related",
-      "allowedTypes": [
-        "files"
-      ],
+      "allowedTypes": ["files"],
       "plugin": "upload",
       "required": false,
       "pluginOptions": {}
@@ -91,15 +88,6 @@
     "nofollow": {
       "type": "boolean",
       "default": true
-    },
-    "journal_recommended_articles": {
-      "collection": "journal-article",
-      "via": "journal_articles",
-      "dominant": true
-    },
-    "journal_articles": {
-      "collection": "journal-article",
-      "via": "journal_recommended_articles"
     }
   }
 }

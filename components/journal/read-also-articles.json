@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_journal_read_also_articles",
+  "info": {
+    "name": "readAlsoArticles",
+    "icon": "arrow-alt-circle-right"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "journal_articles": {
+      "collection": "journal-article"
+    }
+  }
+}

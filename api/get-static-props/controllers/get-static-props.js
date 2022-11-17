@@ -167,7 +167,35 @@ module.exports = {
       const journalArticle =
         journalArticles?.filter(journalArticle => journalArticle)?.[0] || null
 
+      const journalArticleCategories = await strapi
+        .query('journal-category')
+        .model.find(
+          {
+            published_at: { $ne: null }
+          },
+          {
+            title: 1,
+            slug: 1
+          }
+        )
+
+      // console.log(
+      //   util.inspect(journalArticleCategories, {
+      //     showHidden: false,
+      //     depth: null,
+      //     colors: true
+      //   })
+      // )
+
       // console.log(journalArticle.programs)
+
+      // console.log(
+      //   util.inspect(journalArticle.articleBody, {
+      //     showHidden: false,
+      //     depth: null,
+      //     colors: true
+      //   })
+      // )
 
       const fetchTable = async url => {
         try {
@@ -199,7 +227,7 @@ module.exports = {
 
       const htmlTableBodyTable = await getHtmlTableBodyTable()
 
-      console.log('htmlTableBodyTable: ', htmlTableBodyTable)
+      // console.log('htmlTableBodyTable: ', htmlTableBodyTable)
 
       const journalArticleFiltered = {
         title: journalArticle.title || null,
@@ -371,6 +399,54 @@ module.exports = {
                             slug: journalArticle?.slug || null
                           })
                         ) || []
+                    }
+                  }
+                : {}),
+              ...(component?.kind === 'ComponentJournalReadAlsoArticles'
+                ? {
+                    journalReadAlsoArticles: {
+                      title: component?.ref?.title || null,
+                      articles:
+                        component?.ref?.journal_articles
+                          ?.filter(
+                            item => item
+                            // &&
+                            // journalArticle?.articleBody
+                            //   .filter(
+                            //     component =>
+                            //       component?.kind ===
+                            //       'ComponentJournalJournalRecommendedArticles'
+                            //   )
+                            //   .map(piece => piece?.ref?.title)
+                            //   .some(title => title === item?.title)
+                          )
+                          .map(article => ({
+                            title: article?.title || null,
+                            slug: article?.slug || null,
+                            createdAt: article.createdAt || null,
+                            picture: {
+                              url: article?.picture?.url || null,
+                              width: article?.picture?.width || null,
+                              height: article?.picture?.height || null,
+                              alt: article?.picture?.alternativeText || null
+                            },
+                            journalCategory: article?.journal_category
+                              ? journalArticleCategories
+                                  .filter(
+                                    journalArticleCategory =>
+                                      journalArticleCategory?._id
+                                        ?.toString()
+                                        ?.trim() ===
+                                      article?.journal_category
+                                        .toString()
+                                        ?.trim()
+                                  )
+                                  .map(item => ({
+                                    title: item?.title || null,
+                                    slug: item?.slug || null
+                                  }))?.[0]
+                              : null
+                          })) || []
                     }
                   }
                 : {}),
