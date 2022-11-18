@@ -236,8 +236,18 @@ module.exports = {
         createdAt: journalArticle.createdAt || null,
         metaTitle: journalArticle.metaTitle || null,
         metaDescription: journalArticle.metaDescription || null,
-        noindex: journalArticle.noindex || null,
-        nofollow: journalArticle.nofollow || null,
+        noindex:
+          journalArticle.noindex === false
+            ? false
+            : journalArticle.noindex === true
+            ? true
+            : null,
+        nofollow:
+          journalArticle.nofollow === false
+            ? false
+            : journalArticle.nofollow === true
+            ? true
+            : null,
         picture: {
           url: journalArticle.picture?.url || null,
           width: journalArticle.picture?.width || null,
@@ -857,8 +867,18 @@ module.exports = {
             slug: program.slug || null,
             metaTitle: program.metaTitle || null,
             metaDescription: program.metaDescription || null,
-            noindex: program.noindex || null,
-            nofollow: program.nofollow || null,
+            noindex:
+              program.noindex === false
+                ? false
+                : program.noindex === true
+                ? true
+                : null,
+            nofollow:
+              program.nofollow === false
+                ? false
+                : program.nofollow === true
+                ? true
+                : null,
             studyFormat: program.studyFormat || null,
             category: {
               type: program.category?.type || null,
