@@ -144,8 +144,14 @@ module.exports = {
           }
         )
         .populate([
-          { path: 'picture', select: 'url width height alternativeText' },
-          { path: 'pdfMaterials', select: 'url width height alternativeText' },
+          {
+            path: 'picture',
+            select: 'url width height alternativeText'
+          },
+          {
+            path: 'pdfMaterials',
+            select: 'url width height alternativeText'
+          },
           { path: 'journal_category', select: 'title slug' },
           { path: 'journal_tags', select: 'title slug' },
           {
@@ -288,7 +294,9 @@ module.exports = {
                 width: journalAuthor?.portrait?.width || null,
                 height: journalAuthor?.portrait?.height || null,
                 ...(journalAuthor?.portrait?.alternativeText
-                  ? { alt: journalAuthor?.portrait?.alternativeText }
+                  ? {
+                      alt: journalAuthor?.portrait?.alternativeText
+                    }
                   : {})
               }
             }
@@ -318,10 +326,14 @@ module.exports = {
                       component?.ref?.paragraphBody?.map(item => ({
                         text: item?.ref?.text || null,
                         ...(item?.ref?.isLarger
-                          ? { isLarger: item?.ref?.isLarger }
+                          ? {
+                              isLarger: item?.ref?.isLarger
+                            }
                           : {}),
                         ...(item?.ref?.isHighlighted
-                          ? { isHighlighted: item?.ref?.isHighlighted }
+                          ? {
+                              isHighlighted: item?.ref?.isHighlighted
+                            }
                           : {})
                       })) || []
                   }
@@ -333,7 +345,9 @@ module.exports = {
                         component?.ref?.titleBody?.map(item => ({
                           text: item?.ref?.text || null,
                           ...(item?.ref?.isHighlighted
-                            ? { isHighlighted: item?.ref?.isHighlighted }
+                            ? {
+                                isHighlighted: item?.ref?.isHighlighted
+                              }
                             : {})
                         })) || [],
                       hType: component?.ref?.hType || null
@@ -347,7 +361,9 @@ module.exports = {
                       width: component?.ref?.picture?.width || null,
                       height: component?.ref?.picture?.height || null,
                       ...(component?.portrait?.alternativeText
-                        ? { alt: component?.portrait?.alternativeText }
+                        ? {
+                            alt: component?.portrait?.alternativeText
+                          }
                         : {}),
                       title: component?.ref?.title || null
                     }
@@ -391,7 +407,9 @@ module.exports = {
                         width: component?.ref?.portrait?.width || null,
                         height: component?.ref?.portrait?.height || null,
                         ...(component?.portrait?.alternativeText
-                          ? { alt: component?.ref?.portrait?.alternativeText }
+                          ? {
+                              alt: component?.ref?.portrait?.alternativeText
+                            }
                           : {})
                       }
                     }
@@ -557,7 +575,7 @@ module.exports = {
       }
 
       return {
-        programs: programsFiltered,
+        programs: createBlended(programsFiltered),
         journalArticle: journalArticleFiltered
         // journalArticle
       }
@@ -647,7 +665,10 @@ module.exports = {
           }
         )
         .populate([
-          { path: 'picture', select: 'url width height alternativeText' },
+          {
+            path: 'picture',
+            select: 'url width height alternativeText'
+          },
           { path: 'journal_category', select: 'title slug' }
         ])
 
@@ -678,7 +699,7 @@ module.exports = {
           ) || []
 
       return {
-        programs: programsFiltered,
+        programs: createBlended(programsFiltered),
         journalCategories: journalCategoriesFiltered,
         journalArticles: journalArticlesFiltered
       }
@@ -1259,7 +1280,10 @@ module.exports = {
         )
         .populate([
           { path: 'category', select: 'type slug' },
-          { path: 'picture', select: 'url width height alternativeText' },
+          {
+            path: 'picture',
+            select: 'url width height alternativeText'
+          },
           { path: 'whatWillYouLearn', select: 'string' },
           { path: 'specializedSubjects', select: 'string title' },
           { path: 'duration', select: 'minStudyMonths' },
