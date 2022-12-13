@@ -144,8 +144,14 @@ module.exports = {
           }
         )
         .populate([
-          { path: 'picture', select: 'url width height alternativeText' },
-          { path: 'pdfMaterials', select: 'url width height alternativeText' },
+          {
+            path: 'picture',
+            select: 'url width height alternativeText'
+          },
+          {
+            path: 'pdfMaterials',
+            select: 'url width height alternativeText'
+          },
           { path: 'journal_category', select: 'title slug' },
           { path: 'journal_tags', select: 'title slug' },
           {
@@ -236,8 +242,18 @@ module.exports = {
         createdAt: journalArticle.createdAt || null,
         metaTitle: journalArticle.metaTitle || null,
         metaDescription: journalArticle.metaDescription || null,
-        noindex: journalArticle.noindex || null,
-        nofollow: journalArticle.nofollow || null,
+        noindex:
+          journalArticle.noindex === false
+            ? false
+            : journalArticle.noindex === true
+            ? true
+            : null,
+        nofollow:
+          journalArticle.nofollow === false
+            ? false
+            : journalArticle.nofollow === true
+            ? true
+            : null,
         picture: {
           url: journalArticle.picture?.url || null,
           width: journalArticle.picture?.width || null,
@@ -278,7 +294,9 @@ module.exports = {
                 width: journalAuthor?.portrait?.width || null,
                 height: journalAuthor?.portrait?.height || null,
                 ...(journalAuthor?.portrait?.alternativeText
-                  ? { alt: journalAuthor?.portrait?.alternativeText }
+                  ? {
+                      alt: journalAuthor?.portrait?.alternativeText
+                    }
                   : {})
               }
             }
@@ -308,10 +326,14 @@ module.exports = {
                       component?.ref?.paragraphBody?.map(item => ({
                         text: item?.ref?.text || null,
                         ...(item?.ref?.isLarger
-                          ? { isLarger: item?.ref?.isLarger }
+                          ? {
+                              isLarger: item?.ref?.isLarger
+                            }
                           : {}),
                         ...(item?.ref?.isHighlighted
-                          ? { isHighlighted: item?.ref?.isHighlighted }
+                          ? {
+                              isHighlighted: item?.ref?.isHighlighted
+                            }
                           : {})
                       })) || []
                   }
@@ -323,7 +345,9 @@ module.exports = {
                         component?.ref?.titleBody?.map(item => ({
                           text: item?.ref?.text || null,
                           ...(item?.ref?.isHighlighted
-                            ? { isHighlighted: item?.ref?.isHighlighted }
+                            ? {
+                                isHighlighted: item?.ref?.isHighlighted
+                              }
                             : {})
                         })) || [],
                       hType: component?.ref?.hType || null
@@ -337,7 +361,9 @@ module.exports = {
                       width: component?.ref?.picture?.width || null,
                       height: component?.ref?.picture?.height || null,
                       ...(component?.portrait?.alternativeText
-                        ? { alt: component?.portrait?.alternativeText }
+                        ? {
+                            alt: component?.portrait?.alternativeText
+                          }
                         : {}),
                       title: component?.ref?.title || null
                     }
@@ -381,7 +407,9 @@ module.exports = {
                         width: component?.ref?.portrait?.width || null,
                         height: component?.ref?.portrait?.height || null,
                         ...(component?.portrait?.alternativeText
-                          ? { alt: component?.ref?.portrait?.alternativeText }
+                          ? {
+                              alt: component?.ref?.portrait?.alternativeText
+                            }
                           : {})
                       }
                     }
@@ -547,7 +575,7 @@ module.exports = {
       }
 
       return {
-        programs: programsFiltered,
+        programs: createBlended(programsFiltered),
         journalArticle: journalArticleFiltered
         // journalArticle
       }
@@ -631,12 +659,16 @@ module.exports = {
             slug: 1,
             createdAt: 1,
             shortDescription: 1,
+            metaDescription: 1,
             picture: 1,
             journal_category: 1
           }
         )
         .populate([
-          { path: 'picture', select: 'url width height alternativeText' },
+          {
+            path: 'picture',
+            select: 'url width height alternativeText'
+          },
           { path: 'journal_category', select: 'title slug' }
         ])
 
@@ -648,6 +680,7 @@ module.exports = {
             slug: journalArticle.slug || null,
             createdAt: journalArticle.createdAt || null,
             shortDescription: journalArticle.shortDescription || null,
+            metaDescription: journalArticle.metaDescription || null,
             picture: {
               url: journalArticle.picture?.url || null,
               width: journalArticle.picture?.width || null,
@@ -666,7 +699,7 @@ module.exports = {
           ) || []
 
       return {
-        programs: programsFiltered,
+        programs: createBlended(programsFiltered),
         journalCategories: journalCategoriesFiltered,
         journalArticles: journalArticlesFiltered
       }
@@ -855,8 +888,18 @@ module.exports = {
             slug: program.slug || null,
             metaTitle: program.metaTitle || null,
             metaDescription: program.metaDescription || null,
-            noindex: program.noindex || null,
-            nofollow: program.nofollow || null,
+            noindex:
+              program.noindex === false
+                ? false
+                : program.noindex === true
+                ? true
+                : null,
+            nofollow:
+              program.nofollow === false
+                ? false
+                : program.nofollow === true
+                ? true
+                : null,
             studyFormat: program.studyFormat || null,
             category: {
               type: program.category?.type || null,
@@ -1237,7 +1280,10 @@ module.exports = {
         )
         .populate([
           { path: 'category', select: 'type slug' },
-          { path: 'picture', select: 'url width height alternativeText' },
+          {
+            path: 'picture',
+            select: 'url width height alternativeText'
+          },
           { path: 'whatWillYouLearn', select: 'string' },
           { path: 'specializedSubjects', select: 'string title' },
           { path: 'duration', select: 'minStudyMonths' },
