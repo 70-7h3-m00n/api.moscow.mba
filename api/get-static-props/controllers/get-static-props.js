@@ -1000,7 +1000,7 @@ module.exports = {
             duration: 1,
             category: 1,
             study_field: 1,
-            updatedAt
+            updatedAt: 1
           }
         )
         .populate([
