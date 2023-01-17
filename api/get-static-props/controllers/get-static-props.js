@@ -999,7 +999,8 @@ module.exports = {
             price: 1,
             duration: 1,
             category: 1,
-            study_field: 1
+            study_field: 1,
+            updatedAt
           }
         )
         .populate([
@@ -1018,6 +1019,7 @@ module.exports = {
             slug: program.slug || null,
             studyFormat: program.studyFormat || null,
             price: program.price || null,
+            updatedAt: program.updatedAt || null,
             duration: {
               minStudyMonths: program.duration?.[0]?.ref?.minStudyMonths || null
             },
