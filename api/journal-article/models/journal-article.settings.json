@@ -1,6 +1,6 @@
 {
   "kind": "collectionType",
-  "collectionName": "journal_articles",
+  "collectionName": "jrnl_articles",
   "info": {
     "name": "journalArticle",
     "description": ""
@@ -26,7 +26,8 @@
     "journal_tags": {
       "collection": "journal-tag",
       "via": "journal_articles",
-      "dominant": true
+      "dominant": true,
+      "collectionName": "jrnl_articles_jrnl_tags__jrnl_tags_jrnl_articles"
     },
     "picture": {
       "model": "file",
@@ -60,12 +61,15 @@
     "journal_authors": {
       "collection": "journal-authors",
       "via": "journal_articles",
-      "dominant": true
+      "dominant": true,
+      "collectionName": "jrnl_articles_jrnl_authors__jrnl_authors_jrnl_articles"
+
     },
     "programs": {
       "via": "journal_articles",
       "collection": "product",
-      "dominant": true
+      "dominant": true,
+      "collectionName": "jrnl_articles_jrnl_products__jrnl_products_jrnl_articles"
     },
     "pdfMaterials": {
       "collection": "file",

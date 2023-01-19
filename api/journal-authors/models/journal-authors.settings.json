@@ -1,6 +1,6 @@
 {
   "kind": "collectionType",
-  "collectionName": "journal_authors",
+  "collectionName": "jrnl_authors",
   "info": {
     "name": "journalAuthors"
   },
