@@ -1,6 +1,6 @@
 {
   "kind": "collectionType",
-  "collectionName": "journal_tags",
+  "collectionName": "jrnl_tags",
   "info": {
     "name": "journalTag"
   },
