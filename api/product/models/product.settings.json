@@ -37,9 +37,7 @@
     "picture": {
       "model": "file",
       "via": "related",
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "plugin": "upload",
       "required": true,
       "pluginOptions": {
@@ -122,7 +120,7 @@
           "localized": true
         }
       },
-      "type": "biginteger",
+      "type": "float",
       "required": false
     },
     "discount": {
