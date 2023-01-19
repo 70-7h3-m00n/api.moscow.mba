@@ -1,6 +1,6 @@
 {
   "kind": "collectionType",
-  "collectionName": "journal_categories",
+  "collectionName": "jrnl_categories",
   "info": {
     "name": "journalCategory"
   },

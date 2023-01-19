@@ -1,5 +1,5 @@
 {
-  "collectionName": "components_journal_journal_recommended_articles",
+  "collectionName": "components_jrnl_jrnl_recomd_artcls",
   "info": {
     "name": "journalRecommendedArticles",
     "icon": "atlas",
@@ -10,7 +10,7 @@
     "title": {
       "type": "string"
     },
-    "journal_articles": {
+    "jrnl_articles": {
       "collection": "journal-article"
     }
   }

@@ -9,7 +9,7 @@
     "title": {
       "type": "string"
     },
-    "journal_articles": {
+    "jrnl_articles": {
       "collection": "journal-article"
     }
   }
