@@ -129,7 +129,7 @@
           "localized": true
         }
       },
-      "type": "biginteger"
+      "type": "float"
     },
     "baseSubjects": {
       "type": "component",
