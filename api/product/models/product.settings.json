@@ -181,7 +181,8 @@
     },
     "teachers": {
       "via": "programs",
-      "collection": "teacher"
+      "collection": "teacher",
+      "collectionName": "products_teachers__teachers_programs"
     },
     "category": {
       "via": "programs",
@@ -220,12 +221,14 @@
     "questions": {
       "collection": "question",
       "via": "programs",
-      "dominant": true
+      "dominant": true,
+      "collectionName": "products_questions__questions_programs"
     },
     "reviews": {
       "collection": "review",
       "via": "programs",
-      "dominant": true
+      "dominant": true,
+      "collectionName": "products_reviews__reviews_programs"
     },
     "icon": {
       "pluginOptions": {
