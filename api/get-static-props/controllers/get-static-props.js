@@ -1656,8 +1656,8 @@ module.exports = {
         programsProgram
           .filter((program) => program?.category?.type === typeSlug)
           ?.map((program, id) => ({
-            test1: program,
-            test2: programsProgram[0],
+            // test1: program,
+            // test2: programsProgram[0],
             id: program.id || null,
             title: program.title || null,
             slug: program.slug || null,

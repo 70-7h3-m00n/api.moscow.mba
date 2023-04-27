@@ -13,6 +13,27 @@ module.exports = {
       .query("product")
       .find({ published_at_ne: null });
 
+    const programsFiltered =
+      programs
+        ?.filter((program) => program)
+        ?.map((program) => ({
+          _id: program.id || null,
+          id: program.id || null,
+          title: program.title || null,
+          slug: program.slug || null,
+          studyFormat: program.studyFormat || null,
+          category: {
+            type: program.category?.type || null,
+            slug: program.category?.slug || null,
+          },
+          study_field: {
+            id: program.study_field?.id || null,
+            name: program.study_field?.name || null,
+            slug: program.study_field?.slug || null,
+            description: program.study_field?.description || null,
+          },
+        })) || [];
+
     // module.exports = {
     //   getStaticProps: async () => {
     //     const programs = await strapi
@@ -61,21 +82,40 @@ module.exports = {
     //       ])
 
     //POSTGRES
-    const teachers = await strapi.query("teacher").find(
-      { published_at_ne: null }
-      // {
-      //   // programs: 0,
-      //   copyToKk: 0,
-      //   createdAt: 0,
-      //   created_by: 0,
-      //   locale: 0,
-      //   localizations: 0,
-      //   updatedAt: 0,
-      //   updated_by: 0,
-      //   __v: 0,
-      //   id: 0,
-      // }
-    );
+    const teachers = await strapi
+      .query("teacher")
+      .find({ published_at_ne: null });
+    // {
+    //   // programs: 0,
+    //   copyToKk: 0,
+    //   createdAt: 0,
+    //   created_by: 0,
+    //   locale: 0,
+    //   localizations: 0,
+    //   updatedAt: 0,
+    //   updated_by: 0,
+    //   __v: 0,
+    //   id: 0,
+    // }
+
+    const teachersFiltered =
+      teachers
+        ?.filter((teacher) => teacher)
+        .map((teacher) => ({
+          name: teacher.name || null,
+          description: teacher.description || null,
+          slug: teacher.slug || null,
+          portrait: {
+            width: teacher.portrait?.width || null,
+            height: teacher.portrait?.height || null,
+            url: teacher.portrait?.url || null,
+          },
+          descriptionItems:
+            teacher.descriptionItems?.map((item) => ({
+              item: item?.item || null,
+            })) || null,
+          programs: teacher.programs?.map((program) => program?.title) || null,
+        })) || [];
 
     // const teachers = await strapi.query("teacher").model.find(
     //   { published_at: { $ne: null } },
@@ -93,11 +133,11 @@ module.exports = {
     //   }
     // );
 
-    const programsWithBlended = createBlended(programs);
+    const programsWithBlended = createBlended(programsFiltered);
 
     return {
       programs: programsWithBlended,
-      teachers: teachers.filter(
+      teachers: teachersFiltered.filter(
         (v, i, a) => a.findIndex((t) => t.slug === v.slug) === i
       ),
     };
@@ -154,6 +194,30 @@ module.exports = {
     //     { path: "duration", select: "minStudyMonths" },
     //   ]);
 
+    const programsFiltered =
+      programs
+        ?.filter((program) => program)
+        ?.map((program) => ({
+          _id: program.id || null,
+          id: program.id || null,
+          title: program.title || null,
+          slug: program.slug || null,
+          studyFormat: program.studyFormat || null,
+          category: {
+            type: program.category?.type || null,
+            slug: program.category?.slug || null,
+          },
+          study_field: {
+            id: program.study_field?.id || null,
+            name: program.study_field?.name || null,
+            slug: program.study_field?.slug || null,
+            description: program.study_field?.description || null,
+          },
+          duration: {
+            minStudyMonths: program.duration?.minStudyMonths || null,
+          },
+        })) || [];
+
     //POSTGRESS
     const teachers = await strapi
       .query("teacher")
@@ -175,11 +239,30 @@ module.exports = {
     //   }
     // );
 
-    const programsWithBlended = createBlended(programs);
+    const teachersFiltered =
+      teachers
+        ?.filter((teacher) => teacher)
+        .map((teacher) => ({
+          name: teacher.name || null,
+          description: teacher.description || null,
+          slug: teacher.slug || null,
+          portrait: {
+            width: teacher.portrait?.width || null,
+            height: teacher.portrait?.height || null,
+            url: teacher.portrait?.url || null,
+          },
+          descriptionItems:
+            teacher.descriptionItems?.map((item) => ({
+              item: item?.item || null,
+            })) || null,
+          programs: teacher.programs?.map((program) => program?.title) || null,
+        })) || [];
+
+    const programsWithBlended = createBlended(programsFiltered);
 
     return {
       programs: programsWithBlended,
-      teachers: teachers.filter(
+      teachers: teachersFiltered.filter(
         (v, i, a) => a.findIndex((t) => t.slug === v.slug) === i
       ),
     };
@@ -236,6 +319,30 @@ module.exports = {
     //     { path: "duration", select: "minStudyMonths" },
     //   ]);
 
+    const programsFiltered =
+      programs
+        ?.filter((program) => program)
+        ?.map((program) => ({
+          _id: program.id || null,
+          id: program.id || null,
+          title: program.title || null,
+          slug: program.slug || null,
+          studyFormat: program.studyFormat || null,
+          category: {
+            type: program.category?.type || null,
+            slug: program.category?.slug || null,
+          },
+          study_field: {
+            id: program.study_field?.id || null,
+            name: program.study_field?.name || null,
+            slug: program.study_field?.slug || null,
+            description: program.study_field?.description || null,
+          },
+          duration: {
+            minStudyMonths: program.duration?.minStudyMonths || null,
+          },
+        })) || [];
+
     //POSTGRESS
     const teachers = await strapi
       .query("teacher")
@@ -257,11 +364,30 @@ module.exports = {
     //   }
     // );
 
-    const programsWithBlended = createBlended(programs);
+    const teachersFiltered =
+      teachers
+        ?.filter((teacher) => teacher)
+        .map((teacher) => ({
+          name: teacher.name || null,
+          description: teacher.description || null,
+          slug: teacher.slug || null,
+          portrait: {
+            width: teacher.portrait?.width || null,
+            height: teacher.portrait?.height || null,
+            url: teacher.portrait?.url || null,
+          },
+          descriptionItems:
+            teacher.descriptionItems?.map((item) => ({
+              item: item?.item || null,
+            })) || null,
+          programs: teacher.programs?.map((program) => program?.title) || null,
+        })) || [];
+
+    const programsWithBlended = createBlended(programsFiltered);
 
     return {
       programs: programsWithBlended,
-      teachers: teachers.filter(
+      teachers: teachersFiltered.filter(
         (v, i, a) => a.findIndex((t) => t.slug === v.slug) === i
       ),
     };
@@ -317,6 +443,30 @@ module.exports = {
     //     { path: "whatWillYouLearn" },
     //   ]);
 
+    const programsFiltered =
+      programs
+        ?.filter((program) => program)
+        ?.map((program) => ({
+          _id: program.id || null,
+          id: program.id || null,
+          title: program.title || null,
+          slug: program.slug || null,
+          studyFormat: program.studyFormat || null,
+          category: {
+            type: program.category?.type || null,
+            slug: program.category?.slug || null,
+          },
+          study_field: {
+            id: program.study_field?.id || null,
+            name: program.study_field?.name || null,
+            slug: program.study_field?.slug || null,
+            description: program.study_field?.description || null,
+          },
+          duration: {
+            minStudyMonths: program.duration?.minStudyMonths || null,
+          },
+        })) || [];
+
     //POSTGRESS
     const teachers = await strapi
       .query("teacher")
@@ -338,13 +488,32 @@ module.exports = {
     //   }
     // );
 
-    const programsTypeMini = programs.filter(
+    const teachersFiltered =
+      teachers
+        ?.filter((teacher) => teacher)
+        .map((teacher) => ({
+          name: teacher.name || null,
+          description: teacher.description || null,
+          slug: teacher.slug || null,
+          portrait: {
+            width: teacher.portrait?.width || null,
+            height: teacher.portrait?.height || null,
+            url: teacher.portrait?.url || null,
+          },
+          descriptionItems:
+            teacher.descriptionItems?.map((item) => ({
+              item: item?.item || null,
+            })) || null,
+          programs: teacher.programs?.map((program) => program?.title) || null,
+        })) || [];
+
+    const programsTypeMini = programsFiltered.filter(
       (item) => item.category?.type === "mini"
     );
 
     return {
       programs: programsTypeMini,
-      teachers: teachers.filter(
+      teachers: teachersFiltered.filter(
         (v, i, a) => a.findIndex((t) => t.slug === v.slug) === i
       ),
     };
@@ -393,7 +562,7 @@ module.exports = {
     const type = ctx.request.url.split("/")[3];
 
     //POSTGRES
-    const programs = await strapi.query("product").find({
+    const paths = await strapi.query("product").find({
       published_at_ne: null,
     });
 
