@@ -297,7 +297,6 @@ module.exports = {
         //     title: journalTag?.title || null,
         //     slug: journalTag?.slug || null
         //   })) || [],
-        testJournalAuthors: journalArticle.journal_authors,
         journalAuthors:
           journalArticle.journal_authors?.map((journalAuthor) => {
             return {
@@ -321,7 +320,6 @@ module.exports = {
               },
             };
           }) || [],
-        testRecommendedPrograms: journalArticle.programs,
         recommendedPrograms:
           journalArticle.programs?.map((program) => ({
             title: program?.title || null,
@@ -406,7 +404,6 @@ module.exports = {
                 : {}),
               ...(component?.__component === "journal.journal-table"
                 ? {
-                    test: htmlTableBodyTable,
                     htmlTableBody: {
                       // name: component?.ref?.htmlTable?.name || null,
                       // url: component?.ref?.htmlTable?.url || null,
@@ -455,7 +452,6 @@ module.exports = {
               ...(component?.__component === "journal.read-also-articles"
                 ? {
                     journalReadAlsoArticles: {
-                      test: component,
                       title: component?.title || null,
                       articles:
                         component?.jrnl_articles
@@ -1189,7 +1185,6 @@ module.exports = {
         programsProgram
           .filter((program) => program?.category?.type === typeSlug)
           ?.map((program) => ({
-            test: programsProgram,
             _id: program.id || null,
             id: program.id || null,
             title: program.title || null,
@@ -1294,7 +1289,6 @@ module.exports = {
           }))?.[0] || null;
 
       return {
-        test: programs,
         programs: createBlended(programsFiltered),
         program: programFiltered,
       };
@@ -1360,7 +1354,6 @@ module.exports = {
           })) || [];
 
       return {
-        // test: programs,
         programs: createBlended(programsFiltered),
       };
     } catch (err) {
@@ -1658,8 +1651,6 @@ module.exports = {
         programsProgram
           .filter((program) => program?.category?.type === typeSlug)
           ?.map((program, id) => ({
-            // test1: program,
-            // test2: programsProgram[0],
             id: program.id || null,
             title: program.title || null,
             slug: program.slug || null,
