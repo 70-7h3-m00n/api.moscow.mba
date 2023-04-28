@@ -1294,7 +1294,7 @@ module.exports = {
           }))?.[0] || null;
 
       return {
-        test: programsProgram,
+        test: programs,
         programs: createBlended(programsFiltered),
         program: programFiltered,
       };
@@ -1343,6 +1343,7 @@ module.exports = {
             studyFormat: program.studyFormat || null,
             price: program.price || null,
             updatedAt: program.updated_at || null,
+            active: program.isActive || null,
             duration: {
               minStudyMonths: program.duration?.minStudyMonths || null,
             },
@@ -1359,6 +1360,7 @@ module.exports = {
           })) || [];
 
       return {
+        // test: programs,
         programs: createBlended(programsFiltered),
       };
     } catch (err) {
