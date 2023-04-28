@@ -105,6 +105,7 @@ coverage
 .env.mongocloud
 .env.test
 .env.dev
+.env.bak
 license.txt
 exports
 *.cache

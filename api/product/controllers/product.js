@@ -1,392 +1,626 @@
-'use strict'
+"use strict";
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
  * to customize this controller
  */
 
-const { createBlended } = require('../../../helpers/index')
+const { createBlended } = require("../../../helpers/index");
 
 module.exports = {
   getStaticProps: async () => {
+    //POSTGRES
     const programs = await strapi
-      .query('product')
-      .model.find(
-        { published_at: { $ne: null } },
-        {
-          // id: 1,
-          // title: 1,
-          // slug: 1,
-          // studyFormat: 1,
-          // category: 1,
-          // price: 1
-          // study_field: 1,
-          whatWillYouLearn: 0,
-          specializedSubjects: 0,
-          duration: 0,
-          baseSubjects: 0,
-          programModulesCounters: 0,
-          diplomas: 0,
-          whoIsFor: 0,
-          specializedSubjectsAddons: 0,
-          picture: 0,
-          subjectsStickerType: 0,
-          localizations: 0,
-          id: 0,
-          published_at: 0,
-          locale: 0,
-          goal: 0,
-          createdAt: 0,
-          updatedAt: 0,
-          __v: 0,
-          created_by: 0,
-          updated_by: 0,
-          showInMenu: 0,
-          copyToKk: 0,
-          description: 0,
-          discount: 0,
-          questions: 0,
-          reviews: 0
-        }
-      )
-      .populate([
-        { path: 'category', select: 'type slug' },
-        { path: 'study_field', select: 'id name slug description' }
-      ])
+      .query("product")
+      .find({ published_at_ne: null });
 
-    const teachers = await strapi.query('teacher').model.find(
-      { published_at: { $ne: null } },
-      {
-        // programs: 0,
-        copyToKk: 0,
-        createdAt: 0,
-        created_by: 0,
-        locale: 0,
-        localizations: 0,
-        updatedAt: 0,
-        updated_by: 0,
-        __v: 0,
-        id: 0
-      }
-    )
+    const programsFiltered =
+      programs
+        ?.filter((program) => program)
+        ?.map((program) => ({
+          _id: program.id || null,
+          id: program.id || null,
+          title: program.title || null,
+          slug: program.slug || null,
+          studyFormat: program.studyFormat || null,
+          category: {
+            type: program.category?.type || null,
+            slug: program.category?.slug || null,
+          },
+          study_field: {
+            id: program.study_field?.id || null,
+            name: program.study_field?.name || null,
+            slug: program.study_field?.slug || null,
+            description: program.study_field?.description || null,
+          },
+        })) || [];
 
-    const programsWithBlended = createBlended(programs)
+    // module.exports = {
+    //   getStaticProps: async () => {
+    //     const programs = await strapi
+    //       .query('product')
+    //       .model.find(
+    //         { published_at: { $ne: null } },
+    //         {
+    //           // id: 1,
+    //           // title: 1,
+    //           // slug: 1,
+    //           // studyFormat: 1,
+    //           // category: 1,
+    //           // price: 1
+    //           // study_field: 1,
+    //           whatWillYouLearn: 0,
+    //           specializedSubjects: 0,
+    //           duration: 0,
+    //           baseSubjects: 0,
+    //           programModulesCounters: 0,
+    //           diplomas: 0,
+    //           whoIsFor: 0,
+    //           specializedSubjectsAddons: 0,
+    //           picture: 0,
+    //           subjectsStickerType: 0,
+    //           localizations: 0,
+    //           id: 0,
+    //           published_at: 0,
+    //           locale: 0,
+    //           goal: 0,
+    //           createdAt: 0,
+    //           updatedAt: 0,
+    //           __v: 0,
+    //           created_by: 0,
+    //           updated_by: 0,
+    //           showInMenu: 0,
+    //           copyToKk: 0,
+    //           description: 0,
+    //           discount: 0,
+    //           questions: 0,
+    //           reviews: 0
+    //         }
+    //       )
+    //       .populate([
+    //         { path: 'category', select: 'type slug' },
+    //         { path: 'study_field', select: 'id name slug description' }
+    //       ])
+
+    //POSTGRES
+    const teachers = await strapi
+      .query("teacher")
+      .find({ published_at_ne: null });
+    // {
+    //   // programs: 0,
+    //   copyToKk: 0,
+    //   createdAt: 0,
+    //   created_by: 0,
+    //   locale: 0,
+    //   localizations: 0,
+    //   updatedAt: 0,
+    //   updated_by: 0,
+    //   __v: 0,
+    //   id: 0,
+    // }
+
+    const teachersFiltered =
+      teachers
+        ?.filter((teacher) => teacher)
+        .map((teacher) => ({
+          name: teacher.name || null,
+          description: teacher.description || null,
+          slug: teacher.slug || null,
+          portrait: {
+            width: teacher.portrait?.width || null,
+            height: teacher.portrait?.height || null,
+            url: teacher.portrait?.url || null,
+          },
+          descriptionItems:
+            teacher.descriptionItems?.map((item) => ({
+              item: item?.item || null,
+            })) || null,
+          programs: teacher.programs?.map((program) => program?.title) || null,
+        })) || [];
+
+    // const teachers = await strapi.query("teacher").model.find(
+    //   { published_at: { $ne: null } },
+    //   {
+    //     // programs: 0,
+    //     copyToKk: 0,
+    //     createdAt: 0,
+    //     created_by: 0,
+    //     locale: 0,
+    //     localizations: 0,
+    //     updatedAt: 0,
+    //     updated_by: 0,
+    //     __v: 0,
+    //     id: 0,
+    //   }
+    // );
+
+    const programsWithBlended = createBlended(programsFiltered);
 
     return {
       programs: programsWithBlended,
-      teachers: teachers.filter(
-        (v, i, a) => a.findIndex(t => t.slug === v.slug) === i
-      )
-    }
+      teachers: teachersFiltered.filter(
+        (v, i, a) => a.findIndex((t) => t.slug === v.slug) === i
+      ),
+    };
   },
   getStaticPropsProfession: async () => {
+    //POSTGRES
     const programs = await strapi
-      .query('product')
-      .model.find(
-        { published_at: { $ne: null } },
-        {
-          // id: 1,
-          // title: 1,
-          // slug: 1,
-          // studyFormat: 1,
-          // category: 1,
-          // study_field: 1,
-          // duration: 1
-          // price: 1
-          whatWillYouLearn: 0,
-          specializedSubjects: 0,
-          baseSubjects: 0,
-          programModulesCounters: 0,
-          diplomas: 0,
-          whoIsFor: 0,
-          specializedSubjectsAddons: 0,
-          picture: 0,
-          subjectsStickerType: 0,
-          localizations: 0,
-          id: 0,
-          published_at: 0,
-          locale: 0,
-          goal: 0,
-          createdAt: 0,
-          updatedAt: 0,
-          __v: 0,
-          created_by: 0,
-          updated_by: 0,
-          showInMenu: 0,
-          copyToKk: 0,
-          description: 0,
-          discount: 0,
-          questions: 0,
-          reviews: 0
-        }
-      )
-      .populate([
-        { path: 'category', select: 'type slug' },
-        { path: 'study_field', select: 'id name slug description' },
-        { path: 'duration', select: 'minStudyMonths' }
-      ])
+      .query("product")
+      .find({ published_at_ne: null });
 
-    const teachers = await strapi.query('teacher').model.find(
-      { published_at: { $ne: null } },
-      {
-        // programs: 0,
-        copyToKk: 0,
-        createdAt: 0,
-        created_by: 0,
-        locale: 0,
-        localizations: 0,
-        updatedAt: 0,
-        updated_by: 0,
-        __v: 0,
-        id: 0
-      }
-    )
+    // const programs = await strapi
+    //   .query("product")
+    //   .model.find(
+    //     { published_at: { $ne: null } },
+    //     {
+    //       // id: 1,
+    //       // title: 1,
+    //       // slug: 1,
+    //       // studyFormat: 1,
+    //       // category: 1,
+    //       // study_field: 1,
+    //       // duration: 1
+    //       // price: 1
+    //       whatWillYouLearn: 0,
+    //       specializedSubjects: 0,
+    //       baseSubjects: 0,
+    //       programModulesCounters: 0,
+    //       diplomas: 0,
+    //       whoIsFor: 0,
+    //       specializedSubjectsAddons: 0,
+    //       picture: 0,
+    //       subjectsStickerType: 0,
+    //       localizations: 0,
+    //       id: 0,
+    //       published_at: 0,
+    //       locale: 0,
+    //       goal: 0,
+    //       createdAt: 0,
+    //       updatedAt: 0,
+    //       __v: 0,
+    //       created_by: 0,
+    //       updated_by: 0,
+    //       showInMenu: 0,
+    //       copyToKk: 0,
+    //       description: 0,
+    //       discount: 0,
+    //       questions: 0,
+    //       reviews: 0,
+    //     }
+    //   )
+    //   .populate([
+    //     { path: "category", select: "type slug" },
+    //     { path: "study_field", select: "id name slug description" },
+    //     { path: "duration", select: "minStudyMonths" },
+    //   ]);
 
-    const programsWithBlended = createBlended(programs)
+    const programsFiltered =
+      programs
+        ?.filter((program) => program)
+        ?.map((program) => ({
+          _id: program.id || null,
+          id: program.id || null,
+          title: program.title || null,
+          slug: program.slug || null,
+          studyFormat: program.studyFormat || null,
+          category: {
+            type: program.category?.type || null,
+            slug: program.category?.slug || null,
+          },
+          study_field: {
+            id: program.study_field?.id || null,
+            name: program.study_field?.name || null,
+            slug: program.study_field?.slug || null,
+            description: program.study_field?.description || null,
+          },
+          duration: {
+            minStudyMonths: program.duration?.minStudyMonths || null,
+          },
+        })) || [];
+
+    //POSTGRESS
+    const teachers = await strapi
+      .query("teacher")
+      .find({ published_at_ne: null });
+
+    // const teachers = await strapi.query("teacher").model.find(
+    //   { published_at: { $ne: null } },
+    //   {
+    //     // programs: 0,
+    //     copyToKk: 0,
+    //     createdAt: 0,
+    //     created_by: 0,
+    //     locale: 0,
+    //     localizations: 0,
+    //     updatedAt: 0,
+    //     updated_by: 0,
+    //     __v: 0,
+    //     id: 0,
+    //   }
+    // );
+
+    const teachersFiltered =
+      teachers
+        ?.filter((teacher) => teacher)
+        .map((teacher) => ({
+          name: teacher.name || null,
+          description: teacher.description || null,
+          slug: teacher.slug || null,
+          portrait: {
+            width: teacher.portrait?.width || null,
+            height: teacher.portrait?.height || null,
+            url: teacher.portrait?.url || null,
+          },
+          descriptionItems:
+            teacher.descriptionItems?.map((item) => ({
+              item: item?.item || null,
+            })) || null,
+          programs: teacher.programs?.map((program) => program?.title) || null,
+        })) || [];
+
+    const programsWithBlended = createBlended(programsFiltered);
 
     return {
       programs: programsWithBlended,
-      teachers: teachers.filter(
-        (v, i, a) => a.findIndex(t => t.slug === v.slug) === i
-      )
-    }
+      teachers: teachersFiltered.filter(
+        (v, i, a) => a.findIndex((t) => t.slug === v.slug) === i
+      ),
+    };
   },
   getStaticPropsCourse: async () => {
+    //POSTGRESS
     const programs = await strapi
-      .query('product')
-      .model.find(
-        { published_at: { $ne: null } },
-        {
-          // id: 1,
-          // title: 1,
-          // slug: 1,
-          // studyFormat: 1,
-          // category: 1,
-          // study_field: 1,
-          // duration: 1
-          // price: 1
-          whatWillYouLearn: 0,
-          specializedSubjects: 0,
-          baseSubjects: 0,
-          programModulesCounters: 0,
-          diplomas: 0,
-          whoIsFor: 0,
-          specializedSubjectsAddons: 0,
-          picture: 0,
-          subjectsStickerType: 0,
-          localizations: 0,
-          id: 0,
-          published_at: 0,
-          locale: 0,
-          goal: 0,
-          createdAt: 0,
-          updatedAt: 0,
-          __v: 0,
-          created_by: 0,
-          updated_by: 0,
-          showInMenu: 0,
-          copyToKk: 0,
-          description: 0,
-          discount: 0,
-          questions: 0,
-          reviews: 0
-        }
-      )
-      .populate([
-        { path: 'category', select: 'type slug' },
-        { path: 'study_field', select: 'id name slug description' },
-        { path: 'duration', select: 'minStudyMonths' }
-      ])
+      .query("product")
+      .find({ published_at_ne: null });
 
-    const teachers = await strapi.query('teacher').model.find(
-      { published_at: { $ne: null } },
-      {
-        // programs: 0,
-        copyToKk: 0,
-        createdAt: 0,
-        created_by: 0,
-        locale: 0,
-        localizations: 0,
-        updatedAt: 0,
-        updated_by: 0,
-        __v: 0,
-        id: 0
-      }
-    )
+    // const programs = await strapi
+    //   .query("product")
+    //   .model.find(
+    //     { published_at: { $ne: null } },
+    //     {
+    //       // id: 1,
+    //       // title: 1,
+    //       // slug: 1,
+    //       // studyFormat: 1,
+    //       // category: 1,
+    //       // study_field: 1,
+    //       // duration: 1
+    //       // price: 1
+    //       whatWillYouLearn: 0,
+    //       specializedSubjects: 0,
+    //       baseSubjects: 0,
+    //       programModulesCounters: 0,
+    //       diplomas: 0,
+    //       whoIsFor: 0,
+    //       specializedSubjectsAddons: 0,
+    //       picture: 0,
+    //       subjectsStickerType: 0,
+    //       localizations: 0,
+    //       id: 0,
+    //       published_at: 0,
+    //       locale: 0,
+    //       goal: 0,
+    //       createdAt: 0,
+    //       updatedAt: 0,
+    //       __v: 0,
+    //       created_by: 0,
+    //       updated_by: 0,
+    //       showInMenu: 0,
+    //       copyToKk: 0,
+    //       description: 0,
+    //       discount: 0,
+    //       questions: 0,
+    //       reviews: 0,
+    //     }
+    //   )
+    //   .populate([
+    //     { path: "category", select: "type slug" },
+    //     { path: "study_field", select: "id name slug description" },
+    //     { path: "duration", select: "minStudyMonths" },
+    //   ]);
 
-    const programsWithBlended = createBlended(programs)
+    const programsFiltered =
+      programs
+        ?.filter((program) => program)
+        ?.map((program) => ({
+          _id: program.id || null,
+          id: program.id || null,
+          title: program.title || null,
+          slug: program.slug || null,
+          studyFormat: program.studyFormat || null,
+          category: {
+            type: program.category?.type || null,
+            slug: program.category?.slug || null,
+          },
+          study_field: {
+            id: program.study_field?.id || null,
+            name: program.study_field?.name || null,
+            slug: program.study_field?.slug || null,
+            description: program.study_field?.description || null,
+          },
+          duration: {
+            minStudyMonths: program.duration?.minStudyMonths || null,
+          },
+        })) || [];
+
+    //POSTGRESS
+    const teachers = await strapi
+      .query("teacher")
+      .find({ published_at_ne: null });
+
+    // const teachers = await strapi.query("teacher").model.find(
+    //   { published_at: { $ne: null } },
+    //   {
+    //     // programs: 0,
+    //     copyToKk: 0,
+    //     createdAt: 0,
+    //     created_by: 0,
+    //     locale: 0,
+    //     localizations: 0,
+    //     updatedAt: 0,
+    //     updated_by: 0,
+    //     __v: 0,
+    //     id: 0,
+    //   }
+    // );
+
+    const teachersFiltered =
+      teachers
+        ?.filter((teacher) => teacher)
+        .map((teacher) => ({
+          name: teacher.name || null,
+          description: teacher.description || null,
+          slug: teacher.slug || null,
+          portrait: {
+            width: teacher.portrait?.width || null,
+            height: teacher.portrait?.height || null,
+            url: teacher.portrait?.url || null,
+          },
+          descriptionItems:
+            teacher.descriptionItems?.map((item) => ({
+              item: item?.item || null,
+            })) || null,
+          programs: teacher.programs?.map((program) => program?.title) || null,
+        })) || [];
+
+    const programsWithBlended = createBlended(programsFiltered);
 
     return {
       programs: programsWithBlended,
-      teachers: teachers.filter(
-        (v, i, a) => a.findIndex(t => t.slug === v.slug) === i
-      )
-    }
+      teachers: teachersFiltered.filter(
+        (v, i, a) => a.findIndex((t) => t.slug === v.slug) === i
+      ),
+    };
   },
   getStaticPropsPromo: async () => {
+    //POSTGRESS
     const programs = await strapi
-      .query('product')
-      .model.find(
-        { published_at: { $ne: null } },
-        {
-          // id: 1,
-          // title: 1,
-          // slug: 1,
-          // studyFormat: 1,
-          // category: 1,
-          // whatWillYouLearn: 1
-          // price: 1
-          study_field: 0,
-          specializedSubjects: 0,
-          duration: 0,
-          baseSubjects: 0,
-          programModulesCounters: 0,
-          diplomas: 0,
-          whoIsFor: 0,
-          specializedSubjectsAddons: 0,
-          picture: 0,
-          subjectsStickerType: 0,
-          localizations: 0,
-          id: 0,
-          published_at: 0,
-          locale: 0,
-          goal: 0,
-          createdAt: 0,
-          updatedAt: 0,
-          __v: 0,
-          created_by: 0,
-          updated_by: 0,
-          showInMenu: 0,
-          copyToKk: 0,
-          description: 0,
-          discount: 0,
-          questions: 0,
-          reviews: 0
-        }
-      )
-      .populate([
-        { path: 'category', select: 'type slug' },
-        { path: 'whatWillYouLearn' }
-      ])
+      .query("product")
+      .find({ published_at_ne: null });
 
-    const teachers = await strapi.query('teacher').model.find(
-      { published_at: { $ne: null } },
-      {
-        // programs: 0,
-        copyToKk: 0,
-        createdAt: 0,
-        created_by: 0,
-        locale: 0,
-        localizations: 0,
-        updatedAt: 0,
-        updated_by: 0,
-        __v: 0,
-        id: 0
-      }
-    )
+    // const programs = await strapi
+    //   .query("product")
+    //   .model.find(
+    //     { published_at: { $ne: null } },
+    //     {
+    //       // id: 1,
+    //       // title: 1,
+    //       // slug: 1,
+    //       // studyFormat: 1,
+    //       // category: 1,
+    //       // whatWillYouLearn: 1
+    //       // price: 1
+    //       study_field: 0,
+    //       specializedSubjects: 0,
+    //       duration: 0,
+    //       baseSubjects: 0,
+    //       programModulesCounters: 0,
+    //       diplomas: 0,
+    //       whoIsFor: 0,
+    //       specializedSubjectsAddons: 0,
+    //       picture: 0,
+    //       subjectsStickerType: 0,
+    //       localizations: 0,
+    //       id: 0,
+    //       published_at: 0,
+    //       locale: 0,
+    //       goal: 0,
+    //       createdAt: 0,
+    //       updatedAt: 0,
+    //       __v: 0,
+    //       created_by: 0,
+    //       updated_by: 0,
+    //       showInMenu: 0,
+    //       copyToKk: 0,
+    //       description: 0,
+    //       discount: 0,
+    //       questions: 0,
+    //       reviews: 0,
+    //     }
+    //   )
+    //   .populate([
+    //     { path: "category", select: "type slug" },
+    //     { path: "whatWillYouLearn" },
+    //   ]);
 
-    const programsTypeMini = programs.filter(
-      item => item.category?.type === 'mini'
-    )
+    const programsFiltered =
+      programs
+        ?.filter((program) => program)
+        ?.map((program) => ({
+          _id: program.id || null,
+          id: program.id || null,
+          title: program.title || null,
+          slug: program.slug || null,
+          studyFormat: program.studyFormat || null,
+          category: {
+            type: program.category?.type || null,
+            slug: program.category?.slug || null,
+          },
+          study_field: {
+            id: program.study_field?.id || null,
+            name: program.study_field?.name || null,
+            slug: program.study_field?.slug || null,
+            description: program.study_field?.description || null,
+          },
+          duration: {
+            minStudyMonths: program.duration?.minStudyMonths || null,
+          },
+        })) || [];
+
+    //POSTGRESS
+    const teachers = await strapi
+      .query("teacher")
+      .find({ published_at_ne: null });
+
+    // const teachers = await strapi.query("teacher").model.find(
+    //   { published_at: { $ne: null } },
+    //   {
+    //     // programs: 0,
+    //     copyToKk: 0,
+    //     createdAt: 0,
+    //     created_by: 0,
+    //     locale: 0,
+    //     localizations: 0,
+    //     updatedAt: 0,
+    //     updated_by: 0,
+    //     __v: 0,
+    //     id: 0,
+    //   }
+    // );
+
+    const teachersFiltered =
+      teachers
+        ?.filter((teacher) => teacher)
+        .map((teacher) => ({
+          name: teacher.name || null,
+          description: teacher.description || null,
+          slug: teacher.slug || null,
+          portrait: {
+            width: teacher.portrait?.width || null,
+            height: teacher.portrait?.height || null,
+            url: teacher.portrait?.url || null,
+          },
+          descriptionItems:
+            teacher.descriptionItems?.map((item) => ({
+              item: item?.item || null,
+            })) || null,
+          programs: teacher.programs?.map((program) => program?.title) || null,
+        })) || [];
+
+    const programsTypeMini = programsFiltered.filter(
+      (item) => item.category?.type === "mini"
+    );
 
     return {
       programs: programsTypeMini,
-      teachers: teachers.filter(
-        (v, i, a) => a.findIndex(t => t.slug === v.slug) === i
-      )
-    }
+      teachers: teachersFiltered.filter(
+        (v, i, a) => a.findIndex((t) => t.slug === v.slug) === i
+      ),
+    };
   },
-  getProgram: async ctx => {
-    const typeSlug = ctx.request.url.split('/')[3].split('.')
-    const type = typeSlug[0]
-    const slug = typeSlug[1]
+  getProgram: async (ctx) => {
+    const typeSlug = ctx.request.url.split("/")[3].split(".");
+    const type = typeSlug[0];
+    const slug = typeSlug[1];
 
-    const programs = await strapi
-      .query('product')
-      .model.find({ slug, published_at: { $ne: null } })
-      .populate([
-        {
-          path: 'category',
-          select: 'type slug',
-          match: { type: { $eq: type } }
-        },
-        { path: 'study_field', select: 'id name slug description' }
-      ])
-      .populate([
-        {
-          path: 'teachers',
-          select: 'name picture description'
-        }
-      ])
-      .exec()
+    //POSTGRESS
+    const programs = await strapi.query("product").find({
+      slug,
+      published_at_ne: null,
+    });
 
-    const program = programs.filter(item => item.category?.type === type)[0]
+    // const programs = await strapi
+    //   .query("product")
+    //   .model.find({ slug, published_at: { $ne: null } })
+    //   .populate([
+    //     {
+    //       path: "category",
+    //       select: "type slug",
+    //       match: { type: { $eq: type } },
+    //     },
+    //     { path: "study_field", select: "id name slug description" },
+    //   ])
+    //   .populate([
+    //     {
+    //       path: "teachers",
+    //       select: "name picture description",
+    //     },
+    //   ])
+    //   .exec();
 
-    return [program].map(item => {
-      item.teachers.map(teacher => {
-        teacher.programs = undefined
-        return teacher
-      })
-      return item
-    })[0]
+    const program = programs.filter((item) => item.category?.type === type)[0];
+
+    return [program].map((item) => {
+      item.teachers.map((teacher) => {
+        teacher.programs = undefined;
+        return teacher;
+      });
+      return item;
+    })[0];
   },
-  getStaticPaths: async ctx => {
-    const type = ctx.request.url.split('/')[3]
+  getStaticPaths: async (ctx) => {
+    const type = ctx.request.url.split("/")[3];
 
-    const paths = await strapi
-      .query('product')
-      .model.find(
-        { published_at: { $ne: null } },
-        {
-          // slug: 1,
-          // studyFormat: 1,
-          // category: 1,
-          // price: 1
-          id: 0,
-          title: 0,
-          whatWillYouLearn: 0,
-          study_field: 0,
-          specializedSubjects: 0,
-          duration: 0,
-          baseSubjects: 0,
-          programModulesCounters: 0,
-          diplomas: 0,
-          whoIsFor: 0,
-          specializedSubjectsAddons: 0,
-          picture: 0,
-          subjectsStickerType: 0,
-          localizations: 0,
-          id: 0,
-          published_at: 0,
-          locale: 0,
-          goal: 0,
-          createdAt: 0,
-          updatedAt: 0,
-          __v: 0,
-          created_by: 0,
-          updated_by: 0,
-          showInMenu: 0,
-          copyToKk: 0,
-          description: 0,
-          discount: 0,
-          questions: 0,
-          reviews: 0
-        }
-      )
-      .populate([
-        {
-          path: 'category',
-          select: 'type slug',
-          match: { type: { $eq: type } }
-        }
-      ])
-      .exec()
+    //POSTGRES
+    const paths = await strapi.query("product").find({
+      published_at_ne: null,
+    });
 
-    const pathsFiltered = paths.filter(path => path.category?.type === type)
+    // const paths = await strapi
+    //   .query("product")
+    //   .model.find(
+    //     { published_at: { $ne: null } },
+    //     {
+    //       // slug: 1,
+    //       // studyFormat: 1,
+    //       // category: 1,
+    //       // price: 1
+    //       id: 0,
+    //       title: 0,
+    //       whatWillYouLearn: 0,
+    //       study_field: 0,
+    //       specializedSubjects: 0,
+    //       duration: 0,
+    //       baseSubjects: 0,
+    //       programModulesCounters: 0,
+    //       diplomas: 0,
+    //       whoIsFor: 0,
+    //       specializedSubjectsAddons: 0,
+    //       picture: 0,
+    //       subjectsStickerType: 0,
+    //       localizations: 0,
+    //       id: 0,
+    //       published_at: 0,
+    //       locale: 0,
+    //       goal: 0,
+    //       createdAt: 0,
+    //       updatedAt: 0,
+    //       __v: 0,
+    //       created_by: 0,
+    //       updated_by: 0,
+    //       showInMenu: 0,
+    //       copyToKk: 0,
+    //       description: 0,
+    //       discount: 0,
+    //       questions: 0,
+    //       reviews: 0,
+    //     }
+    //   )
+    //   .populate([
+    //     {
+    //       path: "category",
+    //       select: "type slug",
+    //       match: { type: { $eq: type } },
+    //     },
+    //   ])
+    //   .exec();
+
+    const pathsFiltered = paths.filter((path) => path.category?.type === type);
 
     const output = pathsFiltered.map(({ slug }) => ({
-      params: { slug }
-    }))
+      params: { slug },
+    }));
 
-    return output
-  }
-}
+    return output;
+  },
+};
