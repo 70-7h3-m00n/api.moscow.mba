@@ -35,7 +35,7 @@ module.exports = {
 
       const programsFiltered =
         programs
-          ?.filter((program) => program)
+          ?.filter((program) => program.id !== null)
           ?.map((program) => ({
             _id: program.id || null,
             id: program.id || null,
@@ -91,7 +91,7 @@ module.exports = {
 
       const programsFiltered =
         programs
-          ?.filter((program) => program)
+          ?.filter((program) => program.published_at !== null)
           ?.map((program) => ({
             _id: program.id || null,
             id: program.id || null,
@@ -115,7 +115,7 @@ module.exports = {
           })) || [];
 
       const programCategories = programs
-        ?.filter((program) => program)
+        ?.filter((program) => program.published_at !== null)
         ?.reduce(
           (acc, cur) =>
             !acc.some((item) => item?.id === cur?.category?.id)
@@ -186,8 +186,9 @@ module.exports = {
       //   ]);
 
       const journalArticle =
-        journalArticles?.filter((journalArticle) => journalArticle)?.[0] ||
-        null;
+        journalArticles?.filter(
+          (journalArticle) => journalArticle.published_at !== null
+        )?.[0] || null;
 
       //POSTGRES
       const journalArticleCategories = await strapi
@@ -887,7 +888,7 @@ module.exports = {
 
       const programsFiltered =
         programs
-          ?.filter((program) => program)
+          ?.filter((program) => program.published_at !== null)
           ?.map((program) => ({
             _id: program.id || null,
             id: program.id || null,
@@ -927,7 +928,7 @@ module.exports = {
 
       const journalCategoriesFiltered =
         journalCategories
-          ?.filter((journalCategory) => journalCategory)
+          ?.filter((journalCategory) => journalCategory.published_at !== null)
           ?.map((journalCategory) => ({
             title: journalCategory.title || null,
             slug: journalCategory.slug || null,
@@ -962,7 +963,7 @@ module.exports = {
 
       const journalArticlesFiltered =
         journalArticles
-          ?.filter((journalArticle) => journalArticle)
+          ?.filter((journalArticle) => journalArticle.published_at !== null)
           ?.map((journalArticle) => ({
             title: journalArticle.title || null,
             slug: journalArticle.slug || null,
@@ -987,6 +988,7 @@ module.exports = {
           ) || [];
 
       return {
+        // test: journalArticles,
         programs: createBlended(programsFiltered),
         journalCategories: journalCategoriesFiltered,
         journalArticles: journalArticlesFiltered,
@@ -1088,7 +1090,7 @@ module.exports = {
 
       const programsFiltered =
         programs
-          ?.filter((program) => program)
+          ?.filter((program) => program.published_at !== null)
           ?.map((program) => ({
             _id: program.id || null,
             id: program.id || null,
@@ -1328,7 +1330,7 @@ module.exports = {
 
       const programsFiltered =
         programs
-          ?.filter((program) => program)
+          ?.filter((program) => program.published_at !== null)
           ?.map((program) => ({
             _id: program.id || null,
             id: program.id || null,
@@ -1405,7 +1407,7 @@ module.exports = {
 
       const programsFiltered =
         programs
-          ?.filter((program) => program)
+          ?.filter((program) => program.published_at !== null)
           ?.map((program) => ({
             _id: program.id || null,
             id: program.id || null,
@@ -1425,7 +1427,7 @@ module.exports = {
           })) || [];
 
       const teachersFiltered = teachers
-        ?.filter((teacher) => teacher)
+        ?.filter((teacher) => teacher.published_at !== null)
         .map((teacher) => ({
           name: teacher.name || null,
           description: teacher.description || null,
@@ -1515,7 +1517,7 @@ module.exports = {
 
       const teachersFiltered =
         teachers
-          ?.filter((teacher) => teacher)
+          ?.filter((teacher) => teacher.published_at !== null)
           .map((teacher) => ({
             name: teacher.name || null,
             description: teacher.description || null,
