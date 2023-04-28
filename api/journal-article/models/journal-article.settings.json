@@ -32,7 +32,9 @@
     "picture": {
       "model": "file",
       "via": "related",
-      "allowedTypes": ["images"],
+      "allowedTypes": [
+        "images"
+      ],
       "plugin": "upload",
       "required": false,
       "pluginOptions": {}
@@ -63,18 +65,18 @@
       "via": "journal_articles",
       "dominant": true,
       "collectionName": "jrnl_articles_jrnl_authors__jrnl_authors_jrnl_articles"
-
     },
     "programs": {
       "via": "journal_articles",
       "collection": "product",
-      "dominant": true,
-      "collectionName": "jrnl_articles_jrnl_products__jrnl_products_jrnl_articles"
+      "dominant": true
     },
     "pdfMaterials": {
       "collection": "file",
       "via": "related",
-      "allowedTypes": ["files"],
+      "allowedTypes": [
+        "files"
+      ],
       "plugin": "upload",
       "required": false,
       "pluginOptions": {}

@@ -221,14 +221,14 @@
     "questions": {
       "collection": "question",
       "via": "programs",
-      "dominant": true,
-      "collectionName": "products_questions__questions_programs"
+      "collectionName": "products_questions__questions_programs",
+      "dominant": true
     },
     "reviews": {
       "collection": "review",
       "via": "programs",
-      "dominant": true,
-      "collectionName": "products_reviews__reviews_programs"
+      "collectionName": "products_reviews__reviews_programs",
+      "dominant": true
     },
     "icon": {
       "pluginOptions": {
@@ -267,6 +267,16 @@
         }
       },
       "type": "text"
+    },
+    "isActive": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "boolean",
+      "default": true,
+      "required": true
     }
   }
 }
