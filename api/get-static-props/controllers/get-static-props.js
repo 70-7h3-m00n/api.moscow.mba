@@ -42,6 +42,7 @@ module.exports = {
             title: program.title || null,
             slug: program.slug || null,
             studyFormat: program.studyFormat || null,
+            isActive: program.isActive || null,
             category: {
               type: program.category?.type || null,
               slug: program.category?.slug || null,
@@ -1040,6 +1041,7 @@ module.exports = {
             title: program.title || null,
             slug: program.slug || null,
             studyFormat: program.studyFormat || null,
+            isActive: program.isActive || null,
             whatWillYouLearn:
               program.whatWillYouLearn?.map((item) => ({
                 string: item?.string || null,
@@ -1099,6 +1101,7 @@ module.exports = {
             title: program.title || null,
             slug: program.slug || null,
             studyFormat: program.studyFormat || null,
+            isActive: program.isActive || null,
             category: {
               type: program.category?.type || null,
               slug: program.category?.slug || null,
@@ -1196,6 +1199,7 @@ module.exports = {
             slug: program.slug || null,
             metaTitle: program.metaTitle || null,
             metaDescription: program.metaDescription || null,
+            isActive: program.isActive || null,
             noindex:
               program.noindex === false
                 ? false
@@ -1343,7 +1347,7 @@ module.exports = {
             studyFormat: program.studyFormat || null,
             price: program.price || null,
             updatedAt: program.updated_at || null,
-            active: program.isActive || null,
+            isActive: program.isActive || null,
             duration: {
               minStudyMonths: program.duration?.minStudyMonths || null,
             },
@@ -1585,6 +1589,7 @@ module.exports = {
             id: program.id || null,
             title: program.title || null,
             slug: program.slug || null,
+            isActive: program.isActive || null,
             duration: {
               minStudyMonths:
                 Number(programs[id].duration?.minStudyMonths) || null,
@@ -1666,6 +1671,7 @@ module.exports = {
             price: programsProgram[id].price || null,
             discount: program.discount || null,
             goal: program.goal || null,
+            isActive: program.isActive || null,
             duration: {
               minStudyMonths:
                 Number(programsProgram[id].duration?.minStudyMonths) || null,

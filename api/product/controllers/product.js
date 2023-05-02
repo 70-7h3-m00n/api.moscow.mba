@@ -21,6 +21,7 @@ module.exports = {
           id: program.id || null,
           title: program.title || null,
           slug: program.slug || null,
+          isActive: program.isActive || null,
           studyFormat: program.studyFormat || null,
           category: {
             type: program.category?.type || null,
@@ -203,6 +204,7 @@ module.exports = {
           title: program.title || null,
           slug: program.slug || null,
           studyFormat: program.studyFormat || null,
+          isActive: program.isActive || null,
           category: {
             type: program.category?.type || null,
             slug: program.category?.slug || null,
@@ -328,6 +330,7 @@ module.exports = {
           title: program.title || null,
           slug: program.slug || null,
           studyFormat: program.studyFormat || null,
+          isActive: program.isActive || null,
           category: {
             type: program.category?.type || null,
             slug: program.category?.slug || null,
@@ -452,6 +455,7 @@ module.exports = {
           title: program.title || null,
           slug: program.slug || null,
           studyFormat: program.studyFormat || null,
+          isActive: program.isActive || null,
           category: {
             type: program.category?.type || null,
             slug: program.category?.slug || null,
