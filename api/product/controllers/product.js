@@ -11,7 +11,7 @@ module.exports = {
     //POSTGRES
     const programs = await strapi
       .query("product")
-      .find({ published_at_ne: null });
+      .find({ published_at_ne: null, _limit: -1 });
 
     const programsFiltered =
       programs
@@ -147,7 +147,7 @@ module.exports = {
     //POSTGRES
     const programs = await strapi
       .query("product")
-      .find({ published_at_ne: null });
+      .find({ published_at_ne: null, _limit: -1 });
 
     // const programs = await strapi
     //   .query("product")
@@ -273,7 +273,7 @@ module.exports = {
     //POSTGRESS
     const programs = await strapi
       .query("product")
-      .find({ published_at_ne: null });
+      .find({ published_at_ne: null, _limit: -1 });
 
     // const programs = await strapi
     //   .query("product")
@@ -399,7 +399,7 @@ module.exports = {
     //POSTGRESS
     const programs = await strapi
       .query("product")
-      .find({ published_at_ne: null });
+      .find({ published_at_ne: null, _limit: -1 });
 
     // const programs = await strapi
     //   .query("product")
@@ -568,6 +568,7 @@ module.exports = {
     //POSTGRES
     const paths = await strapi.query("product").find({
       published_at_ne: null,
+      _limit: -1,
     });
 
     // const paths = await strapi
