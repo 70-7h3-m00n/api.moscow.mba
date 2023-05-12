@@ -72,7 +72,7 @@ module.exports = {
       //POSTGRES
       const programs = await strapi
         .query("product")
-        .find({ published_at_ne: null, _limit: -1 });
+        .find({ id_ne: null, _limit: -1 });
 
       // const programs = await strapi
       //   .query("product")
@@ -1336,7 +1336,11 @@ module.exports = {
 
       const programsFiltered =
         programs
-          ?.filter((program) => program.published_at !== null)
+
+          ?.filter(
+            (program) =>
+              program.published_at !== null && program.isActive === true
+          )
           ?.map((program) => ({
             _id: program.id || null,
             id: program.id || null,
