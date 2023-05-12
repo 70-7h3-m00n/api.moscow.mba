@@ -11,7 +11,7 @@ module.exports = {
     //POSTGRES
     const programs = await strapi
       .query("product")
-      .find({ published_at_ne: null });
+      .find({ published_at_ne: null, _limit: -1 });
 
     const programsFiltered =
       programs
@@ -21,6 +21,7 @@ module.exports = {
           id: program.id || null,
           title: program.title || null,
           slug: program.slug || null,
+          isActive: program.isActive || null,
           studyFormat: program.studyFormat || null,
           category: {
             type: program.category?.type || null,
@@ -146,7 +147,7 @@ module.exports = {
     //POSTGRES
     const programs = await strapi
       .query("product")
-      .find({ published_at_ne: null });
+      .find({ published_at_ne: null, _limit: -1 });
 
     // const programs = await strapi
     //   .query("product")
@@ -203,6 +204,7 @@ module.exports = {
           title: program.title || null,
           slug: program.slug || null,
           studyFormat: program.studyFormat || null,
+          isActive: program.isActive || null,
           category: {
             type: program.category?.type || null,
             slug: program.category?.slug || null,
@@ -271,7 +273,7 @@ module.exports = {
     //POSTGRESS
     const programs = await strapi
       .query("product")
-      .find({ published_at_ne: null });
+      .find({ published_at_ne: null, _limit: -1 });
 
     // const programs = await strapi
     //   .query("product")
@@ -328,6 +330,7 @@ module.exports = {
           title: program.title || null,
           slug: program.slug || null,
           studyFormat: program.studyFormat || null,
+          isActive: program.isActive || null,
           category: {
             type: program.category?.type || null,
             slug: program.category?.slug || null,
@@ -396,7 +399,7 @@ module.exports = {
     //POSTGRESS
     const programs = await strapi
       .query("product")
-      .find({ published_at_ne: null });
+      .find({ published_at_ne: null, _limit: -1 });
 
     // const programs = await strapi
     //   .query("product")
@@ -452,6 +455,7 @@ module.exports = {
           title: program.title || null,
           slug: program.slug || null,
           studyFormat: program.studyFormat || null,
+          isActive: program.isActive || null,
           category: {
             type: program.category?.type || null,
             slug: program.category?.slug || null,
@@ -564,6 +568,7 @@ module.exports = {
     //POSTGRES
     const paths = await strapi.query("product").find({
       published_at_ne: null,
+      _limit: -1,
     });
 
     // const paths = await strapi

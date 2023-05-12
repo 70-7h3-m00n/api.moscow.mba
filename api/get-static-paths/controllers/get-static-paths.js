@@ -11,7 +11,7 @@ module.exports = {
       // POSTGRES
       const articles = await strapi
         .query("journal-article")
-        .find({ published_at_ne: null });
+        .find({ published_at_ne: null, _limit: -1 });
 
       // const articles = await strapi.query('journal-article').model.find(
       //   { published_at: { $ne: null } },
@@ -47,7 +47,7 @@ module.exports = {
       //POSTGRES
       const programs = await strapi
         .query("product")
-        .find({ published_at_ne: null });
+        .find({ published_at_ne: null, _limit: -1 });
 
       // const programs = await strapi
       //   .query("product")
@@ -87,7 +87,7 @@ module.exports = {
       //POSTGRES
       const teachers = await strapi
         .query("teacher")
-        .find({ published_at_ne: null });
+        .find({ published_at_ne: null, _limit: -1 });
 
       // const teachers = await strapi.query("teacher").model.find(
       //   { published_at: { $ne: null } },

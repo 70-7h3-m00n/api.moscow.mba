@@ -13,7 +13,9 @@ module.exports = {
   default: async (ctx) => {
     try {
       // //POSTGRES
-      const programs = await strapi.query("product").find({ id_ne: null });
+      const programs = await strapi
+        .query("product")
+        .find({ id_ne: null, _limit: -1 });
 
       // const programs = await strapi
       //   .query('product')
@@ -42,6 +44,7 @@ module.exports = {
             title: program.title || null,
             slug: program.slug || null,
             studyFormat: program.studyFormat || null,
+            isActive: program.isActive || null,
             category: {
               type: program.category?.type || null,
               slug: program.category?.slug || null,
@@ -69,7 +72,7 @@ module.exports = {
       //POSTGRES
       const programs = await strapi
         .query("product")
-        .find({ published_at_ne: null });
+        .find({ id_ne: null, _limit: -1 });
 
       // const programs = await strapi
       //   .query("product")
@@ -134,7 +137,7 @@ module.exports = {
       //POSTGRES
       const journalArticles = await strapi
         .query("journal-article")
-        .find({ published_at_ne: null, slug: journalSlug });
+        .find({ published_at_ne: null, slug: journalSlug, _limit: -1 });
 
       // const journalArticles = await strapi
       //   .query("journal-article")
@@ -866,7 +869,7 @@ module.exports = {
       //POSTGRES
       const programs = await strapi
         .query("product")
-        .find({ published_at_ne: null });
+        .find({ published_at_ne: null, _limit: -1 });
 
       // const programs = await strapi
       //   .query("product")
@@ -937,7 +940,7 @@ module.exports = {
       //POSTGRES
       const journalArticles = await strapi
         .query("journal-article")
-        .find({ published_at_ne: null });
+        .find({ published_at_ne: null, _limit: -1 });
 
       // const journalArticles = await strapi
       //   .query("journal-article")
@@ -1007,7 +1010,7 @@ module.exports = {
       //POSTGRES
       const programs = await strapi
         .query("product")
-        .find({ published_at_ne: null });
+        .find({ published_at_ne: null, _limit: -1 });
 
       // const programs = await strapi
       //   .query("product")
@@ -1038,6 +1041,7 @@ module.exports = {
             title: program.title || null,
             slug: program.slug || null,
             studyFormat: program.studyFormat || null,
+            isActive: program.isActive || null,
             whatWillYouLearn:
               program.whatWillYouLearn?.map((item) => ({
                 string: item?.string || null,
@@ -1068,7 +1072,7 @@ module.exports = {
       //POSTGRES
       const programs = await strapi
         .query("product")
-        .find({ published_at_ne: null });
+        .find({ published_at_ne: null, _limit: -1 });
 
       // const programs = await strapi
       //   .query("product")
@@ -1097,6 +1101,7 @@ module.exports = {
             title: program.title || null,
             slug: program.slug || null,
             studyFormat: program.studyFormat || null,
+            isActive: program.isActive || null,
             category: {
               type: program.category?.type || null,
               slug: program.category?.slug || null,
@@ -1193,6 +1198,7 @@ module.exports = {
             slug: program.slug || null,
             metaTitle: program.metaTitle || null,
             metaDescription: program.metaDescription || null,
+            isActive: program.isActive || null,
             noindex:
               program.noindex === false
                 ? false
@@ -1304,7 +1310,7 @@ module.exports = {
       //POSTGRES
       const programs = await strapi
         .query("product")
-        .find({ published_at_ne: null });
+        .find({ published_at_ne: null, _limit: -1 });
 
       // const programs = await strapi
       //   .query("product")
@@ -1330,7 +1336,10 @@ module.exports = {
 
       const programsFiltered =
         programs
-          ?.filter((program) => program.published_at !== null)
+          ?.filter(
+            (program) =>
+              program.published_at !== null && program.isActive === true
+          )
           ?.map((program) => ({
             _id: program.id || null,
             id: program.id || null,
@@ -1339,7 +1348,7 @@ module.exports = {
             studyFormat: program.studyFormat || null,
             price: program.price || null,
             updatedAt: program.updated_at || null,
-            active: program.isActive || null,
+            isActive: program.isActive || null,
             duration: {
               minStudyMonths: program.duration?.minStudyMonths || null,
             },
@@ -1370,7 +1379,7 @@ module.exports = {
       //POSTGRES
       const programs = await strapi
         .query("product")
-        .find({ published_at_ne: null });
+        .find({ published_at_ne: null, _limit: -1 });
 
       // const programs = await strapi
       //   .query("product")
@@ -1455,7 +1464,9 @@ module.exports = {
   getStaticPropsTeachers: async (ctx) => {
     try {
       // P O S T G R E S
-      const programs = await strapi.query("product").find({ id_ne: null });
+      const programs = await strapi
+        .query("product")
+        .find({ id_ne: null, _limit: -1 });
       // const programs = await strapi
       //   .query("product")
       //   .model.find(
@@ -1492,7 +1503,7 @@ module.exports = {
       // P O S T G R E S
       const teachers = await strapi
         .query("teacher")
-        .find({ published_at_ne: null });
+        .find({ published_at_ne: null, _limit: -1 });
 
       const programsFiltered =
         programs
@@ -1552,7 +1563,7 @@ module.exports = {
       // P O S T G R E S
       const programs = await strapi
         .query("product")
-        .find({ published_at_ne: null });
+        .find({ published_at_ne: null, _limit: -1 });
 
       // const programs = await strapi
       //   .query("product")
@@ -1580,6 +1591,7 @@ module.exports = {
             id: program.id || null,
             title: program.title || null,
             slug: program.slug || null,
+            isActive: program.isActive || null,
             duration: {
               minStudyMonths:
                 Number(programs[id].duration?.minStudyMonths) || null,
@@ -1659,6 +1671,7 @@ module.exports = {
             price: programsProgram[id].price || null,
             discount: program.discount || null,
             goal: program.goal || null,
+            isActive: program.isActive || null,
             duration: {
               minStudyMonths:
                 Number(programsProgram[id].duration?.minStudyMonths) || null,
