@@ -97,7 +97,7 @@ module.exports = {
 
       const programsFiltered =
         programs
-          ?.filter((program) => program)
+          ?.filter((program) => program.published_at !== null)
           ?.map((program) => ({
             _id: program.id || null,
             id: program.id || null,
@@ -121,7 +121,7 @@ module.exports = {
           })) || [];
 
       const programCategories = programs
-        ?.filter((program) => program)
+        ?.filter((program) => program.published_at !== null)
         ?.reduce(
           (acc, cur) =>
             !acc.some((item) => item?.id === cur?.category?.id)
@@ -192,8 +192,9 @@ module.exports = {
       //   ]);
 
       const journalArticle =
-        journalArticles?.filter((journalArticle) => journalArticle)?.[0] ||
-        null;
+        journalArticles?.filter(
+          (journalArticle) => journalArticle.published_at !== null
+        )?.[0] || null;
 
       //POSTGRES
       const journalArticleCategories = await strapi
@@ -303,7 +304,6 @@ module.exports = {
         //     title: journalTag?.title || null,
         //     slug: journalTag?.slug || null
         //   })) || [],
-        testJournalAuthors: journalArticle.journal_authors,
         journalAuthors:
           journalArticle.journal_authors?.map((journalAuthor) => {
             return {
@@ -327,7 +327,6 @@ module.exports = {
               },
             };
           }) || [],
-        testRecommendedPrograms: journalArticle.programs,
         recommendedPrograms:
           journalArticle.programs?.map((program) => ({
             title: program?.title || null,
@@ -412,7 +411,6 @@ module.exports = {
                 : {}),
               ...(component?.__component === "journal.journal-table"
                 ? {
-                    test: htmlTableBodyTable,
                     htmlTableBody: {
                       // name: component?.ref?.htmlTable?.name || null,
                       // url: component?.ref?.htmlTable?.url || null,
@@ -461,7 +459,6 @@ module.exports = {
               ...(component?.__component === "journal.read-also-articles"
                 ? {
                     journalReadAlsoArticles: {
-                      test: component,
                       title: component?.title || null,
                       articles:
                         component?.jrnl_articles
@@ -897,7 +894,7 @@ module.exports = {
 
       const programsFiltered =
         programs
-          ?.filter((program) => program)
+          ?.filter((program) => program.published_at !== null)
           ?.map((program) => ({
             _id: program.id || null,
             id: program.id || null,
@@ -937,7 +934,7 @@ module.exports = {
 
       const journalCategoriesFiltered =
         journalCategories
-          ?.filter((journalCategory) => journalCategory)
+          ?.filter((journalCategory) => journalCategory.published_at !== null)
           ?.map((journalCategory) => ({
             title: journalCategory.title || null,
             slug: journalCategory.slug || null,
@@ -972,7 +969,7 @@ module.exports = {
 
       const journalArticlesFiltered =
         journalArticles
-          ?.filter((journalArticle) => journalArticle)
+          ?.filter((journalArticle) => journalArticle.published_at !== null)
           ?.map((journalArticle) => ({
             title: journalArticle.title || null,
             slug: journalArticle.slug || null,
@@ -997,6 +994,7 @@ module.exports = {
           ) || [];
 
       return {
+        // test: journalArticles,
         programs: createBlended(programsFiltered),
         journalCategories: journalCategoriesFiltered,
         journalArticles: journalArticlesFiltered,
@@ -1099,7 +1097,7 @@ module.exports = {
 
       const programsFiltered =
         programs
-          ?.filter((program) => program)
+          ?.filter((program) => program.published_at !== null)
           ?.map((program) => ({
             _id: program.id || null,
             id: program.id || null,
@@ -1197,7 +1195,6 @@ module.exports = {
         programsProgram
           .filter((program) => program?.category?.type === typeSlug)
           ?.map((program) => ({
-            test: programsProgram,
             _id: program.id || null,
             id: program.id || null,
             title: program.title || null,
@@ -1303,7 +1300,6 @@ module.exports = {
           }))?.[0] || null;
 
       return {
-        test: programs,
         programs: createBlended(programsFiltered),
         program: programFiltered,
       };
@@ -1343,6 +1339,7 @@ module.exports = {
 
       const programsFiltered =
         programs
+
           ?.filter(
             (program) =>
               program.published_at !== null && program.isActive === true
@@ -1423,7 +1420,7 @@ module.exports = {
 
       const programsFiltered =
         programs
-          ?.filter((program) => program)
+          ?.filter((program) => program.published_at !== null)
           ?.map((program) => ({
             _id: program.id || null,
             id: program.id || null,
@@ -1443,7 +1440,7 @@ module.exports = {
           })) || [];
 
       const teachersFiltered = teachers
-        ?.filter((teacher) => teacher)
+        ?.filter((teacher) => teacher.published_at !== null)
         .map((teacher) => ({
           name: teacher.name || null,
           description: teacher.description || null,
@@ -1535,7 +1532,7 @@ module.exports = {
 
       const teachersFiltered =
         teachers
-          ?.filter((teacher) => teacher)
+          ?.filter((teacher) => teacher.published_at !== null)
           .map((teacher) => ({
             name: teacher.name || null,
             description: teacher.description || null,
@@ -1672,8 +1669,6 @@ module.exports = {
         programsProgram
           .filter((program) => program?.category?.type === typeSlug)
           ?.map((program, id) => ({
-            // test1: program,
-            // test2: programsProgram[0],
             id: program.id || null,
             title: program.title || null,
             slug: program.slug || null,
