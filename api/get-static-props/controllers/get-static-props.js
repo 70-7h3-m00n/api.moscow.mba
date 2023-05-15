@@ -37,7 +37,10 @@ module.exports = {
 
       const programsFiltered =
         programs
-          ?.filter((program) => program)
+          ?.filter(
+            (program) =>
+              program.published_at !== null && program.isActive === true
+          )
           ?.map((program) => ({
             _id: program.id || null,
             id: program.id || null,
