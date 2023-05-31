@@ -82,6 +82,14 @@
     },
     {
       "method": "GET",
+      "path": "/get-static-props/sitemap",
+      "handler": "get-static-props.sitemap",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/feedYML",
       "handler": "get-static-props.feedYML",
       "config": {

@@ -1283,20 +1283,22 @@ module.exports = {
                 description: item?.description || null,
               })) || null,
             teachers:
-              program.teachers?.map((teacher) => ({
-                name: teacher?.name,
-                description: teacher?.description,
-                slug: teacher?.slug,
-                portrait: {
-                  url: teacher?.portrait?.url || null,
-                  width: teacher?.portrait?.width || null,
-                  height: teacher?.portrait?.height || null,
-                },
-                descriptionItems:
-                  teacher?.descriptionItems?.map((item) => ({
-                    item: item?.item || null,
-                  })) || null,
-              })) || null,
+              program.teachers
+                ?.filter((teacher) => teacher.published_at !== null)
+                .map((teacher) => ({
+                  name: teacher?.name,
+                  description: teacher?.description,
+                  slug: teacher?.slug,
+                  portrait: {
+                    url: teacher?.portrait?.url || null,
+                    width: teacher?.portrait?.width || null,
+                    height: teacher?.portrait?.height || null,
+                  },
+                  descriptionItems:
+                    teacher?.descriptionItems?.map((item) => ({
+                      item: item?.item || null,
+                    })) || null,
+                })) || null,
           }))?.[0] || null;
 
       return {
@@ -1729,6 +1731,95 @@ module.exports = {
     } catch (err) {
       console.log(err);
       return { programs: null };
+    }
+  },
+  sitemap: async (ctx) => {
+    try {
+      const programs = await strapi
+        .query("product")
+        .find({ published_at_ne: null, _limit: -1 });
+
+      const programsFiltered =
+        programs
+          ?.filter((program) => program.published_at !== null)
+          ?.map((program) => ({
+            _id: program.id || null,
+            id: program.id || null,
+            title: program.title || null,
+            slug: program.slug || null,
+            studyFormat: program.studyFormat || null,
+            category: {
+              type: program.category?.type || null,
+              slug: program.category?.slug || null,
+            },
+            ...(program.study_field
+              ? {
+                  study_field: {
+                    name: program.study_field?.name || null,
+                    slug: program.study_field?.slug || null,
+                    description: program.study_field?.description || null,
+                  },
+                }
+              : {}),
+          })) || [];
+
+      // const journalArticles = await strapi
+      //   .query("journal-article")
+      //   .find({ published_at_ne: null, _limit: -1 });
+
+      // const journalArticlesFiltered =
+      //   journalArticles
+      //     ?.filter((journalArticle) => journalArticle.published_at !== null)
+      //     ?.map((journalArticle) => ({
+      //       title: journalArticle.title || null,
+      //       slug: journalArticle.slug || null,
+      //       createdAt: journalArticle.created_at || null,
+      //       shortDescription: journalArticle.shortDescription || null,
+      //       metaDescription: journalArticle.metaDescription || null,
+      //       picture: {
+      //         url: journalArticle.picture?.url || null,
+      //         width: journalArticle.picture?.width || null,
+      //         height: journalArticle.picture?.height || null,
+      //         alt: journalArticle.picture?.alternativeText || null,
+      //       },
+      //       journalCategory: {
+      //         title: journalArticle.journal_category?.title || null,
+      //         slug: journalArticle.journal_category?.slug || null,
+      //       },
+      //     })) || [];
+
+      // const teachers = await strapi
+      //   .query("teacher")
+      //   .find({ published_at_ne: null, _limit: -1 });
+
+      // const teachersFiltered =
+      //   teachers
+      //     ?.filter((teacher) => teacher.published_at !== null)
+      //     .map((teacher) => ({
+      //       name: teacher.name || null,
+      //       description: teacher.description || null,
+      //       slug: teacher.slug || null,
+      //       portrait: {
+      //         width: teacher.portrait?.width || null,
+      //         height: teacher.portrait?.height || null,
+      //         url: teacher.portrait?.url || null,
+      //       },
+      //       descriptionItems:
+      //         teacher.descriptionItems?.map((item) => ({
+      //           item: item?.item || null,
+      //         })) || null,
+      //       programs:
+      //         teacher.programs?.map((program) => program?.title) || null,
+      //     })) || [];
+
+      return {
+        programs: createBlended(programsFiltered),
+        // teachers: teachersFiltered,
+        // journalArticles: journalArticlesFiltered,
+      };
+    } catch (err) {
+      console.log(err);
+      return { programs: null, teachers: null, journalArticles: null };
     }
   },
   feedYML: async (ctx) => {
