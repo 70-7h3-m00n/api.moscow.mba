@@ -12,7 +12,7 @@
       "required": false
     },
     "minStudyMonths": {
-      "type": "biginteger",
+      "type": "decimal",
       "required": false
     }
   }
