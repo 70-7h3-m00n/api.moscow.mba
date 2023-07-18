@@ -104,6 +104,7 @@ module.exports = {
             title: program.title || null,
             slug: program.slug || null,
             studyFormat: program.studyFormat || null,
+            isActive: program.isActive || null,
             category: {
               type: program.category?.type || null,
               slug: program.category?.slug || null,
