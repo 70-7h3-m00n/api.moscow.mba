@@ -332,7 +332,13 @@ module.exports = {
           journalArticle.programs?.map((program) => ({
             title: program?.title || null,
             slug: program?.slug || null,
-            categorySlug: program?.category?.slug || null,
+            categorySlug:
+              programCategories.find((programCategory) => {
+                return (
+                  programCategory?.id?.toString()?.trim()?.toLowerCase() ===
+                  program?.category?.toString()?.trim()?.toLowerCase()
+                );
+              })?.slug || null,
             studyFormatSlug: program?.studyFormat || null,
             icon: program?.icon || null,
           })) || [],
@@ -858,7 +864,6 @@ module.exports = {
       return {
         programs: createBlended(programsFiltered),
         journalArticle: journalArticleFiltered,
-        // journalArticle
       };
     } catch (err) {
       console.log(err);
