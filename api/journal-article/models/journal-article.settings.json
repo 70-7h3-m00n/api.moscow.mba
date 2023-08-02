@@ -26,8 +26,8 @@
     "journal_tags": {
       "collection": "journal-tag",
       "via": "journal_articles",
-      "dominant": true,
-      "collectionName": "jrnl_articles_jrnl_tags__jrnl_tags_jrnl_articles"
+      "collectionName": "jrnl_articles_jrnl_tags__jrnl_tags_jrnl_articles",
+      "dominant": true
     },
     "picture": {
       "model": "file",
@@ -63,8 +63,8 @@
     "journal_authors": {
       "collection": "journal-authors",
       "via": "journal_articles",
-      "dominant": true,
-      "collectionName": "jrnl_articles_jrnl_authors__jrnl_authors_jrnl_articles"
+      "collectionName": "jrnl_articles_jrnl_authors__jrnl_authors_jrnl_articles",
+      "dominant": true
     },
     "programs": {
       "via": "journal_articles",
@@ -94,6 +94,9 @@
     "nofollow": {
       "type": "boolean",
       "default": true
+    },
+    "publicationDate": {
+      "type": "date"
     }
   }
 }

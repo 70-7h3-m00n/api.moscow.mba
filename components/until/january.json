@@ -1,0 +1,47 @@
+{
+  "collectionName": "components_until_month",
+  "info": {
+    "name": "Month",
+    "icon": "calendar-alt",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "First": {
+      "type": "integer",
+      "required": true,
+      "default": 10,
+      "max": 31,
+      "min": 1
+    },
+    "Second": {
+      "type": "integer",
+      "default": 20,
+      "max": 31,
+      "min": 1,
+      "required": true
+    },
+    "Third": {
+      "type": "integer",
+      "max": 31,
+      "min": 1,
+      "required": true,
+      "default": 30
+    },
+    "FirstOneMoreDay": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "SecondOneMoreDay": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    },
+    "ThirdOneMoreDay": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    }
+  }
+}

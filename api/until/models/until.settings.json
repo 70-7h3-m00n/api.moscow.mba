@@ -1,0 +1,76 @@
+{
+  "kind": "collectionType",
+  "collectionName": "untils",
+  "info": {
+    "name": "UntilDays",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "January": {
+      "type": "component",
+      "repeatable": false,
+      "component": "until.january"
+    },
+    "February": {
+      "type": "component",
+      "repeatable": false,
+      "component": "until.january"
+    },
+    "March": {
+      "type": "component",
+      "repeatable": false,
+      "component": "until.january"
+    },
+    "April": {
+      "type": "component",
+      "repeatable": false,
+      "component": "until.january"
+    },
+    "May": {
+      "type": "component",
+      "repeatable": false,
+      "component": "until.january"
+    },
+    "June": {
+      "type": "component",
+      "repeatable": false,
+      "component": "until.january"
+    },
+    "July": {
+      "type": "component",
+      "repeatable": false,
+      "component": "until.january"
+    },
+    "August": {
+      "type": "component",
+      "repeatable": false,
+      "component": "until.january"
+    },
+    "September": {
+      "type": "component",
+      "repeatable": false,
+      "component": "until.january"
+    },
+    "October": {
+      "type": "component",
+      "repeatable": false,
+      "component": "until.january"
+    },
+    "November": {
+      "type": "component",
+      "repeatable": false,
+      "component": "until.january"
+    },
+    "December": {
+      "type": "component",
+      "repeatable": false,
+      "component": "until.january"
+    }
+  }
+}

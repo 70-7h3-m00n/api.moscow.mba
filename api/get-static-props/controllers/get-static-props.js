@@ -12,28 +12,9 @@ const axios = require("axios");
 module.exports = {
   default: async (ctx) => {
     try {
-      // //POSTGRES
       const programs = await strapi
         .query("product")
         .find({ id_ne: null, _limit: -1 });
-
-      // const programs = await strapi
-      //   .query('product')
-      //   .model.find(
-      //     { published_at: { $ne: null } },
-      //     {
-      //       id: 1,
-      //       title: 1,
-      //       slug: 1,
-      //       studyFormat: 1,
-      //       category: 1,
-      //       study_field: 1
-      //     }
-      //   )
-      //   .populate([
-      //     { path: 'category', select: 'type slug' },
-      //     { path: 'study_field', select: 'id name slug description' }
-      //   ])
 
       const programsFiltered =
         programs
@@ -60,7 +41,27 @@ module.exports = {
             },
           })) || [];
 
+      const untilDates = await strapi
+        .query("until")
+        .find({ published_at_ne: null });
+
+      const untilDatesFiltered = [
+        untilDates?.[0]?.January,
+        untilDates?.[0]?.February,
+        untilDates?.[0]?.March,
+        untilDates?.[0]?.April,
+        untilDates?.[0]?.May,
+        untilDates?.[0]?.June,
+        untilDates?.[0]?.July,
+        untilDates?.[0]?.August,
+        untilDates?.[0]?.September,
+        untilDates?.[0]?.October,
+        untilDates?.[0]?.November,
+        untilDates?.[0]?.December,
+      ];
+
       return {
+        until: untilDatesFiltered,
         programs: createBlended(programsFiltered),
       };
     } catch (err) {
@@ -72,28 +73,9 @@ module.exports = {
     try {
       const journalSlug = ctx?.request?.url?.split("/")?.[3];
 
-      //POSTGRES
       const programs = await strapi
         .query("product")
         .find({ id_ne: null, _limit: -1 });
-
-      // const programs = await strapi
-      //   .query("product")
-      //   .model.find(
-      //     { published_at: { $ne: null } },
-      //     {
-      //       id: 1,
-      //       title: 1,
-      //       slug: 1,
-      //       studyFormat: 1,
-      //       category: 1,
-      //       study_field: 1,
-      //     }
-      //   )
-      //   .populate([
-      //     { path: "category", select: "id type slug" },
-      //     { path: "study_field", select: "id name slug description" },
-      //   ]);
 
       const programsFiltered =
         programs
@@ -138,99 +120,18 @@ module.exports = {
           []
         );
 
-      //POSTGRES
       const journalArticles = await strapi
         .query("journal-article")
         .find({ published_at_ne: null, slug: journalSlug, _limit: -1 });
-
-      // const journalArticles = await strapi
-      //   .query("journal-article")
-      //   .model.find(
-      //     { published_at: { $ne: null }, slug: journalSlug },
-      //     {
-      //       title: 1,
-      //       slug: 1,
-      //       createdAt: 1,
-      //       shortDescription: 1,
-      //       metaTitle: 1,
-      //       metaDescription: 1,
-      //       noindex: 1,
-      //       nofollow: 1,
-      //       picture: 1,
-      //       pdfMaterials: 1,
-      //       journal_category: 1,
-      //       journal_tags: 1,
-      //       journal_authors: 1,
-      //       programs: 1,
-      //       articleBody: 1,
-      //     }
-      //   )
-      //   .populate([
-      //     {
-      //       path: "picture",
-      //       select: "url width height alternativeText",
-      //     },
-      //     {
-      //       path: "pdfMaterials",
-      //       select: "url width height alternativeText",
-      //     },
-      //     { path: "journal_category", select: "title slug" },
-      //     { path: "journal_tags", select: "title slug" },
-      //     {
-      //       path: "programs",
-      //       populate: {
-      //         path: "category",
-      //       },
-      //     },
-      //     {
-      //       path: "journal_authors",
-      //       select: "label firstName lastName portrait",
-      //     },
-      //     // {
-      //     //   path: 'articleBody.portrait',
-      //     //   select: 'url width height alternativeText'
-      //     // }
-      //   ]);
 
       const journalArticle =
         journalArticles?.filter(
           (journalArticle) => journalArticle.published_at !== null
         )?.[0] || null;
 
-      //POSTGRES
       const journalArticleCategories = await strapi
         .query("journal-category")
         .find({ published_at_ne: null });
-
-      // const journalArticleCategories = await strapi
-      //   .query("journal-category")
-      //   .model.find(
-      //     {
-      //       published_at: { $ne: null },
-      //     },
-      //     {
-      //       title: 1,
-      //       slug: 1,
-      //     }
-      //   );
-
-      // console.log(
-      //   util.inspect(journalArticleCategories, {
-      //     showHidden: false,
-      //     depth: null,
-      //     colors: true
-      //   })
-      // )
-
-      // console.log(journalArticle.programs)
-
-      // console.log(
-      //   util.inspect(journalArticle.articleBody, {
-      //     showHidden: false,
-      //     depth: null,
-      //     colors: true
-      //   })
-      // )
 
       const fetchTable = async (url) => {
         try {
@@ -246,8 +147,6 @@ module.exports = {
       const bodyArticleHtmlTables = journalArticle?.articleBody?.map((item) =>
         item?.__component === "journal.journal-table" ? item?.htmlTable : null
       );
-
-      // console.log(bodyArticleHtmlTables)
 
       const getHtmlTableBodyTable = async () => {
         const data = await Promise.all(
@@ -268,6 +167,7 @@ module.exports = {
         shortDescription: journalArticle.shortDescription || null,
         createdAt: journalArticle.created_at || null,
         metaTitle: journalArticle.metaTitle || null,
+        publicationDate: journalArticle.publicationDate || null,
         metaDescription: journalArticle.metaDescription || null,
         noindex:
           journalArticle.noindex === false
@@ -604,260 +504,6 @@ module.exports = {
                   }
                 : {}),
             };
-
-            // return {
-            //   __typename: component?.kind || null,
-            //   ...(component?.kind === "ComponentJournalParagraph"
-            //     ? {
-            //         paragraphBodyParts:
-            //           component?.ref?.paragraphBody?.map((item) => ({
-            //             text: item?.ref?.text || null,
-            //             ...(item?.ref?.isLarger
-            //               ? {
-            //                   isLarger: item?.ref?.isLarger,
-            //                 }
-            //               : {}),
-            //             ...(item?.ref?.isHighlighted
-            //               ? {
-            //                   isHighlighted: item?.ref?.isHighlighted,
-            //                 }
-            //               : {}),
-            //           })) || [],
-            //       }
-            //     : {}),
-            //   ...(component?.kind === "ComponentJournalTitle"
-            //     ? {
-            //         title: {
-            //           titleBodyParts:
-            //             component?.ref?.titleBody?.map((item) => ({
-            //               text: item?.ref?.text || null,
-            //               ...(item?.ref?.isHighlighted
-            //                 ? {
-            //                     isHighlighted: item?.ref?.isHighlighted,
-            //                   }
-            //                 : {}),
-            //             })) || [],
-            //           hType: component?.ref?.hType || null,
-            //         },
-            //       }
-            //     : {}),
-            //   ...(component?.kind === "ComponentGeneralPicture"
-            //     ? {
-            //         picture: {
-            //           url: component?.ref?.picture?.url || null,
-            //           width: component?.ref?.picture?.width || null,
-            //           height: component?.ref?.picture?.height || null,
-            //           ...(component?.portrait?.alternativeText
-            //             ? {
-            //                 alt: component?.portrait?.alternativeText,
-            //               }
-            //             : {}),
-            //           title: component?.ref?.title || null,
-            //         },
-            //       }
-            //     : {}),
-            //   ...(component?.kind === "ComponentJournalEmphasis"
-            //     ? {
-            //         emphasisBody: component?.ref?.emphasisBody || null,
-            //       }
-            //     : {}),
-            //   ...(component?.kind === "ComponentJournalFormPdfMaterials"
-            //     ? {
-            //         formPdfMaterials: {
-            //           title: component?.ref?.title || null,
-            //         },
-            //       }
-            //     : {}),
-            //   ...(component?.kind === "ComponentJournalJournalTable"
-            //     ? {
-            //         htmlTableBody: {
-            //           // name: component?.ref?.htmlTable?.name || null,
-            //           // url: component?.ref?.htmlTable?.url || null,
-            //           // ...(component?.ref?.htmlTableBody?.alternativeText
-            //           //   ? {
-            //           //       alt: component?.ref?.htmlTableBody?.alternativeText
-            //           //     }
-            //           //   : {}),
-            //           table: htmlTableBodyTable?.[idx]?.table || null,
-            //         },
-            //       }
-            //     : {}),
-            //   ...(component?.kind === "ComponentJournalQuote"
-            //     ? {
-            //         quote: {
-            //           body: component?.ref?.body || null,
-            //           label: component?.ref?.label || null, // * not in the strapi yet
-            //           authorPosition: component?.ref?.athorPosition || null,
-            //           authorName: component?.ref?.authorName || null,
-            //           portrait: {
-            //             url: component?.ref?.portrait?.url || null,
-            //             width: component?.ref?.portrait?.width || null,
-            //             height: component?.ref?.portrait?.height || null,
-            //             ...(component?.portrait?.alternativeText
-            //               ? {
-            //                   alt: component?.ref?.portrait?.alternativeText,
-            //                 }
-            //               : {}),
-            //           },
-            //         },
-            //       }
-            //     : {}),
-            //   ...(component?.kind ===
-            //   "ComponentJournalJournalRecommendedArticles"
-            //     ? {
-            //         journalRecommendedArticles: {
-            //           title: component?.ref?.title || null,
-            //           articles:
-            //             component?.ref?.journal_articles?.map(
-            //               (journalArticle) => ({
-            //                 title: journalArticle?.title || null,
-            //                 slug: journalArticle?.slug || null,
-            //               })
-            //             ) || [],
-            //         },
-            //       }
-            //     : {}),
-            //   ...(component?.kind === "ComponentJournalReadAlsoArticles"
-            //     ? {
-            //         journalReadAlsoArticles: {
-            //           title: component?.ref?.title || null,
-            //           articles:
-            //             component?.ref?.journal_articles
-            //               ?.filter(
-            //                 (item) => item
-            //                 // &&
-            //                 // journalArticle?.articleBody
-            //                 //   .filter(
-            //                 //     component =>
-            //                 //       component?.kind ===
-            //                 //       'ComponentJournalJournalRecommendedArticles'
-            //                 //   )
-            //                 //   .map(piece => piece?.ref?.title)
-            //                 //   .some(title => title === item?.title)
-            //               )
-            //               .map((article) => ({
-            //                 title: article?.title || null,
-            //                 slug: article?.slug || null,
-            //                 createdAt: article.createdAt || null,
-            //                 picture: {
-            //                   url: article?.picture?.url || null,
-            //                   width: article?.picture?.width || null,
-            //                   height: article?.picture?.height || null,
-            //                   alt: article?.picture?.alternativeText || null,
-            //                 },
-            //                 journalCategory: article?.journal_category
-            //                   ? journalArticleCategories
-            //                       .filter(
-            //                         (journalArticleCategory) =>
-            //                           journalArticleCategory?._id
-            //                             ?.toString()
-            //                             ?.trim() ===
-            //                           article?.journal_category
-            //                             .toString()
-            //                             ?.trim()
-            //                       )
-            //                       .map((item) => ({
-            //                         title: item?.title || null,
-            //                         slug: item?.slug || null,
-            //                       }))?.[0]
-            //                   : null,
-            //               })) || [],
-            //         },
-            //       }
-            //     : {}),
-            //   ...(component?.kind ===
-            //   "ComponentJournalJournalRecommendedProgram"
-            //     ? {
-            //         recommendedProgram: {
-            //           title: component?.ref?.title || null,
-            //           btnValue: component?.ref?.btnValue || null,
-            //           program: {
-            //             title: component?.ref?.program?.title || null,
-            //             slug: component?.ref?.program?.slug || null,
-            //             categorySlug:
-            //               component?.ref?.program?.category?.slug ||
-            //               programCategories.find((programCategory) => {
-            //                 return (
-            //                   programCategory?.id
-            //                     ?.toString()
-            //                     ?.trim()
-            //                     ?.toLowerCase() ===
-            //                   component?.ref?.program?.category
-            //                     ?.toString()
-            //                     ?.trim()
-            //                     ?.toLowerCase()
-            //                 );
-            //               })?.slug ||
-            //               null,
-            //             studyFormatSlug:
-            //               component?.ref?.program?.studyFormat || null,
-            //             icon: component?.ref?.program?.icon || null,
-            //           },
-            //         },
-            //       }
-            //     : {}),
-            //   ...(component?.kind === "ComponentJournalList"
-            //     ? {
-            //         list: {
-            //           items: component?.ref?.listItem?.map((item) => ({
-            //             body: item?.ref?.body || null,
-            //           })),
-            //           tag: component?.ref?.tag || null,
-            //         },
-            //       }
-            //     : {}),
-            //   ...(component?.kind === "ComponentJournalConclusion"
-            //     ? {
-            //         conclusion:
-            //           component?.ref?.item?.map((item) => ({
-            //             title: item?.ref?.title || null,
-            //             body: item?.ref?.body || null,
-            //           })) || [],
-            //       }
-            //     : {}),
-            //   ...(component?.kind ===
-            //   "ComponentJournalJournalArticleRecommendedProgramsSection"
-            //     ? {
-            //         recommendedProgramsSection: {
-            //           btnVal: component?.ref?.btnVal || null,
-            //           title:
-            //             component?.ref?.sectionTitle.map((item) => ({
-            //               titlePart: item?.ref?.text || null,
-            //               isHighlighted: item?.ref?.isHighlighted || null,
-            //             })) || [],
-            //           shortTextAtTheBottom:
-            //             component?.ref?.shortTextAtTheBottom?.map((item) => ({
-            //               textPart: item?.ref?.text || null,
-            //               isHighlighted: item?.ref?.isHighlighted || null,
-            //             })) || [],
-            //           programs: component?.ref?.programs?.map((program) => {
-            //             // console.log('program.category: ', program.category)
-            //             // console.log('programCategories: ', programCategories)
-            //             return {
-            //               title: program?.title || null,
-            //               slug: program?.slug || null,
-            //               categorySlug:
-            //                 program?.category?.slug ||
-            //                 programCategories.find(
-            //                   (programCategory) =>
-            //                     programCategory?.id
-            //                       ?.toString()
-            //                       ?.trim()
-            //                       ?.toLowerCase() ===
-            //                     program?.category
-            //                       ?.toString()
-            //                       ?.trim()
-            //                       ?.toLowerCase()
-            //                 )?.slug ||
-            //                 null,
-            //               studyFormatSlug: program?.studyFormat || null,
-            //               icon: program?.icon || null,
-            //             };
-            //           }),
-            //         },
-            //       }
-            //     : {}),
-            // };
           }) || null,
       };
 
@@ -875,28 +521,9 @@ module.exports = {
   },
   getStaticPropsPageJournalArticles: async (ctx) => {
     try {
-      //POSTGRES
       const programs = await strapi
         .query("product")
         .find({ published_at_ne: null, _limit: -1 });
-
-      // const programs = await strapi
-      //   .query("product")
-      //   .model.find(
-      //     { published_at: { $ne: null } },
-      //     {
-      //       id: 1,
-      //       title: 1,
-      //       slug: 1,
-      //       studyFormat: 1,
-      //       category: 1,
-      //       study_field: 1,
-      //     }
-      //   )
-      //   .populate([
-      //     { path: "category", select: "type slug" },
-      //     { path: "study_field", select: "id name slug description" },
-      //   ]);
 
       const programsFiltered =
         programs
@@ -923,21 +550,9 @@ module.exports = {
               : {}),
           })) || [];
 
-      //POSTGRES
       const journalCategories = await strapi
         .query("journal-category")
         .find({ published_at_ne: null });
-
-      // const journalCategories = await strapi
-      //   .query("journal-category")
-      //   .model.find(
-      //     { published_at: { $ne: null } },
-      //     {
-      //       id: 1,
-      //       title: 1,
-      //       slug: 1,
-      //     }
-      //   );
 
       const journalCategoriesFiltered =
         journalCategories
@@ -947,32 +562,9 @@ module.exports = {
             slug: journalCategory.slug || null,
           })) || [];
 
-      //POSTGRES
       const journalArticles = await strapi
         .query("journal-article")
         .find({ published_at_ne: null, _limit: -1 });
-
-      // const journalArticles = await strapi
-      //   .query("journal-article")
-      //   .model.find(
-      //     { published_at: { $ne: null } },
-      //     {
-      //       title: 1,
-      //       slug: 1,
-      //       createdAt: 1,
-      //       shortDescription: 1,
-      //       metaDescription: 1,
-      //       picture: 1,
-      //       journal_category: 1,
-      //     }
-      //   )
-      //   .populate([
-      //     {
-      //       path: "picture",
-      //       select: "url width height alternativeText",
-      //     },
-      //     { path: "journal_category", select: "title slug" },
-      //   ]);
 
       const journalArticlesFiltered =
         journalArticles
@@ -981,6 +573,7 @@ module.exports = {
             title: journalArticle.title || null,
             slug: journalArticle.slug || null,
             createdAt: journalArticle.created_at || null,
+            publicationDate: journalArticle.publicationDate || null,
             shortDescription: journalArticle.shortDescription || null,
             metaDescription: journalArticle.metaDescription || null,
             picture: {
@@ -1079,28 +672,9 @@ module.exports = {
       const typeSlug = ctx?.request?.url?.split("/")?.[3] || "mini";
       const programSlug = ctx?.request?.url?.split("/")?.[4] || "program";
 
-      //POSTGRES
       const programs = await strapi
         .query("product")
         .find({ published_at_ne: null, _limit: -1 });
-
-      // const programs = await strapi
-      //   .query("product")
-      //   .model.find(
-      //     { published_at: { $ne: null } },
-      //     {
-      //       id: 1,
-      //       title: 1,
-      //       slug: 1,
-      //       studyFormat: 1,
-      //       category: 1,
-      //       study_field: 1,
-      //     }
-      //   )
-      //   .populate([
-      //     { path: "category", select: "type slug" },
-      //     { path: "study_field", select: "id name slug description" },
-      //   ]);
 
       const programsFiltered =
         programs
@@ -1124,79 +698,9 @@ module.exports = {
             },
           })) || [];
 
-      //POSTGRES
       const programsProgram = await strapi
         .query("product")
         .find({ published_at_ne: null, slug: programSlug });
-
-      // const programsProgram = await strapi
-      //   .query("product")
-      //   .model.find(
-      //     {
-      //       published_at: { $ne: null },
-      //       slug: programSlug,
-      //     },
-      //     {
-      //       id: 1,
-      //       title: 1,
-      //       slug: 1,
-      //       metaTitle: 1,
-      //       metaDescription: 1,
-      //       noindex: 1,
-      //       nofollow: 1,
-      //       studyFormat: 1,
-      //       category: 1,
-      //       study_field: 1,
-      //       picture: 1,
-      //       whatWillYouLearn: 1,
-      //       specializedSubjects: 1,
-      //       goal: 1,
-      //       description: 1,
-      //       duration: 1,
-      //       price: 1,
-      //       discount: 1,
-      //       baseSubjects: 1,
-      //       subjectsStickerType: 1,
-      //       programModulesCounters: 1,
-      //       diplomas: 1,
-      //       whoIsFor: 1,
-      //       specializedSubjectsAddons: 1,
-      //       teachers: 1,
-      //       questions: 1,
-      //       reviews: 1,
-      //     }
-      //   )
-      //   .populate([
-      //     { path: "category", select: "type slug" },
-      //     { path: "study_field", select: "id name slug description" },
-      //     { path: "picture", select: "url width height" },
-      //     { path: "whatWillYouLearn", select: "string" },
-      //     { path: "specializedSubjects", select: "string title" },
-      //     { path: "duration", select: "studyHours minStudyMonths" },
-      //     { path: "baseSubjects", select: "string title" },
-      //     {
-      //       path: "programModulesCounters",
-      //       select: "leftCounter rightCounter",
-      //     },
-      //     { path: "diplomas", select: "diploma name" },
-      //     { path: "whoIsFor", select: "name description" },
-      //     {
-      //       path: "specializedSubjectsAddons",
-      //       select: "Practice OfflineModule diplomaProtection",
-      //     },
-      //     {
-      //       path: "teachers",
-      //       select: "name description slug portrait descriptionItems",
-      //     },
-      //     {
-      //       path: "questions",
-      //       select: "question answer",
-      //     },
-      //     {
-      //       path: "reviews",
-      //       select: "picture name desc story",
-      //     },
-      //   ]);
 
       const programFiltered =
         programsProgram
@@ -1308,7 +812,27 @@ module.exports = {
                 })) || null,
           }))?.[0] || null;
 
+      const untilDates = await strapi
+        .query("until")
+        .find({ published_at_ne: null });
+
+      const untilDatesFiltered = [
+        untilDates?.[0]?.January,
+        untilDates?.[0]?.February,
+        untilDates?.[0]?.March,
+        untilDates?.[0]?.April,
+        untilDates?.[0]?.May,
+        untilDates?.[0]?.June,
+        untilDates?.[0]?.July,
+        untilDates?.[0]?.August,
+        untilDates?.[0]?.September,
+        untilDates?.[0]?.October,
+        untilDates?.[0]?.November,
+        untilDates?.[0]?.December,
+      ];
+
       return {
+        until: untilDatesFiltered,
         programs: createBlended(programsFiltered),
         program: programFiltered,
       };
@@ -1319,32 +843,9 @@ module.exports = {
   },
   getStaticPropsPrograms: async (ctx) => {
     try {
-      //POSTGRES
       const programs = await strapi
         .query("product")
         .find({ published_at_ne: null, _limit: -1 });
-
-      // const programs = await strapi
-      //   .query("product")
-      //   .model.find(
-      //     { published_at: { $ne: null } },
-      //     {
-      //       id: 1,
-      //       title: 1,
-      //       slug: 1,
-      //       studyFormat: 1,
-      //       price: 1,
-      //       duration: 1,
-      //       category: 1,
-      //       study_field: 1,
-      //       updatedAt: 1,
-      //     }
-      //   )
-      //   .populate([
-      //     { path: "duration", select: "minStudyMonths" },
-      //     { path: "category", select: "type slug" },
-      //     { path: "study_field", select: "id name slug description" },
-      //   ]);
 
       const programsFiltered =
         programs
@@ -1364,6 +865,7 @@ module.exports = {
             isActive: program.isActive || null,
             duration: {
               minStudyMonths: program.duration?.minStudyMonths || null,
+              studyHours: program.duration?.studyHours || null,
             },
             category: {
               type: program.category?.type || null,
@@ -1377,7 +879,27 @@ module.exports = {
             },
           })) || [];
 
+      const untilDates = await strapi
+        .query("until")
+        .find({ published_at_ne: null });
+
+      const untilDatesFiltered = [
+        untilDates?.[0]?.January,
+        untilDates?.[0]?.February,
+        untilDates?.[0]?.March,
+        untilDates?.[0]?.April,
+        untilDates?.[0]?.May,
+        untilDates?.[0]?.June,
+        untilDates?.[0]?.July,
+        untilDates?.[0]?.August,
+        untilDates?.[0]?.September,
+        untilDates?.[0]?.October,
+        untilDates?.[0]?.November,
+        untilDates?.[0]?.December,
+      ];
+
       return {
+        until: untilDatesFiltered,
         programs: createBlended(programsFiltered),
       };
     } catch (err) {
