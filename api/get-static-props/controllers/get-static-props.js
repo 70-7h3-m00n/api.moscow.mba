@@ -769,6 +769,10 @@ module.exports = {
             //   diplomaProtection: addon?.diplomaProtection || null,
             // }))?.[0] || null,
             goal: program.goal || null,
+            actualInformation: {
+              paragraph: program?.actualInformation?.paragraph || null,
+              description: program?.actualInformation?.description || null,
+            },
             description: program.description || null,
             baseSubjects:
               program.baseSubjects?.map((subject) => ({

@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_general_actual_informations",
+  "info": {
+    "name": "actualInformation",
+    "icon": "bars",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "paragraph": {
+      "type": "text"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

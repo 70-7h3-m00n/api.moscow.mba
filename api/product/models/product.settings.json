@@ -279,6 +279,16 @@
       "type": "boolean",
       "default": true,
       "required": true
+    },
+    "actualInformation": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "general.actual-information"
     }
   }
 }
