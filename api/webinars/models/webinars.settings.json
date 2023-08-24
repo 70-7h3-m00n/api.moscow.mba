@@ -1,8 +1,9 @@
 {
   "kind": "collectionType",
-  "collectionName": "webinars",
+  "collectionName": "seminars",
   "info": {
-    "name": "Webinars"
+    "name": "Seminars",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -53,13 +54,84 @@
         }
       }
     },
-    "duration": {
+    "SeminarProgramPDF": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "files"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "Slug": {
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "type": "time"
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "seminar_authors": {
+      "via": "seminars",
+      "collection": "seminar-authors"
+    },
+    "address": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": true
+    },
+    "seminarDuration": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "integer",
+      "default": 24
+    },
+    "price": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "integer",
+      "required": true,
+      "default": 0
+    },
+    "seminar_category": {
+      "via": "seminars",
+      "model": "seminar-categories"
+    },
+    "description": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "text",
+      "required": true
+    },
+    "advantagesList": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "general.what-will-you-learn"
     }
   }
 }

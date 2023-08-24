@@ -915,43 +915,13 @@ module.exports = {
     try {
       const teacherSlug = ctx?.request?.url?.split("/")?.[3] || "teacher";
 
-      //POSTGRES
-      const programs = await strapi
-        .query("product")
-        .find({ published_at_ne: null, _limit: -1 });
-
-      // const programs = await strapi
-      //   .query("product")
-      //   .model.find(
-      //     { published_at: { $ne: null } },
-      //     {
-      //       id: 1,
-      //       title: 1,
-      //       slug: 1,
-      //       studyFormat: 1,
-      //       category: 1,
-      //       study_field: 1,
-      //     }
-      //   )
-      //   .populate([
-      //     { path: "category", select: "type slug" },
-      //     { path: "study_field", select: "id name slug description" },
-      //   ]);
-
       const teachers = await strapi
         .query("teacher")
         .find({ published_at_ne: null, slug: teacherSlug });
 
-      // const teachers = await strapi.query("teacher").model.find(
-      //   { published_at: { $ne: null }, slug: teacherSlug },
-      //   {
-      //     name: 1,
-      //     description: 1,
-      //     slug: 1,
-      //     portrait: 1,
-      //     descriptionItems: 1,
-      //   }
-      // );
+      const programs = await strapi
+        .query("product")
+        .find({ published_at_ne: null, _limit: -1 });
 
       const programsFiltered =
         programs
@@ -1002,44 +972,10 @@ module.exports = {
   },
   getStaticPropsTeachers: async (ctx) => {
     try {
-      // P O S T G R E S
       const programs = await strapi
         .query("product")
         .find({ id_ne: null, _limit: -1 });
-      // const programs = await strapi
-      //   .query("product")
-      //   .model.find(
-      //     { published_at: { $ne: null } },
-      //     {
-      //       id: 1,
-      //       title: 1,
-      //       slug: 1,
-      //       studyFormat: 1,
-      //       category: 1,
-      //       study_field: 1,
-      //     }
-      //   )
-      //   .populate([
-      //     { path: "category", select: "type slug" },
-      //     { path: "study_field", select: "id name slug description" },
-      //   ]);
 
-      // const teachers = await strapi
-      //   .query("teacher")
-      //   .model.find(
-      //     { published_at: { $ne: null } },
-      //     {
-      //       name: 1,
-      //       description: 1,
-      //       slug: 1,
-      //       portrait: 1,
-      //       descriptionItems: 1,
-      //       programs: 1,
-      //     }
-      //   )
-      //   .populate([{ path: "programs", select: "title" }]);
-
-      // P O S T G R E S
       const teachers = await strapi
         .query("teacher")
         .find({ published_at_ne: null, _limit: -1 });
@@ -1094,34 +1030,155 @@ module.exports = {
       return { programs: null, teachers: null };
     }
   },
+  getStaticPropsSeminar: async (ctx) => {
+    try {
+      const seminarSlug = ctx?.request?.url?.split("/")?.[3] || "seminar";
+
+      const programs = await strapi
+        .query("product")
+        .find({ published_at_ne: null, _limit: -1 });
+
+      const programsFiltered =
+        programs
+          ?.filter((program) => program.published_at !== null)
+          ?.map((program) => ({
+            _id: program.id || null,
+            id: program.id || null,
+            title: program.title || null,
+            slug: program.slug || null,
+            studyFormat: program.studyFormat || null,
+            category: {
+              type: program.category?.type || null,
+              slug: program.category?.slug || null,
+            },
+            study_field: {
+              id: program.study_field?.id || null,
+              name: program.study_field?.name || null,
+              slug: program.study_field?.slug || null,
+              description: program.study_field?.description || null,
+            },
+          })) || [];
+
+      const seminar = await strapi
+        .query("webinars")
+        .find({ published_at_ne: null, Slug: seminarSlug });
+
+      const seminarFiltered =
+        seminar
+          ?.filter((seminar) => seminar.published_at !== null)
+          ?.map((seminar) => ({
+            id: seminar.id || null,
+            date: new Date(seminar.date) || null,
+            duration: seminar.seminarDuration || null,
+            title: seminar.title || null,
+            slug: seminar.Slug || null,
+            category: {
+              id: seminar.seminar_category.id || null,
+              categoryName: seminar.seminar_category.Category || null,
+            },
+            authors: seminar.seminar_authors?.map((author) => ({
+              name: `${author.firstName} ${author.lastName}` || null,
+              portrait: author.portrait[0].url || null,
+            })),
+            address: seminar.address || null,
+            price: seminar.price || null,
+            description: seminar.description || null,
+            advantagesList: seminar.advantagesList?.map((item) => item.string),
+            pdfMaterials: {
+              name: seminar.SeminarProgramPDF.name || null,
+              url: seminar.SeminarProgramPDF.url || null,
+            },
+          })) || [];
+
+      return {
+        programs: createBlended(programsFiltered),
+        seminar: seminarFiltered?.[0] || null,
+      };
+    } catch (err) {
+      console.log(err);
+      return { programs: null, seminar: null };
+    }
+  },
+  getStaticPropsSeminars: async (ctx) => {
+    try {
+      const programs = await strapi
+        .query("product")
+        .find({ published_at_ne: null, _limit: -1 });
+
+      const programsFiltered =
+        programs
+          ?.filter((program) => program.published_at !== null)
+          ?.map((program) => ({
+            _id: program.id || null,
+            id: program.id || null,
+            title: program.title || null,
+            slug: program.slug || null,
+            studyFormat: program.studyFormat || null,
+            category: {
+              type: program.category?.type || null,
+              slug: program.category?.slug || null,
+            },
+            study_field: {
+              id: program.study_field?.id || null,
+              name: program.study_field?.name || null,
+              slug: program.study_field?.slug || null,
+              description: program.study_field?.description || null,
+            },
+          })) || [];
+
+      const seminarCategories = await strapi
+        .query("seminar-categories")
+        .find({ published_at_ne: null, _limit: -1 });
+
+      const filteredSeminarCategories = seminarCategories
+        ?.filter((category) => category.published_at !== null)
+        ?.map((category) => ({
+          id: category.id,
+          categoryName: category.Category,
+        }));
+
+      const seminars = await strapi
+        .query("webinars")
+        .find({ published_at_ne: null, _limit: -1 });
+
+      const seminarsFiltered =
+        seminars
+          ?.filter((seminar) => seminar.published_at !== null)
+          ?.map((seminar) => ({
+            id: seminar.id || null,
+            date: new Date(seminar.date) || null,
+            duration: seminar.seminarDuration || null,
+            title: seminar.title || null,
+            slug: seminar.Slug || null,
+            category: seminar.seminar_category.Category || null,
+            authors: seminar.seminar_authors?.map((author) => ({
+              name: `${author.firstName} ${author.lastName}` || null,
+              portrait: author.portrait[0].url || null,
+            })),
+          })) || [];
+
+      return {
+        programs: createBlended(programsFiltered),
+        seminarCategories: filteredSeminarCategories,
+        seminars: seminarsFiltered,
+      };
+    } catch (err) {
+      console.log(err);
+      return {
+        programs: null,
+        seminarCategories: null,
+        seminars: null,
+      };
+    }
+  },
   defaultMskAcademy: async (ctx) => {
     const typeSlug = ctx?.request?.url?.split("/")?.[3] || "mini";
     // const programSlug = ctx?.request?.url?.split('/')?.[4] || ''
 
     try {
-      // P O S T G R E S
       const programs = await strapi
         .query("product")
         .find({ published_at_ne: null, _limit: -1 });
-
-      // const programs = await strapi
-      //   .query("product")
-      //   .model.find(
-      //     { published_at: { $ne: null } },
-      //     {
-      //       id: 1,
-      //       title: 1,
-      //       slug: 1,
-      //       category: 1,
-      //       duration: 1,
-      //       whatWillYouLearn: 1,
-      //     }
-      //   )
-      //   .populate([
-      //     { path: "category", select: "type slug" },
-      //     { path: "duration", select: "minStudyMonths" },
-      //     { path: "whatWillYouLearn", select: "string" },
-      //   ]);
 
       const programsFiltered =
         programs
@@ -1140,7 +1197,27 @@ module.exports = {
             })),
           })) || [];
 
+      const untilDates = await strapi
+        .query("until")
+        .find({ published_at_ne: null });
+
+      const untilDatesFiltered = [
+        untilDates?.[0]?.January,
+        untilDates?.[0]?.February,
+        untilDates?.[0]?.March,
+        untilDates?.[0]?.April,
+        untilDates?.[0]?.May,
+        untilDates?.[0]?.June,
+        untilDates?.[0]?.July,
+        untilDates?.[0]?.August,
+        untilDates?.[0]?.September,
+        untilDates?.[0]?.October,
+        untilDates?.[0]?.November,
+        untilDates?.[0]?.December,
+      ];
+
       return {
+        until: untilDatesFiltered,
         programs: programsFiltered,
       };
     } catch (err) {
@@ -1153,52 +1230,10 @@ module.exports = {
     const programSlug = ctx?.request?.url?.split("/")?.[4] || "";
 
     try {
-      // P O S T G R E S
       const programsProgram = await strapi.query("product").find({
         published_at_ne: null,
         slug: programSlug,
       });
-
-      // const programsProgram = await strapi
-      //   .query("product")
-      //   .model.find(
-      //     {
-      //       published_at: { $ne: null },
-      //       slug: programSlug,
-      //     },
-      //     {
-      //       id: 1,
-      //       title: 1,
-      //       slug: 1,
-      //       goal: 1,
-      //       category: 1,
-      //       duration: 1,
-      //       whatWillYouLearn: 1,
-      //       picture: 1,
-      //       price: 1,
-      //       discount: 1,
-      //       whoIsFor: 1,
-      //       baseSubjects: 1,
-      //       specializedSubjects: 1,
-      //       teachers: 1,
-      //     }
-      //   )
-      //   .populate([
-      //     { path: "category", select: "type slug" },
-      //     {
-      //       path: "picture",
-      //       select: "url width height alternativeText",
-      //     },
-      //     { path: "whatWillYouLearn", select: "string" },
-      //     { path: "specializedSubjects", select: "string title" },
-      //     { path: "duration", select: "minStudyMonths" },
-      //     { path: "baseSubjects", select: "string title" },
-      //     { path: "whoIsFor", select: "name description" },
-      //     {
-      //       path: "teachers",
-      //       select: "name description slug portrait descriptionItems",
-      //     },
-      //   ]);
 
       const programFiltered =
         programsProgram
@@ -1258,7 +1293,27 @@ module.exports = {
               })) || null,
           })) || null;
 
+      const untilDates = await strapi
+        .query("until")
+        .find({ published_at_ne: null });
+
+      const untilDatesFiltered = [
+        untilDates?.[0]?.January,
+        untilDates?.[0]?.February,
+        untilDates?.[0]?.March,
+        untilDates?.[0]?.April,
+        untilDates?.[0]?.May,
+        untilDates?.[0]?.June,
+        untilDates?.[0]?.July,
+        untilDates?.[0]?.August,
+        untilDates?.[0]?.September,
+        untilDates?.[0]?.October,
+        untilDates?.[0]?.November,
+        untilDates?.[0]?.December,
+      ];
+
       return {
+        until: untilDatesFiltered,
         programs: programFiltered,
       };
     } catch (err) {

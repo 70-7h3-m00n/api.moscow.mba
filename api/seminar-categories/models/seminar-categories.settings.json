@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "seminar_categories",
+  "info": {
+    "name": "SeminarCategories",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Category": {
+      "type": "string"
+    },
+    "seminars": {
+      "via": "seminar_category",
+      "collection": "webinars"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "Category",
+      "required": true
+    }
+  }
+}
