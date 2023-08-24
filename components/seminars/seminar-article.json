@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_seminars_seminar_articles",
+  "info": {
+    "name": "SeminarArticle",
+    "icon": "file-alt"
+  },
+  "options": {},
+  "attributes": {
+    "paragraph": {
+      "type": "text"
+    },
+    "test": {
+      "type": "enumeration",
+      "enum": [
+        "one",
+        "two",
+        "three"
+      ]
+    }
+  }
+}

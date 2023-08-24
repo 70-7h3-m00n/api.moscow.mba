@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/seminar-authors",
+      "handler": "seminar-authors.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/seminar-authors/count",
+      "handler": "seminar-authors.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/seminar-authors/:id",
+      "handler": "seminar-authors.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/seminar-authors",
+      "handler": "seminar-authors.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/seminar-authors/:id",
+      "handler": "seminar-authors.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/seminar-authors/:id",
+      "handler": "seminar-authors.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

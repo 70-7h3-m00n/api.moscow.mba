@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_seminars_tests",
+  "info": {
+    "name": "test",
+    "icon": "adjust"
+  },
+  "options": {},
+  "attributes": {
+    "paragraph": {
+      "type": "text"
+    }
+  }
+}

@@ -66,6 +66,22 @@
     },
     {
       "method": "GET",
+      "path": "/get-static-props/seminars/:seminar",
+      "handler": "get-static-props.getStaticPropsSeminar",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/get-static-props/seminars/",
+      "handler": "get-static-props.getStaticPropsSeminars",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/get-static-props-msk-academy/default/:type",
       "handler": "get-static-props.defaultMskAcademy",
       "config": {

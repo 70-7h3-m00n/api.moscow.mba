@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/seminar-categories",
+      "handler": "seminar-categories.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/seminar-categories/count",
+      "handler": "seminar-categories.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/seminar-categories/:id",
+      "handler": "seminar-categories.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/seminar-categories",
+      "handler": "seminar-categories.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/seminar-categories/:id",
+      "handler": "seminar-categories.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/seminar-categories/:id",
+      "handler": "seminar-categories.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
