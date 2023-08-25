@@ -13,14 +13,6 @@ module.exports = {
         .query("journal-article")
         .find({ published_at_ne: null, _limit: -1 });
 
-      // const articles = await strapi.query('journal-article').model.find(
-      //   { published_at: { $ne: null } },
-      //   {
-      //     id: 1,
-      //     slug: 1
-      //   }
-      // )
-
       const articlesFiltered =
         articles
           ?.filter((article) => article)
@@ -44,22 +36,9 @@ module.exports = {
     const programType = ctx?.request?.url?.split("/")?.[3] || "mini";
 
     try {
-      //POSTGRES
       const programs = await strapi
         .query("product")
         .find({ published_at_ne: null, _limit: -1 });
-
-      // const programs = await strapi
-      //   .query("product")
-      //   .model.find(
-      //     { published_at: { $ne: null } },
-      //     {
-      //       id: 1,
-      //       slug: 1,
-      //       category: 1,
-      //     }
-      //   )
-      //   .populate([{ path: "category", select: "type slug" }]);
 
       const programsFiltered =
         programs
@@ -84,18 +63,9 @@ module.exports = {
   },
   handlePageTeacher: async (ctx) => {
     try {
-      //POSTGRES
       const teachers = await strapi
         .query("teacher")
         .find({ published_at_ne: null, _limit: -1 });
-
-      // const teachers = await strapi.query("teacher").model.find(
-      //   { published_at: { $ne: null } },
-      //   {
-      //     id: 1,
-      //     slug: 1,
-      //   }
-      // );
 
       const teachersFiltered =
         teachers
@@ -107,6 +77,31 @@ module.exports = {
       const paths = teachersFiltered.map((teacher) => ({
         params: {
           teacher: teacher.slug,
+        },
+      }));
+
+      return { paths };
+    } catch (err) {
+      console.log(err);
+      return { paths: [] };
+    }
+  },
+  handlePageSeminar: async (ctx) => {
+    try {
+      const seminars = await strapi
+        .query("webinars")
+        .find({ published_at_ne: null, _limit: -1 });
+
+      const seminarsFiltered =
+        seminars
+          ?.filter((seminar) => seminar)
+          ?.map((seminar) => ({
+            slug: seminar.Slug || null,
+          })) || [];
+
+      const paths = seminarsFiltered.map((seminar) => ({
+        params: {
+          seminar: seminar.slug,
         },
       }));
 

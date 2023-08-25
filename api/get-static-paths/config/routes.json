@@ -34,6 +34,14 @@
     },
     {
       "method": "GET",
+      "path": "/get-static-paths/seminar",
+      "handler": "get-static-paths.handlePageSeminar",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/get-static-paths/count",
       "handler": "get-static-paths.count",
       "config": {
