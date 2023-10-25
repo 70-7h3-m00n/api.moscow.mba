@@ -1133,6 +1133,7 @@ module.exports = {
 
       const filteredSeminarCategories = seminarCategories
         ?.filter((category) => category.published_at !== null)
+        ?.filter((category) => category?.seminars.length > 0)
         ?.map((category) => ({
           id: category.id,
           categoryName: category?.Category,
@@ -1152,8 +1153,11 @@ module.exports = {
             duration: seminar.seminarDuration || null,
             title: seminar.title || null,
             slug: seminar.Slug || null,
-            seminar_categories:
-              seminar.seminar_categories?.map((c) => c.slug) || null,
+            seminar_categories: seminar.seminar_categories?.map((c) => ({
+              id: c.id,
+              slug: c.slug,
+              name: c.Category,
+            })),
             authors: seminar.seminar_authors?.map((author) => ({
               name: `${author.firstName} ${author.lastName}` || null,
               portrait: author.portrait[0].url || null,
@@ -1161,6 +1165,7 @@ module.exports = {
           })) || [];
 
       return {
+        test: seminars,
         programs: createBlended(programsFiltered),
         seminarCategories: filteredSeminarCategories,
         seminars: seminarsFiltered,
