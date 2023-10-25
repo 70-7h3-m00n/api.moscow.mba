@@ -110,9 +110,10 @@
       "required": true,
       "default": 0
     },
-    "seminar_category": {
+    "seminar_categories": {
+      "collection": "seminar-categories",
       "via": "seminars",
-      "model": "seminar-categories"
+      "dominant": true
     },
     "description": {
       "pluginOptions": {
