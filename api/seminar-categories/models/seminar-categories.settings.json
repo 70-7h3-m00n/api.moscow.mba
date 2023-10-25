@@ -15,14 +15,14 @@
     "Category": {
       "type": "string"
     },
-    "seminars": {
-      "via": "seminar_category",
-      "collection": "webinars"
-    },
     "slug": {
       "type": "uid",
       "targetField": "Category",
       "required": true
+    },
+    "seminars": {
+      "via": "seminar_categories",
+      "collection": "webinars"
     }
   }
 }

@@ -1042,8 +1042,8 @@ module.exports = {
         programs
           ?.filter((program) => program.published_at !== null)
           ?.map((program) => ({
-            _id: program.id || null,
-            id: program.id || null,
+            _id: program?.id || null,
+            id: program?.id || null,
             title: program.title || null,
             slug: program.slug || null,
             studyFormat: program.studyFormat || null,
@@ -1067,30 +1067,31 @@ module.exports = {
         seminar
           ?.filter((seminar) => seminar.published_at !== null)
           ?.map((seminar) => ({
-            id: seminar.id || null,
-            date: new Date(seminar.date) || null,
-            duration: seminar.seminarDuration || null,
-            title: seminar.title || null,
-            slug: seminar.Slug || null,
+            id: seminar?.id || null,
+            date: new Date(seminar?.date) || null,
+            duration: seminar?.seminarDuration || null,
+            title: seminar?.title || null,
+            slug: seminar?.Slug || null,
             category: {
-              id: seminar.seminar_category.id || null,
-              categoryName: seminar.seminar_category.Category || null,
+              id: seminar?.seminar_category?.id || null,
+              categoryName: seminar?.seminar_category?.Category || null,
             },
-            authors: seminar.seminar_authors?.map((author) => ({
-              name: `${author.firstName} ${author.lastName}` || null,
-              portrait: author.portrait[0].url || null,
+            authors: seminar?.seminar_authors?.map((author) => ({
+              name: `${author?.firstName} ${author?.lastName}` || null,
+              portrait: author?.portrait[0].url || null,
             })),
-            address: seminar.address || null,
-            price: seminar.price || null,
-            description: seminar.description || null,
-            advantagesList: seminar.advantagesList?.map((item) => item.string),
+            address: seminar?.address || null,
+            price: seminar?.price || null,
+            description: seminar?.description || null,
+            advantagesList: seminar?.advantagesList?.map((item) => item.string),
             pdfMaterials: {
-              name: seminar.SeminarProgramPDF.name || null,
-              url: seminar.SeminarProgramPDF.url || null,
+              name: seminar?.SeminarProgramPDF?.name || null,
+              url: seminar?.SeminarProgramPDF?.url || null,
             },
           })) || [];
 
       return {
+        test: seminar,
         programs: createBlended(programsFiltered),
         seminar: seminarFiltered?.[0] || null,
       };
@@ -1134,7 +1135,8 @@ module.exports = {
         ?.filter((category) => category.published_at !== null)
         ?.map((category) => ({
           id: category.id,
-          categoryName: category.Category,
+          categoryName: category?.Category,
+          slug: category?.slug,
         }));
 
       const seminars = await strapi
@@ -1150,7 +1152,8 @@ module.exports = {
             duration: seminar.seminarDuration || null,
             title: seminar.title || null,
             slug: seminar.Slug || null,
-            category: seminar.seminar_category.Category || null,
+            seminar_categories:
+              seminar.seminar_categories?.map((c) => c.slug) || null,
             authors: seminar.seminar_authors?.map((author) => ({
               name: `${author.firstName} ${author.lastName}` || null,
               portrait: author.portrait[0].url || null,
