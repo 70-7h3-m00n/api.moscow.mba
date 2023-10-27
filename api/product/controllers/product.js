@@ -469,6 +469,10 @@ module.exports = {
           duration: {
             minStudyMonths: program.duration?.minStudyMonths || null,
           },
+          whatWillYouLearn:
+            program.whatWillYouLearn?.map((item) => ({
+              string: item?.string || null,
+            })) || null,
         })) || [];
 
     //POSTGRESS
