@@ -741,11 +741,14 @@ module.exports = {
             duration: {
               minStudyMonths: program.duration?.minStudyMonths || null,
               studyHours: program.duration?.studyHours || null,
+              practicalLessons: program.duration?.practicalLessons || null,
             },
             whatWillYouLearn:
               program.whatWillYouLearn?.map((item) => ({
                 string: item?.string || null,
               })) || null,
+            whatWillYouLearnPhoto: program.whatWillYouLearnPhoto?.url || null,
+            prosPhoto: program.prosPhoto?.url || null,
             picture: {
               url: program.picture?.url || null,
               width: program.picture?.width || null,
@@ -763,16 +766,8 @@ module.exports = {
               diplomaProtection:
                 program.specializedSubjectsAddons?.diplomaProtection || null,
             },
-            // program.specializedSubjectsAddons?.map((addon) => ({
-            //   Practice: addon?.Practice || null,
-            //   OfflineModule: addon?.OfflineModule || null,
-            //   diplomaProtection: addon?.diplomaProtection || null,
-            // }))?.[0] || null,
             goal: program.goal || null,
-            actualInformation: {
-              paragraph: program?.actualInformation?.paragraph || null,
-              description: program?.actualInformation?.description || null,
-            },
+            actualInformation: program.actualInformation || null,
             description: program.description || null,
             baseSubjects:
               program.baseSubjects?.map((subject) => ({
@@ -836,6 +831,7 @@ module.exports = {
       ];
 
       return {
+        test: programsProgram,
         until: untilDatesFiltered,
         programs: createBlended(programsFiltered),
         program: programFiltered,
@@ -1165,7 +1161,7 @@ module.exports = {
           })) || [];
 
       return {
-        test: seminars,
+        // test: seminars,
         programs: createBlended(programsFiltered),
         seminarCategories: filteredSeminarCategories,
         seminars: seminarsFiltered,
