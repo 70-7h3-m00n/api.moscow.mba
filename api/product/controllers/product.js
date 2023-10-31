@@ -396,55 +396,9 @@ module.exports = {
     };
   },
   getStaticPropsPromo: async () => {
-    //POSTGRESS
     const programs = await strapi
       .query("product")
       .find({ published_at_ne: null, _limit: -1 });
-
-    // const programs = await strapi
-    //   .query("product")
-    //   .model.find(
-    //     { published_at: { $ne: null } },
-    //     {
-    //       // id: 1,
-    //       // title: 1,
-    //       // slug: 1,
-    //       // studyFormat: 1,
-    //       // category: 1,
-    //       // whatWillYouLearn: 1
-    //       // price: 1
-    //       study_field: 0,
-    //       specializedSubjects: 0,
-    //       duration: 0,
-    //       baseSubjects: 0,
-    //       programModulesCounters: 0,
-    //       diplomas: 0,
-    //       whoIsFor: 0,
-    //       specializedSubjectsAddons: 0,
-    //       picture: 0,
-    //       subjectsStickerType: 0,
-    //       localizations: 0,
-    //       id: 0,
-    //       published_at: 0,
-    //       locale: 0,
-    //       goal: 0,
-    //       createdAt: 0,
-    //       updatedAt: 0,
-    //       __v: 0,
-    //       created_by: 0,
-    //       updated_by: 0,
-    //       showInMenu: 0,
-    //       copyToKk: 0,
-    //       description: 0,
-    //       discount: 0,
-    //       questions: 0,
-    //       reviews: 0,
-    //     }
-    //   )
-    //   .populate([
-    //     { path: "category", select: "type slug" },
-    //     { path: "whatWillYouLearn" },
-    //   ]);
 
     const programsFiltered =
       programs
@@ -475,26 +429,9 @@ module.exports = {
             })) || null,
         })) || [];
 
-    //POSTGRESS
     const teachers = await strapi
       .query("teacher")
       .find({ published_at_ne: null });
-
-    // const teachers = await strapi.query("teacher").model.find(
-    //   { published_at: { $ne: null } },
-    //   {
-    //     // programs: 0,
-    //     copyToKk: 0,
-    //     createdAt: 0,
-    //     created_by: 0,
-    //     locale: 0,
-    //     localizations: 0,
-    //     updatedAt: 0,
-    //     updated_by: 0,
-    //     __v: 0,
-    //     id: 0,
-    //   }
-    // );
 
     const teachersFiltered =
       teachers

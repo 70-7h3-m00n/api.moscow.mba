@@ -610,30 +610,9 @@ module.exports = {
   },
   getStaticPropsPagePromo: async (ctx) => {
     try {
-      //POSTGRES
       const programs = await strapi
         .query("product")
         .find({ published_at_ne: null, _limit: -1 });
-
-      // const programs = await strapi
-      //   .query("product")
-      //   .model.find(
-      //     { published_at: { $ne: null } },
-      //     {
-      //       id: 1,
-      //       title: 1,
-      //       slug: 1,
-      //       studyFormat: 1,
-      //       whatWillYouLearn: 1,
-      //       category: 1,
-      //       study_field: 1,
-      //     }
-      //   )
-      //   .populate([
-      //     { path: "whatWillYouLearn", select: "string" },
-      //     { path: "category", select: "type slug" },
-      //     { path: "study_field", select: "id name slug description" },
-      //   ]);
 
       const programsFiltered =
         programs
@@ -653,12 +632,6 @@ module.exports = {
               type: program.category?.type || null,
               slug: program.category?.slug || null,
             },
-            // study_field: {
-            //   id: program.study_field?.id || null,
-            //   name: program.study_field?.name || null,
-            //   slug: program.study_field?.slug || null,
-            //   description: program.study_field?.description || null
-            // }
           })) || [];
 
       return { programs: programsFiltered };
@@ -792,6 +765,12 @@ module.exports = {
                 name: item?.name || null,
                 description: item?.description || null,
               })) || null,
+            bonusSubjects:
+              program.bonusSubjects?.map((subject) => ({
+                string: subject?.string || null,
+                title: subject?.title || null,
+              })) || null,
+            programDescPhoto: program?.programDescPhoto?.url || null,
             teachers:
               program.teachers
                 ?.filter((teacher) => teacher.published_at !== null)
