@@ -13,6 +13,14 @@
     },
     "title": {
       "type": "string"
+    },
+    "skills": {
+      "type": "component",
+      "repeatable": true,
+      "component": "program.skills"
+    },
+    "duration": {
+      "type": "integer"
     }
   }
 }

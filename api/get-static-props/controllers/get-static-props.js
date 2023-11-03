@@ -715,6 +715,7 @@ module.exports = {
               minStudyMonths: program.duration?.minStudyMonths || null,
               studyHours: program.duration?.studyHours || null,
               practicalLessons: program.duration?.practicalLessons || null,
+              workshops: program.duration?.workshops || null,
             },
             whatWillYouLearn:
               program.whatWillYouLearn?.map((item) => ({
@@ -727,11 +728,6 @@ module.exports = {
               width: program.picture?.width || null,
               height: program.picture?.height || null,
             },
-            specializedSubjects:
-              program.specializedSubjects?.map((subject) => ({
-                string: subject?.string || null,
-                title: subject?.title || null,
-              })) || null,
             specializedSubjectsAddons: {
               Practice: program.specializedSubjectsAddons?.Practice || null,
               OfflineModule:
@@ -740,12 +736,37 @@ module.exports = {
                 program.specializedSubjectsAddons?.diplomaProtection || null,
             },
             goal: program.goal || null,
-            actualInformation: program.actualInformation || null,
+            actualInformation: {
+              paragraph: program?.actualInformation?.paragraph || null,
+              description: program?.actualInformation?.description || null,
+              firstPhoto: program?.actualInformation?.actualPhoto1?.url || null,
+              secondPhoto:
+                program?.actualInformation?.actualPhoto1?.url || null,
+            },
             description: program.description || null,
             baseSubjects:
-              program.baseSubjects?.map((subject) => ({
+              program.baseSubjects.map((subject) => ({
                 string: subject?.string || null,
                 title: subject?.title || null,
+                skills: subject?.skills.map((skill) => ({
+                  title: skill?.title,
+                })),
+              })) || null,
+            specializedSubjects:
+              program.specializedSubjects?.map((subject) => ({
+                string: subject?.string || null,
+                title: subject?.title || null,
+                skills: subject?.skills?.map((skill) => ({
+                  title: skill?.title,
+                })),
+              })) || null,
+            bonusSubjects:
+              program.bonusSubjects?.map((subject) => ({
+                string: subject?.string || null,
+                title: subject?.title || null,
+                skills: subject?.skills?.map((skill) => ({
+                  title: skill?.title,
+                })),
               })) || null,
             subjectsStickerType: program.subjectsStickerType || null,
             programModulesCounters: {
@@ -764,11 +785,6 @@ module.exports = {
               program.whoIsFor?.map((item) => ({
                 name: item?.name || null,
                 description: item?.description || null,
-              })) || null,
-            bonusSubjects:
-              program.bonusSubjects?.map((subject) => ({
-                string: subject?.string || null,
-                title: subject?.title || null,
               })) || null,
             programDescPhoto: program?.programDescPhoto?.url || null,
             teachers:
@@ -810,7 +826,7 @@ module.exports = {
       ];
 
       return {
-        // test: programsProgram,
+        test: programsProgram,
         until: untilDatesFiltered,
         programs: createBlended(programsFiltered),
         program: programFiltered,

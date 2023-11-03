@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_program_skills",
+  "info": {
+    "name": "skills",
+    "icon": "chart-pie",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    }
+  }
+}
