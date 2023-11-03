@@ -341,6 +341,14 @@
         }
       },
       "component": "general.what-will-you-learn"
+    },
+    "recommendedPrograms": {
+      "collection": "product",
+      "via": "program"
+    },
+    "program": {
+      "model": "product",
+      "via": "recommendedPrograms"
     }
   }
 }

@@ -17,6 +17,10 @@
     },
     "practicalLessons": {
       "type": "integer"
+    },
+    "workshops": {
+      "type": "integer",
+      "required": false
     }
   }
 }
