@@ -148,8 +148,6 @@ module.exports = {
     const programs = await strapi
       .query("product")
       .find({ published_at_ne: null, _limit: -1 });
-
-    // const programs = await strapi
     //   .query("product")
     //   .model.find(
     //     { published_at: { $ne: null } },
@@ -220,26 +218,9 @@ module.exports = {
           },
         })) || [];
 
-    //POSTGRESS
     const teachers = await strapi
       .query("teacher")
       .find({ published_at_ne: null });
-
-    // const teachers = await strapi.query("teacher").model.find(
-    //   { published_at: { $ne: null } },
-    //   {
-    //     // programs: 0,
-    //     copyToKk: 0,
-    //     createdAt: 0,
-    //     created_by: 0,
-    //     locale: 0,
-    //     localizations: 0,
-    //     updatedAt: 0,
-    //     updated_by: 0,
-    //     __v: 0,
-    //     id: 0,
-    //   }
-    // );
 
     const teachersFiltered =
       teachers
@@ -468,13 +449,10 @@ module.exports = {
     const type = typeSlug[0];
     const slug = typeSlug[1];
 
-    //POSTGRESS
     const programs = await strapi.query("product").find({
       slug,
       published_at_ne: null,
     });
-
-    // const programs = await strapi
     //   .query("product")
     //   .model.find({ slug, published_at: { $ne: null } })
     //   .populate([

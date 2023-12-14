@@ -617,6 +617,10 @@ module.exports = {
       const programsFiltered =
         programs
           ?.filter((program) => program?.category?.type === "mini")
+          ?.filter(
+            (program) =>
+              program.published_at !== null && program.isActive === true
+          )
           ?.map((program) => ({
             _id: program.id || null,
             id: program.id || null,
@@ -736,13 +740,15 @@ module.exports = {
                 program.specializedSubjectsAddons?.diplomaProtection || null,
             },
             goal: program.goal || null,
-            actualInformation: {
-              paragraph: program?.actualInformation?.paragraph || null,
-              description: program?.actualInformation?.description || null,
-              firstPhoto: program?.actualInformation?.actualPhoto1?.url || null,
-              secondPhoto:
-                program?.actualInformation?.actualPhoto1?.url || null,
-            },
+            actualInformation:
+              {
+                paragraph: program?.actualInformation?.paragraph || null,
+                description: program?.actualInformation?.description || null,
+                firstPhoto:
+                  program?.actualInformation?.actualPhoto1?.url || null,
+                secondPhoto:
+                  program?.actualInformation?.actualPhoto1?.url || null,
+              } || null,
             description: program.description || null,
             baseSubjects:
               program.baseSubjects.map((subject) => ({
