@@ -255,7 +255,27 @@ module.exports = {
       (item) => item.category?.type === "mini"
     );
 
+    const untilDates = await strapi
+      .query("until")
+      .find({ published_at_ne: null });
+
+    const untilDatesFiltered = [
+      untilDates?.[0]?.January,
+      untilDates?.[0]?.February,
+      untilDates?.[0]?.March,
+      untilDates?.[0]?.April,
+      untilDates?.[0]?.May,
+      untilDates?.[0]?.June,
+      untilDates?.[0]?.July,
+      untilDates?.[0]?.August,
+      untilDates?.[0]?.September,
+      untilDates?.[0]?.October,
+      untilDates?.[0]?.November,
+      untilDates?.[0]?.December,
+    ];
+
     return {
+      until: untilDatesFiltered,
       programs: programsTypeMini,
       teachers: teachersFiltered.filter(
         (v, i, a) => a.findIndex((t) => t.slug === v.slug) === i
