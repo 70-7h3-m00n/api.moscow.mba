@@ -21,6 +21,20 @@
     "workshops": {
       "type": "integer",
       "required": false
+    },
+    "modulesDescription": {
+      "type": "text"
+    },
+    "modulesResult": {
+      "type": "text"
+    },
+    "modulesTools": {
+      "type": "component",
+      "repeatable": true,
+      "component": "program.modules-tools"
+    },
+    "videomaterials": {
+      "type": "integer"
     }
   }
 }

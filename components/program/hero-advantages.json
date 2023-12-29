@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_program_hero_advantages",
+  "info": {
+    "name": "heroAdvantages",
+    "icon": "address-card"
+  },
+  "options": {},
+  "attributes": {
+    "string": {
+      "type": "text"
+    }
+  }
+}

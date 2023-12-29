@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_program_reviews",
+  "info": {
+    "name": "reviews",
+    "icon": "thumbs-up"
+  },
+  "options": {},
+  "attributes": {
+    "rating": {
+      "type": "integer",
+      "max": 5,
+      "min": 1,
+      "default": 5
+    },
+    "studentPhoto": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "studentName": {
+      "type": "string"
+    },
+    "studentReview": {
+      "type": "text"
+    }
+  }
+}

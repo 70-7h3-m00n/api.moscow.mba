@@ -349,6 +349,36 @@
     "program": {
       "model": "product",
       "via": "recommendedPrograms"
+    },
+    "heroAdvantages": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "program.hero-advantages"
+    },
+    "partnership": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "program.partnership"
+    },
+    "programReviews": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "program.reviews"
     }
   }
 }
