@@ -638,10 +638,32 @@ module.exports = {
             },
           })) || [];
 
-      return { programs: programsFiltered };
+      const untilDates = await strapi
+        .query("until")
+        .find({ published_at_ne: null });
+
+      const untilDatesFiltered = [
+        untilDates?.[0]?.January,
+        untilDates?.[0]?.February,
+        untilDates?.[0]?.March,
+        untilDates?.[0]?.April,
+        untilDates?.[0]?.May,
+        untilDates?.[0]?.June,
+        untilDates?.[0]?.July,
+        untilDates?.[0]?.August,
+        untilDates?.[0]?.September,
+        untilDates?.[0]?.October,
+        untilDates?.[0]?.November,
+        untilDates?.[0]?.December,
+      ];
+
+      return {
+        until: untilDatesFiltered,
+        programs: programsFiltered,
+      };
     } catch (err) {
       console.log(err);
-      return { programs: null };
+      return { until: null, programs: null };
     }
   },
   getStaticPropsProgram: async (ctx) => {
@@ -715,11 +737,21 @@ module.exports = {
             },
             price: program.price || null,
             discount: program.discount || null,
+            heroAdvantages: program.heroAdvantages || null,
+            partnership:
+              {
+                string: program.partnership?.string || null,
+                url: program.partnership?.logo?.url || null,
+              } || null,
             duration: {
               minStudyMonths: program.duration?.minStudyMonths || null,
               studyHours: program.duration?.studyHours || null,
               practicalLessons: program.duration?.practicalLessons || null,
               workshops: program.duration?.workshops || null,
+              videomaterials: program.duration?.videomaterials || null,
+              modulesDescription: program.duration?.modulesDescription || null,
+              modulesResult: program.duration?.modulesResult || null,
+              modulesTools: program.duration?.modulesTools || null,
             },
             whatWillYouLearn:
               program.whatWillYouLearn?.map((item) => ({

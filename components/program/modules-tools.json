@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_program_modules_tools",
+  "info": {
+    "name": "modulesTools",
+    "icon": "tools"
+  },
+  "options": {},
+  "attributes": {
+    "tool": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_program_partnerships",
+  "info": {
+    "name": "partnership",
+    "icon": "ad"
+  },
+  "options": {},
+  "attributes": {
+    "logo": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "string": {
+      "type": "text",
+      "default": "Программа разработана  с Университетом “Синергия”"
+    }
+  }
+}
