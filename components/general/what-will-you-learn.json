@@ -20,7 +20,12 @@
       "component": "program.skills"
     },
     "duration": {
-      "type": "integer"
+      "type": "integer",
+      "default": 1
+    },
+    "new": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

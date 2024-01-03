@@ -757,6 +757,10 @@ module.exports = {
               program.whatWillYouLearn?.map((item) => ({
                 string: item?.string || null,
               })) || null,
+            whatWillYouLearnNew:
+              program.WhatWillYouLearnNew?.map((item) => ({
+                string: item?.string || null,
+              })) || null,
             whatWillYouLearnPhoto: program.whatWillYouLearnPhoto?.url || null,
             prosPhoto: program.prosPhoto?.url || null,
             picture: {
@@ -786,8 +790,12 @@ module.exports = {
               program.baseSubjects.map((subject) => ({
                 string: subject?.string || null,
                 title: subject?.title || null,
+                new: subject?.new || null,
+                duration: subject?.duration || null,
                 skills: subject?.skills.map((skill) => ({
-                  title: skill?.title,
+                  title: skill?.title || null,
+                  string: skill?.string || null,
+                  new: skill?.new || null,
                 })),
               })) || null,
             specializedSubjects:
@@ -796,6 +804,8 @@ module.exports = {
                 title: subject?.title || null,
                 skills: subject?.skills?.map((skill) => ({
                   title: skill?.title,
+                  string: skill?.string || null,
+                  new: skill?.new || null,
                 })),
               })) || null,
             bonusSubjects:
@@ -804,6 +814,8 @@ module.exports = {
                 title: subject?.title || null,
                 skills: subject?.skills?.map((skill) => ({
                   title: skill?.title,
+                  string: skill?.string || null,
+                  new: skill?.new || null,
                 })),
               })) || null,
             subjectsStickerType: program.subjectsStickerType || null,
@@ -812,13 +824,29 @@ module.exports = {
               rightCounter:
                 program.programModulesCounters?.rightCounter || null,
             },
-            // program.programModulesCounters?.map((counter) => ({
-            //   leftCounter: counter?.ref?.leftCounter || null,
-            //   rightCounter: counter?.ref?.rightCounter || null,
-            // }))?.[0] || null,
+
             diplomas: program.diplomas || null, // not done
             questions: program.questions || null, // not done
-            reviews: program.reviews || null, // not done
+            reviews:
+              program.programReviews?.map(
+                (item) =>
+                  ({
+                    id: item?.id || null,
+                    rating: item?.rating || null,
+                    studentName: item?.studentName || null,
+                    studentReview: item?.studentReview || null,
+                    studentPhoto: item?.studentPhoto?.url || null,
+                  } || null)
+              ) || null,
+            faq:
+              program.faq?.map(
+                (item) =>
+                  ({
+                    id: item?.id || null,
+                    title: item?.question || null,
+                    string: item?.answer || null,
+                  } || null)
+              ) || null,
             whoIsFor:
               program.whoIsFor?.map((item) => ({
                 name: item?.name || null,

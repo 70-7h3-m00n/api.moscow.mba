@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_program_faqs",
+  "info": {
+    "name": "faq",
+    "icon": "question"
+  },
+  "options": {},
+  "attributes": {
+    "question": {
+      "type": "text"
+    },
+    "answer": {
+      "type": "text"
+    }
+  }
+}
