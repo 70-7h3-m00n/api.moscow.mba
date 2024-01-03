@@ -9,6 +9,12 @@
   "attributes": {
     "title": {
       "type": "string"
+    },
+    "string": {
+      "type": "text"
+    },
+    "new": {
+      "type": "boolean"
     }
   }
 }

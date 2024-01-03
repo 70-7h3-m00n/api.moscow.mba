@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_program_what_will_you_learn_news",
+  "info": {
+    "name": "WhatWillYouLearnNew",
+    "icon": "balance-scale"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "string": {
+      "type": "text"
+    }
+  }
+}
