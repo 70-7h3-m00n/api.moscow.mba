@@ -81,6 +81,10 @@
         }
       },
       "component": "general.teacher-description-items"
+    },
+    "leadProgram": {
+      "via": "leadTeacher",
+      "collection": "product"
     }
   }
 }

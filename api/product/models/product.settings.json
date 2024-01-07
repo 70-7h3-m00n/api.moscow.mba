@@ -417,6 +417,11 @@
         }
       },
       "component": "program.what-will-you-learn-new"
+    },
+    "leadTeacher": {
+      "collection": "teacher",
+      "via": "leadProgram",
+      "dominant": true
     }
   }
 }

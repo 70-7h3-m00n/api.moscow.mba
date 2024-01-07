@@ -853,6 +853,7 @@ module.exports = {
                 description: item?.description || null,
               })) || null,
             programDescPhoto: program?.programDescPhoto?.url || null,
+            leadTeacher: program?.leadTeacher || null,
             teachers:
               program.teachers
                 ?.filter((teacher) => teacher.published_at !== null)
