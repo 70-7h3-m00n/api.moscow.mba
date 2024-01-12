@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_program_jobs",
+  "info": {
+    "name": "job",
+    "icon": "car"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "string": {
+      "type": "text"
+    }
+  }
+}
