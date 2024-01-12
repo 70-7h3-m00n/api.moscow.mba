@@ -788,6 +788,7 @@ module.exports = {
             description: program.description || null,
             baseSubjects:
               program.baseSubjects.map((subject) => ({
+                id: subject?.id || null,
                 string: subject?.string || null,
                 title: subject?.title || null,
                 new: subject?.new || null,
@@ -800,8 +801,11 @@ module.exports = {
               })) || null,
             specializedSubjects:
               program.specializedSubjects?.map((subject) => ({
+                id: subject?.id || null,
                 string: subject?.string || null,
                 title: subject?.title || null,
+                new: subject?.new || null,
+                duration: subject?.duration || null,
                 skills: subject?.skills?.map((skill) => ({
                   title: skill?.title,
                   string: skill?.string || null,
@@ -810,8 +814,11 @@ module.exports = {
               })) || null,
             bonusSubjects:
               program.bonusSubjects?.map((subject) => ({
+                id: subject?.id || null,
                 string: subject?.string || null,
                 title: subject?.title || null,
+                new: subject?.new || null,
+                duration: subject?.duration || null,
                 skills: subject?.skills?.map((skill) => ({
                   title: skill?.title,
                   string: skill?.string || null,
@@ -1288,7 +1295,7 @@ module.exports = {
       };
     } catch (err) {
       console.log(err);
-      return { programs: null };
+      return { until: null, programs: null };
     }
   },
   programMskAcademy: async (ctx) => {

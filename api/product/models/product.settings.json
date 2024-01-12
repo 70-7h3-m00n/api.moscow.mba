@@ -422,6 +422,25 @@
       "collection": "teacher",
       "via": "leadProgram",
       "dominant": true
+    },
+    "frdo": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "boolean",
+      "default": true
+    },
+    "futureJob": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "program.future-job"
     }
   }
 }
