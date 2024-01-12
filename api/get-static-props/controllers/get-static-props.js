@@ -712,6 +712,9 @@ module.exports = {
             metaTitle: program.metaTitle || null,
             metaDescription: program.metaDescription || null,
             isActive: program.isActive || null,
+            new: program.new || null,
+            hit: program.hit || null,
+            frdo: program.frdo || null,
             noindex:
               program.noindex === false
                 ? false
@@ -753,6 +756,7 @@ module.exports = {
               modulesResult: program.duration?.modulesResult || null,
               modulesTools: program.duration?.modulesTools || null,
             },
+            futureJob: program.futureJob || null,
             whatWillYouLearn:
               program.whatWillYouLearn?.map((item) => ({
                 string: item?.string || null,
@@ -900,7 +904,7 @@ module.exports = {
       ];
 
       return {
-        test: programsProgram,
+        // test: programsProgram,
         until: untilDatesFiltered,
         programs: createBlended(programsFiltered),
         program: programFiltered,

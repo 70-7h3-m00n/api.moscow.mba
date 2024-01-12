@@ -2,18 +2,22 @@
   "collectionName": "components_program_salaries",
   "info": {
     "name": "salary",
-    "icon": "dice-d20"
+    "icon": "dice-d20",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "junior": {
-      "type": "integer"
+      "type": "integer",
+      "default": 50000
     },
     "middle": {
-      "type": "integer"
+      "type": "integer",
+      "default": 100000
     },
     "senior": {
-      "type": "integer"
+      "type": "integer",
+      "default": 160000
     }
   }
 }
