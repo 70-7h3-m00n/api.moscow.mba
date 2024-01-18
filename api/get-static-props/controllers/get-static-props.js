@@ -715,6 +715,7 @@ module.exports = {
             new: program.new || null,
             hit: program.hit || null,
             frdo: program.frdo,
+            employment: program.employment,
             noindex:
               program.noindex === false
                 ? false
