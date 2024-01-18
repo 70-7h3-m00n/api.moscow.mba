@@ -714,7 +714,7 @@ module.exports = {
             isActive: program.isActive || null,
             new: program.new || null,
             hit: program.hit || null,
-            frdo: program.frdo || null,
+            frdo: program.frdo,
             noindex:
               program.noindex === false
                 ? false
@@ -904,7 +904,7 @@ module.exports = {
       ];
 
       return {
-        // test: programsProgram,
+        test: programsProgram,
         until: untilDatesFiltered,
         programs: createBlended(programsFiltered),
         program: programFiltered,
