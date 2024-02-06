@@ -865,7 +865,6 @@ module.exports = {
                 description: item?.description || null,
               })) || null,
             programDescPhoto: program?.programDescPhoto?.url || null,
-            leadTeacher: program?.leadTeacher || null,
             teachers:
               program.teachers
                 ?.filter((teacher) => teacher.published_at !== null)
@@ -873,6 +872,9 @@ module.exports = {
                   name: teacher?.name,
                   description: teacher?.description,
                   slug: teacher?.slug,
+                  lead: program?.leadTeacher.some(
+                    (leadTeacher) => leadTeacher.slug === teacher?.slug
+                  ),
                   portrait: {
                     url: teacher?.portrait?.url || null,
                     width: teacher?.portrait?.width || null,
