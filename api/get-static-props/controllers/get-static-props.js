@@ -907,7 +907,7 @@ module.exports = {
       ];
 
       return {
-        test: programsProgram,
+        // test: programsProgram,
         until: untilDatesFiltered,
         programs: createBlended(programsFiltered),
         program: programFiltered,
@@ -1163,7 +1163,7 @@ module.exports = {
           })) || [];
 
       return {
-        test: seminar,
+        // test: seminar,
         programs: createBlended(programsFiltered),
         seminar: seminarFiltered?.[0] || null,
       };
