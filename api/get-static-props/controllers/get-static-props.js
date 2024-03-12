@@ -939,6 +939,10 @@ module.exports = {
             price: program.price || null,
             updatedAt: program.updated_at || null,
             isActive: program.isActive || null,
+            new: program.new || null,
+            hit: program.hit || null,
+            frdo: program.frdo,
+            employment: program.employment,
             duration: {
               minStudyMonths: program.duration?.minStudyMonths || null,
               studyHours: program.duration?.studyHours || null,
